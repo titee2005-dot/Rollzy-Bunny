@@ -298,7 +298,7 @@ function SocialSection() {
         <div className="section-header social-header">
           <h2>SOCIAL MEDIA</h2>
           <p>
-            รวมช่องทางหลักที่แฟน ๆ ใช้ตาม Rose — IG, TikTok, Facebook และ iAM48 💜
+            รวม Social Media 💜
           </p>
         </div>
 
