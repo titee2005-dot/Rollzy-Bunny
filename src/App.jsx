@@ -320,11 +320,9 @@ function SocialSection() {
             </a>
 
            <div className="social-embed social-embed--ig">
-          <blockquote
-            className="instagram-media"
-            data-instgrm-permalink="https://www.instagram.com/rose.bnk48office/"
-            data-instgrm-version="14"
-          ></blockquote>
+        
+<script src="https://elfsightcdn.com/platform.js" async></script>
+<div class="elfsight-app-e556eb91-e821-48e1-9eac-24d4dbdc6adf" data-elfsight-app-lazy></div>
             </div>
           </article>
 
