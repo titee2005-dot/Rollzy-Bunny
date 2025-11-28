@@ -322,7 +322,7 @@ function SocialSection() {
             <div className="social-embed social-embed--ig">
               {/* เปลี่ยน src เป็น embed จริงของ IG */}
               <iframe
-                src="https://www.instagram.com/p/xxxxxxxxx/embed"
+                src="https://www.instagram.com/rose.bnk48office?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==/embed"
                 allowTransparency="true"
                 frameBorder="0"
                 scrolling="no"
