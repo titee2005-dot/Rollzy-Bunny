@@ -307,7 +307,7 @@ function SocialSection() {
           {/* Instagram */}
           <article className="social-card">
             <a
-              href="https://www.instagram.com/rose.bnk48office?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+              href="https://www.instagram.com/yourinsta_here"
               target="_blank"
               rel="noopener noreferrer"
               className="social-banner social-banner--ig"
@@ -319,14 +319,12 @@ function SocialSection() {
               <span className="social-arrow">↗</span>
             </a>
 
-            <div className="social-embed social-embed--ig">
-              {/* เปลี่ยน src เป็น embed จริงของ IG */}
-              <iframe
-                src="https://www.instagram.com/rose.bnk48office?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
-                allowTransparency="true"
-                frameBorder="0"
-                scrolling="no"
-              />
+           <div className="social-embed social-embed--ig">
+          <blockquote
+            className="instagram-media"
+            data-instgrm-permalink="https://www.instagram.com/p/POST_ID/"
+            data-instgrm-version="14"
+          ></blockquote>
             </div>
           </article>
 
