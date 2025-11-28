@@ -1,0 +1,1680 @@
+:root {
+  --bg-purple-1: #F9f4ff;   /* ม่วงอ่อน */
+  --bg-purple-2: #FFF8F8;   /* ม่วงอ่อนอีกเฉด */
+  --bg-page: #f7f1ff;
+  --bg-card: #ffffff;
+  --bg-soft: #f1e9ff;
+  --accent: #c574ff;
+  --accent-soft: #f8b6e8;
+  --accent-mint: #8ce4c6;
+  --text-main: #2d2342;
+  --text-soft: #72668c;
+  --border-soft: rgba(132, 107, 196, 0.22);
+}
+
+/* RESET */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* ลบค่า default ของ Vite ที่ทำให้เว็บเป็นแค่กล่องตรงกลาง */
+#root {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: 'LINE Seed Sans TH', system-ui, -apple-system, BlinkMacSystemFont,
+    'Segoe UI', sans-serif;
+  background: var(--bg-page);
+  color: var(--text-main);
+}
+
+/* APP ROOT */
+.app-root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* NAVBAR */
+.nav-wrapper {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(253, 251, 255, 0.95);
+  border-bottom: 1px solid rgba(197, 116, 255, 0.15);
+  backdrop-filter: blur(12px);
+}
+
+.nav {
+  max-width: 360px;
+  margin: 0 auto;
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.nav-logo {
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+}
+
+.nav-links {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.nav-links::-webkit-scrollbar {
+  height: 4px;
+}
+.nav-links::-webkit-scrollbar-thumb {
+  background: rgba(132, 107, 196, 0.4);
+  border-radius: 999px;
+}
+
+.nav-links a {
+  white-space: nowrap;
+  font-size: 0.8rem;
+  padding: 6px 10px;
+  border-radius: 999px;
+  color: var(--text-soft);
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid transparent;
+  transition: all 0.15s ease-out;
+}
+
+.nav-links a:hover {
+  color: var(--text-main);
+  border-color: rgba(197, 116, 255, 0.5);
+}
+
+/* PAGE SECTIONS – พื้นหลังเต็มจอแน่นอน */
+
+/* ให้แต่ละ section กินเต็มความกว้างหน้าต่าง โดยไม่ใช้ 100vw */
+.page-section {
+  width: 100%;
+  padding: 32px 0 36px;
+  margin: 0;
+}
+
+
+.page-section--purple {
+  background: var(--bg-purple-1);
+}
+
+.page-section--light {
+  background: var(--bg-purple-2);
+}
+
+/* กล่องเนื้อหา – ขนาดเท่าเดิม */
+
+.page-section-inner {
+  max-width: 360px;
+  margin: 0 auto;
+  padding: 0 14px;
+}
+
+@media (min-width: 768px) {
+  .page-section-inner {
+    max-width: 1120px;
+    padding: 0 28px;
+  }
+}
+
+
+/* SECTION HEADER */
+
+.section-header {
+  margin-bottom: 12px;
+}
+
+.section-header h2 {
+  font-size: 1.2rem;
+  margin: 0 0 4px;
+}
+
+.section-header p {
+  font-size: 0.88rem;
+  margin: 0;
+  color: var(--text-soft);
+}
+
+/* HERO */
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.hero-text {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  background: #ffffff;
+  border-radius: 999px;
+  padding: 5px 10px;
+  color: var(--text-soft);
+  border: 1px solid rgba(197, 116, 255, 0.35);
+}
+
+.hero-title {
+  font-size: 1.7rem;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.hero-highlight {
+  background: linear-gradient(120deg, var(--accent), var(--accent-mint));
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.hero-desc {
+  font-size: 0.9rem;
+  color: var(--text-soft);
+}
+
+.hero-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 2px;
+}
+
+.btn {
+  font-size: 0.9rem;
+  padding: 9px 14px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.1s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.btn-main {
+  background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+  color: #fff;
+  box-shadow: 0 10px 26px rgba(173, 102, 255, 0.45);
+}
+
+.btn-main:hover {
+  transform: translateY(-1px);
+}
+
+.btn-ghost {
+  background: #ffffff;
+  color: var(--text-main);
+  border: 1px solid rgba(197, 116, 255, 0.4);
+}
+
+.hero-mini-info {
+  margin-top: 4px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 6px;
+}
+
+.hero-mini-info > div {
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(132, 107, 196, 0.2);
+}
+
+.mini-label {
+  display: block;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+  color: var(--text-soft);
+}
+
+.mini-value {
+  font-size: 0.86rem;
+}
+
+/* HERO PHOTO */
+
+.hero-photo {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.hero-photo-circle {
+  width: 70vw;
+  max-width: 260px;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  padding: 6px;
+  background: conic-gradient(
+    from 160deg,
+    var(--accent-soft),
+    var(--accent),
+    var(--accent-mint),
+    var(--accent-soft)
+  );
+  box-shadow: 0 14px 40px rgba(166, 104, 255, 0.5);
+}
+
+.hero-photo-circle img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.hero-note-card {
+  position: absolute;
+  bottom: -6px;
+  right: 0;
+  transform: translateY(45%);
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 8px 10px;
+  box-shadow: 0 10px 26px rgba(112, 85, 176, 0.3);
+  max-width: 170px;
+  font-size: 0.75rem;
+}
+
+/* ===== HERO IMAGE FULL SCREEN ===== */
+
+
+/* ชั้นมืด */
+.hero-image-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.25); /* ให้ภาพดู cinematic */
+  z-index: 2;
+}
+
+/* ข้อความบนภาพ */
+.hero-image-content {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;     /* ตัวหนังสืออยู่ล่างเหมือน Niya */
+  align-items: center;
+  padding-bottom: 12vh;
+  text-align: center;
+  color: #fff;
+}
+
+.hero-name-main {
+  font-size: 2.8rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.hero-name-sub {
+  font-size: 1.3rem;
+  opacity: 0.9;
+  margin-top: 8px;
+}
+
+/* Desktop */
+@media (min-width: 768px) {
+  .hero-name-main {
+    font-size: 4rem;
+  }
+  .hero-name-sub {
+    font-size: 1.7rem;
+  }
+}
+
+/* ===== HERO IMAGE FULL SCREEN ===== */
+
+.hero-image-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;        /* สูงเต็มความสูงหน้าจอ */
+  min-height: 520px;
+  overflow: hidden;
+}
+
+/* รูปพื้นหลัง */
+.hero-image-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;    /* สำหรับคอม */
+  background-repeat: no-repeat;
+  z-index: 1;
+}
+
+/* มือถือ */
+@media (max-width: 767px) {
+  .hero-image-bg {
+    background-position: 60% 40%;   /* ตำแหน่งที่เหมาะที่สุด */
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-image-bg {
+    background-position: 80% 35%;  /* คอมจอใหญ่ */
+  }
+}
+
+/* ชั้นมืด */
+.hero-image-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.25); /* ให้ภาพดู cinematic */
+  z-index: 2;
+}
+
+/* ข้อความบนภาพ */
+.hero-image-content {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;     /* ตัวหนังสืออยู่ล่างเหมือน Niya */
+  align-items: center;
+  padding-bottom: 12vh;
+  text-align: center;
+  color: #fff;
+}
+
+.hero-name-main {
+  font-size: 2.8rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.hero-name-sub {
+  font-size: 1.3rem;
+  opacity: 0.9;
+  margin-top: 8px;
+}
+
+/* Desktop */
+@media (min-width: 768px) {
+  .hero-name-main {
+    font-size: 4rem;
+  }
+  .hero-name-sub {
+    font-size: 1.7rem;
+  }
+}
+
+/* ===== Fade-in Effect ===== */
+@keyframes heroFadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-main {
+  opacity: 0;
+  animation: heroFadeInUp 1s ease-out forwards;
+  animation-delay: 0.2s;
+}
+
+.fade-in-sub {
+  opacity: 0;
+  animation: heroFadeInUp 1.2s ease-out forwards;
+  animation-delay: 0.6s;
+}
+
+/* ===== Fade-in Effect ===== */
+@keyframes heroFadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-main {
+  opacity: 0;
+  animation: heroFadeInUp 1s ease-out forwards;
+  animation-delay: 0.2s;
+}
+
+.fade-in-sub {
+  opacity: 0;
+  animation: heroFadeInUp 1.2s ease-out forwards;
+  animation-delay: 0.6s;
+}
+
+/* ABOUT */
+
+
+/* ===== ABOUT SECTION – สูงเท่าที่เนื้อหาต้องใช้ ไม่เต็มจอ ===== */
+.about-layout {
+  display: flex;
+  flex-direction: column;   /* มือถือ: รูปบน ข้อความล่าง */
+  gap: 18px;
+  padding-top: 32px;        /* ระยะห่างบน */
+  padding-bottom: 40px;     /* ระยะห่างล่าง */
+  /* ไม่ใส่ min-height แล้ว ปล่อยให้สูงตามเนื้อหา */
+}
+
+
+/* ฝั่งรูป */
+.about-photo-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+/* กรอบรูป – มือถือ */
+.about-photo-frame {
+  width: 100vw;             /* จาก 75 → 88% ของหน้าจอ มือถือจะใหญ่ขึ้นชัดเจน */
+  max-width: 480px;        /* จาก 320 → 380 ให้ขยายได้มากขึ้น */
+  aspect-ratio: 3 / 4;     /* แนวตั้งเหมือนเดิม */
+  border-radius: 24px;
+  padding: 4px;
+  background: radial-gradient(circle at top, #E0D9CF, #AF9F8C);
+  box-shadow: 0 14px 34px rgba(255, 255, 255, 0.4);
+  overflow: hidden;
+}
+
+.about-photo-frame img {
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  object-fit: cover;
+}
+
+.about-photo-caption {
+  font-size: 0.8rem;
+  color: var(--text-soft);
+  text-align: center;
+  max-width: 320px;
+}
+
+/* ฝั่งข้อความ */
+.about-text {
+  flex: 1;
+}
+
+.about-header h2 {
+  font-size: 1.3rem;
+}
+
+.about-header p {
+  font-size: 0.9rem;
+  color: var(--text-soft);
+}
+
+/* ชิปเล็ก ๆ แนวแฟนไซต์ */
+.about-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 8px 0 10px;
+}
+
+.about-chip {
+  font-size: 0.78rem;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid var(--border-soft);
+  color: var(--text-soft);
+}
+
+/* เนื้อหาอ่านง่าย ไม่เป็นทางการเกิน */
+.about-body p {
+  font-size: 0.9rem;
+  color: var(--text-soft);
+  margin: 0 0 8px;
+}
+
+.about-list {
+  margin: 6px 0 0;
+  padding-left: 20px;
+  font-size: 0.88rem;
+  color: var(--text-soft);
+}
+.about-list li + li {
+  margin-top: 3px;
+}
+
+/* ===== Tablet / PC – ทำให้ดูเกือบเต็มจอ แต่เล็กกว่า Hero + รูปใหญ่ขึ้น ===== */
+
+@media (min-width: 768px) {
+  .about-layout {
+    flex-direction: row;
+    align-items: center;
+    gap: 40px;
+    min-height: 60vh;   /* อันนี้ลบออก */
+  }
+
+  .about-photo-card {
+    flex: 1;
+    align-items: flex-start;
+  }
+
+  .about-photo-frame {
+    width: 100%;
+    max-width: 380px;           /* รูปขยายใหญ่ขึ้นอัตโนมัติ */
+  }
+
+  .about-photo-caption {
+    text-align: left;
+    max-width: 380px;
+  }
+
+  .about-text {
+    flex: 1.2;
+  }
+
+  .about-header h2 {
+    font-size: 1.7rem;
+  }
+
+  .about-header p,
+  .about-body p,
+  .about-list {
+    font-size: 0.95rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .about-layout {
+    gap: 56px;
+    min-height: 58vh;           /* จอใหญ่ก็ยังเล็กกว่า Hero */
+  }
+
+  .about-photo-frame {
+    max-width: 400px;           /* จอใหญ่ → รูปก็ใหญ่ตาม */
+  }
+}
+
+
+.about-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.about-card {
+  background: var(--bg-card);
+  border-radius: 18px;
+  padding: 12px 13px;
+  border: 1px solid var(--border-soft);
+  box-shadow: 0 8px 24px rgba(177, 140, 240, 0.16);
+  font-size: 0.9rem;
+}
+
+/* ====== เพิ่มเติม ABOUT (Show / Hide) ====== */
+
+.about-more {
+  margin-top: 10px;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.about-more-btn {
+  margin-top: 10px;
+  padding: 10px 16px;
+  font-size: 0.85rem;
+  border-radius: 12px;
+  border: none;
+  background: #d8c2ff;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.about-more-btn:hover {
+  background: #c3a3ff;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== Header + ปุ่ม All Schedule มุมขวาบน ===== */
+
+.events-header {
+  display: flex;
+  flex-direction: row;            /* ใช้แถวเสมอ ทั้งมือถือและคอม */
+  justify-content: space-between; /* หัวข้อซ้าย ปุ่มขวา */
+  align-items: flex-end;
+  gap: 6px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;                /* เผื่อจอแคบมาก ให้ตัดบรรทัดแบบเนียน ๆ */
+}
+
+.all-schedule-btn {
+  margin-left: auto !important;   /* บังคับปุ่มไปชิดขวา */
+  white-space: nowrap;
+}
+
+.all-schedule-btn {
+  align-self: flex-start;
+  padding: 7px 16px;
+  border-radius: 999px;
+  border: 1px solid #d1c6ff;
+  background: #ffffff;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #6b50c5;
+  text-decoration: none;
+  cursor: pointer;
+  transition: 0.15s ease;
+}
+
+.all-schedule-btn:hover {
+  background: #f5f1ff;
+  border-color: #b9a8ff;
+}
+
+/* ===== แนวนอนแบบลากข้าง (มือถือเป็นหลัก) ===== */
+
+.card-row {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding: 4px 18px 10px 2px; /* มี padding ขวาเพื่อให้เห็นมุมการ์ดสุดท้าย */
+  scroll-snap-type: x mandatory;
+}
+
+.card-row::-webkit-scrollbar {
+  height: 0;                 /* ซ่อนเส้น scroll */
+}
+.card-row {
+  scrollbar-width: none;     /* ซ่อนใน Firefox */
+}
+
+/* ===== การ์ด Event – ลุคโปสเตอร์ใหญ่แบบที่ส่งรูปมา ===== */
+
+.event-card {
+  flex: 0 0 90%;
+  max-width: 90%;
+  background: #ffffff;
+  border-radius: 22px;
+  border: 1px solid rgba(215, 200, 245, 0.9);
+  box-shadow: 0 6px 16px rgba(140, 120, 200, 0.2);
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  scroll-snap-align: start;
+  transition:
+    transform 0.16s ease-out,
+    box-shadow 0.16s ease-out,
+    border-color 0.16s ease-out;
+}
+
+/* การ์ดสุดท้ายให้มี margin ขวาเพิ่มนิดนึง -> ไม่โดนตัดมุม */
+.event-card:last-child {
+  margin-right: 6px;
+}
+
+/* hover เบา ๆ */
+.event-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(120, 95, 180, 0.24);
+  border-color: rgba(190, 170, 245, 1);
+}
+
+.event-thumb {
+  width: 100%;
+  height: 220px;       /* ความสูงที่คุมได้ ไม่ยาว ไม่สั้น */
+  overflow: hidden;
+  border-radius: 18px 18px 0 0;
+}
+
+.event-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;       /* ให้รูปเต็มกรอบแบบสวย */
+  object-position: top;    /* 💜 เลือกโฟกัสด้านบนของโปสเตอร์แทนตรงกลาง */
+}
+
+@media (min-width: 768px) {
+  .event-card {
+    flex: 0 0 40% !important;
+    max-width: 30% !important;
+    border-radius: 22px;
+  }
+
+  .event-thumb {
+    aspect-ratio: 3 / 4 !important;
+    height: 310px !important;
+  }
+
+  .event-thumb img {
+    width: 100%;
+    height: 100% !important;
+    object-fit: cover !important;
+  }
+}
+
+/* เนื้อหาข้างล่าง */
+.event-body {
+  padding: 10px 12px 12px;
+}
+
+.event-meta-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.event-pill {
+  font-size: 0.72rem;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: #f5f1ff;
+  color: #6c52c3;
+  font-weight: 600;
+}
+
+.event-date {
+  font-size: 0.72rem;
+  color: #9b84d8;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.event-title {
+  font-size: 0.98rem;
+  margin: 2px 0 3px;
+}
+
+.event-place {
+  font-size: 0.8rem;
+  color: #666;
+  margin: 0 0 4px;
+}
+
+/* จำกัดคำอธิบายไม่ให้ยืดยาวเกินในมือถือ */
+.event-desc {
+  font-size: 0.8rem;
+  color: #555;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ===== Tablet / Desktop: การ์ดเล็กลงหน่อย แต่ยังมองเห็น 3 อัน ===== */
+@media (min-width: 768px) {
+  .card-row {
+    padding: 6px 0 8px 0;
+    justify-content: space-between;
+  }
+
+  .event-card {
+    flex: 0 0 30%;
+    max-width: 30%;
+    border-radius: 24px;
+  }
+
+  .event-thumb {
+    aspect-ratio: 3 / 4;
+  }
+
+  .event-body {
+    padding: 12px 14px 14px;
+  }
+
+  .event-desc {
+    -webkit-line-clamp: 3;
+  }
+}
+
+/* ===== Highlight Section ===== */
+
+.highlight-header p {
+  font-size: 0.9rem;
+  color: var(--text-soft);
+}
+
+/* layout การ์ด – มือถือ: เรียงลงมา */
+.highlight-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+
+/* การ์ดหลัก (ใบใหญ่) */
+.highlight-card {
+  background: #ffffff;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 8px 18px rgba(140, 120, 200, 0.18);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition:
+    transform 0.16s ease-out,
+    box-shadow 0.16s ease-out,
+    border-color 0.16s ease-out;
+}
+
+.highlight-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 24px rgba(255, 255, 255, 0.24);
+  border-color: rgb(255, 255, 255);
+}
+
+/* กรอบวิดีโอ 16:9 */
+.highlight-thumb {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;   /* คุมสัดส่วนให้เท่ากับ YouTube */
+  border-radius: 18px 18px 0 0;
+  overflow: hidden;
+}
+
+/* ถ้ามีแบบ .small ด้วย ใช้สัดส่วนเดียวกันแต่จะเตี้ยเพราะการ์ดเตี้ยกว่า */
+.highlight-thumb.small {
+  aspect-ratio: 16 / 9;
+}
+
+/* ให้ iframe เติมเต็มกรอบ */
+.highlight-thumb iframe {
+  position: absolute;
+  inset: 0;      /* top:0; right:0; bottom:0; left:0; */
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+/* เนื้อหาในการ์ด */
+.highlight-body {
+  padding: 10px 12px 12px;
+}
+
+.highlight-tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: #f5f1ff;
+  color: #6c52c3;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.highlight-title {
+  font-size: 0.98rem;
+  margin: 0 0 4px;
+}
+
+.highlight-desc {
+  font-size: 0.82rem;
+  color: var(--text-soft);
+  margin: 0;
+}
+
+/* ===== Tablet / PC ===== */
+@media (min-width: 768px) {
+  .highlight-grid {
+    grid-template-columns: 2fr 1fr;
+    gap: 18px;
+  }
+
+  .highlight-card--main {
+    grid-row: span 2; /* การ์ดหลักกิน 2 แถวด้านซ้าย */
+  }
+
+  .highlight-card {
+    border-radius: 20px;
+  }
+
+  .highlight-body {
+    padding: 12px 14px 14px;
+  }
+
+  .highlight-title {
+    font-size: 1.02rem;
+  }
+
+  .highlight-desc {
+    font-size: 0.86rem;
+  }
+}
+
+
+/* SOCIAL */
+
+/* ===== Social Media Section ===== */
+
+.social-header p {
+  font-size: 0.9rem;
+  color: var(--text-soft);
+}
+
+/* มือถือ: เรียงลง */
+.social-main-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* การ์ดแต่ละแอป */
+.social-card {
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 12px 26px rgba(150, 125, 215, 0.2);
+  overflow: hidden;
+  border: 1px solid rgba(215, 200, 245, 0.9);
+}
+
+/* แถบด้านบน */
+.social-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.social-banner-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.social-platform {
+  font-size: 0.8rem;
+  opacity: 0.9;
+}
+
+.social-handle {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.social-arrow {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+/* gradient แต่ละแอป */
+.social-banner--ig {
+  background: linear-gradient(90deg, #ff9a5a, #ff577f, #9b4dff);
+}
+
+.social-banner--tt {
+  background: #000000;
+}
+
+/* ส่วน embed */
+.social-embed {
+  background: #ffffff;
+  padding: 10px 10px 14px;
+}
+
+.social-embed iframe {
+  width: 100%;
+  border: none;
+  border-radius: 14px;
+  background: #ffffff;
+}
+
+.social-embed--ig iframe {
+  height: 420px;
+}
+
+.social-embed--tt iframe {
+  height: 420px;
+}
+
+/* แถวล่าง: ปุ่มไป Facebook / iAM48 */
+/* แถวล่าง: ให้เรียงลง และเต็มความกว้าง */
+.social-extra-row {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* แบนเนอร์เต็มๆ */
+.social-chip {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 18px;
+  border-radius: 999px;
+  text-decoration: none;
+  background: #ffffff;
+  box-shadow: 0 10px 22px rgba(160, 130, 225, 0.18);
+  border: 1px solid rgba(220, 205, 250, 0.9);
+}
+
+/* ฝั่งซ้าย: โลโก้ + ข้อความ */
+.social-chip-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.social-chip-logo {
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  object-fit: contain;
+  background: #ffffff;
+}
+
+.social-chip-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.social-chip-label {
+  font-size: 0.8rem;
+  color: #777;
+}
+
+.social-chip-handle {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #333;
+}
+
+/* ลูกศรขวา */
+.social-chip-arrow {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #555;
+}
+
+/* สีเฉพาะของแต่ละแอป */
+.social-chip--fb {
+  background: #e9f1ff;
+  border-color: #c8dafc;
+}
+
+.social-chip--iam {
+  background: #f6f0ff;
+  border-color: #ddccff;
+}
+
+/* Desktop: ยังเต็ม แต่ห่างกันมากขึ้นนิดหน่อย */
+@media (min-width: 1024px) {
+  .social-extra-row {
+    gap: 16px;
+  }
+
+  .social-chip {
+    padding: 14px 22px;
+  }
+}
+
+/* ===== Desktop: แบ่ง 2 คอลัมน์ ===== */
+@media (min-width: 1024px) {
+  .social-main-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 22px;
+  }
+
+  .social-card {
+    border-radius: 22px;
+  }
+
+  .social-banner {
+    padding: 16px 20px;
+  }
+
+  .social-embed {
+    padding: 12px 14px 18px;
+  }
+
+  .social-embed--ig iframe {
+    height: 480px;
+  }
+
+  .social-embed--tt iframe {
+    height: 480px;
+  }
+
+  .social-extra-row {
+    justify-content: flex-start;
+    gap: 16px;
+  }
+}
+
+/* FANS NEWS */
+
+/* ===== Rollzy Bunny Section (การ์ดหลัก) ===== */
+
+/* ===== Rollzy Bunny – layout ด้านนอก ===== */
+
+.rollzy-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.rollzy-left {
+  flex: 1;
+}
+
+.rollzy-right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.rollzy-title {
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+
+.rollzy-lead {
+  font-size: 1.2rem;
+  margin-bottom: 6px;
+}
+
+.rollzy-subtitle {
+  font-size: 0.95rem;
+  color: var(--text-soft);
+  max-width: 520px;
+}
+
+.rollzy-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+/* ปุ่มสองแบบ */
+
+.rollzy-btn {
+  border-radius: 999px;
+  padding: 10px 22px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rollzy-btn--primary {
+  background: linear-gradient(90deg, #80B7A2, #ADD495);  /* สีเดิม */
+  color: #ffffff;
+  border: none;
+  box-shadow: 0 8px 18px rgba(200, 130, 230, 0.5);
+}
+
+.rollzy-btn--ghost {
+  background: linear-gradient(90deg, #c78dff, #ff88d2);  /* สีเดิม */
+  color: #ffffff;
+  border: none;
+  box-shadow: 0 8px 18px rgba(200, 130, 230, 0.5);
+}
+.rol
+lzy-btn--ghost:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(190, 110, 220, 0.6);
+}
+
+/* ฝั่งขวา: รูป preview */
+
+.rollzy-preview-card {
+  width: 100%;
+  max-width: 520px;
+  border-radius: 26px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(40, 40, 60, 0.25);
+  background: #000;
+  padding: 8px;              /* เพิ่ม padding นิดนึงให้มีขอบใน */
+}
+
+/* กริด 2x2 */
+.rollzy-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+/* รูปแต่ละใบ */
+.rollzy-preview-grid img {
+  width: 100%;
+  aspect-ratio: 4 / 3;       /* อยากเป็นสี่เหลี่ยมจัตุรัสใช้ 1 / 1 */
+  object-fit: cover;
+  border-radius: 16px;
+  display: block;
+}
+
+.rollzy-preview-card img {
+  width: 100%;
+  display: block;
+}
+
+
+/* Desktop จอใหญ่: จัดสองฝั่งเหมือนตัวอย่าง */
+
+@media (min-width: 1024px) {
+  .rollzy-layout {
+    flex-direction: row;
+    align-items: center;
+    gap: 48px;
+  }
+
+  .rollzy-title {
+    font-size: 2.4rem;
+  }
+
+  .rollzy-lead {
+    font-size: 1.3rem;
+  }
+}
+
+/* ===== Popup / Modal (ใช้ของเดิม + เพิ่มโลโก้) ===== */
+
+.rollzy-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 10, 40, 0.45);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+  z-index: 40;
+}
+
+.rollzy-modal {
+  width: 100%;
+  max-width: 640px;
+  border-radius: 28px;
+  padding: 22px 20px 18px;
+  background: radial-gradient(circle at top, rgba(255, 255, 255, 0.98), rgba(240, 230, 255, 0.96));
+  box-shadow: 0 18px 40px rgba(20, 0, 60, 0.35);
+  text-align: center;
+}
+
+.rollzy-modal-title {
+  font-size: 1.5rem;
+  margin-bottom: 6px;
+}
+
+.rollzy-modal-text {
+  font-size: 0.9rem;
+  color: var(--text-soft);
+  margin-bottom: 16px;
+}
+
+.rollzy-channel-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.rollzy-channel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-radius: 999px;
+  text-decoration: none;
+  color: #222;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 7px 18px rgba(160, 130, 225, 0.18);
+  border: 1px solid rgba(215, 200, 245, 0.9);
+  transition: transform 0.12s ease-out, box-shadow 0.12s ease-out, background 0.12s;
+}
+
+.rollzy-channel-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* โลโก้แต่ละแอป (ใช้ <img>) */
+.rollzy-channel-logo {
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  object-fit: contain;
+  background: #ffffff;
+}
+
+.rollzy-channel-name {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.rollzy-channel-arrow {
+  font-size: 1.1rem;
+  color: #555;
+}
+
+/* โทนสีแต่ละช่องทาง */
+
+.rollzy-channel--fb {
+  background: linear-gradient(90deg, #e9f1ff, #d4e3ff);
+}
+
+.rollzy-channel--ig {
+  background: linear-gradient(90deg, #ffe6ee, #ffe7f8);
+}
+
+.rollzy-channel--x {
+  background: linear-gradient(90deg, #f5f5f5, #e5e5e5);
+}
+
+.rollzy-channel--line {
+  background: linear-gradient(90deg, #e3fcec, #d0f7e0);
+}
+
+.rollzy-channel:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(150, 120, 220, 0.26);
+}
+
+.rollzy-modal-close {
+  margin-top: 4px;
+  padding: 7px 18px;
+  border-radius: 999px;
+  border: none;
+  background: #f1ecff;
+  color: #555;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.rollzy-modal-close:hover {
+  background: #e1d6ff;
+}
+
+@media (min-width: 768px) {
+  .rollzy-modal {
+    padding: 26px 28px 20px;
+  }
+
+  .rollzy-modal-title {
+    font-size: 1.7rem;
+  }
+
+  .rollzy-modal-text {
+    font-size: 0.95rem;
+  }
+}
+
+/* Desktop – ขยายให้ดูอลังขึ้นนิดหน่อย */
+
+@media (min-width: 768px) {
+  .rollzy-card {
+    padding: 24px 26px 26px;
+  }
+
+  .rollzy-title {
+    font-size: 1.6rem;
+  }
+
+  .rollzy-subtitle {
+    font-size: 0.95rem;
+  }
+
+  .rollzy-modal {
+    padding: 26px 28px 20px;
+  }
+
+  .rollzy-modal-title {
+    font-size: 1.7rem;
+  }
+
+  .rollzy-modal-text {
+    font-size: 0.95rem;
+  }
+}
+
+/* FOOTER */
+
+.footer {
+  text-align: center;
+  padding: 14px 12px 18px;
+  font-size: 0.78rem;
+  color: var(--text-soft);
+  background: rgba(250, 246, 255, 0.98);
+  border-top: 1px solid rgba(197, 116, 255, 0.22);
+}
+
+/* ------------------------- */
+/*   DESKTOP RESPONSIVE      */
+/* ------------------------- */
+
+@media (min-width: 768px) {
+  .nav {
+    max-width: 1120px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-links {
+    overflow-x: visible;
+  }
+
+  .page-section-inner {
+    max-width: 1120px;
+    padding: 0 28px;
+  }
+
+  .hero {
+    flex-direction: row;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .hero-text {
+    flex: 1.2;
+  }
+
+  .hero-photo {
+    flex: 1;
+  }
+
+  .hero-title {
+    font-size: 2.3rem;
+  }
+
+  /* บนคอมให้ row กลายเป็น grid จริง ไม่ต้อง scroll ข้าง */
+  .card-row {
+    grid-auto-flow: row;
+    grid-auto-columns: unset;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    overflow-x: visible;
+  }
+
+  .card-row::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-title {
+    font-size: 2.6rem;
+  }
+
+  .section-header h2 {
+    font-size: 1.5rem;
+  }
+}
+
+/* ล้าง background เก่าที่อาจติดอยู่บนกล่องข้างใน */
+.section-hero,
+.section-about,
+.section-schedule,
+.section-disc,
+.section-social,
+.section-fans,
+.section-fans-news {
+  background: transparent !important;
+}
+
+/* ===== HERO VIDEO เต็มจอ ===== */
+
+.hero-video-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;        /* สูงเท่าหน้าจอ */
+  min-height: 520px;    /* กันจอเล็กเกิน */
+  overflow: hidden;
+}
+
+/* วิดีโอพื้นหลัง */
+.hero-video-bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;     /* ทำให้วิดีโอครอบเต็ม ทั้งคอมและมือถือ */
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+/* ชั้นมืดโปร่ง ๆ ทับบนวิดีโอ */
+.hero-video-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.25);  /* อยากมืดกว่านี้ปรับค่า 0.3–0.4 */
+  z-index: 2;
+}
+
+/* กล่องข้อความกลางจอ */
+.hero-video-content {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;   /* ให้ตัวหนังสืออยู่โซนล่างแบบในรูป Niya */
+  align-items: center;
+  text-align: center;
+  color: #ffffff;
+  padding: 0 20px 14vh;        /* ขยับขึ้นจากขอบล่างนิดหน่อย */
+}
+
+/* ชื่อเล่น */
+.hero-name-main {
+  font-size: 2.6rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  margin: 0;
+}
+
+/* ชื่อจริง */
+.hero-name-sub {
+  font-size: 1.3rem;
+  font-weight: 300;
+  margin-top: 10px;
+  opacity: 0.9;
+}
+
+/* ปรับขนาดบนจอใหญ่ */
+@media (min-width: 768px) {
+  .hero-name-main {
+    font-size: 4rem;
+  }
+
+  .hero-name-sub {
+    font-size: 1.8rem;
+  }
+}
+
+/* ===== ข้อแรกที่ถาม: ทำ effect "เฟดขึ้น" ===== */
+
+/* วาดแอนิเมชัน: จากล่าง+จาง → ขึ้นมาพร้อมชัด */
+@keyframes heroFadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ใช้กับชื่อบรรทัดแรก */
+.fade-in-main {
+  opacity: 0;  /* เริ่มจากมองไม่เห็น */
+  animation: heroFadeInUp 1.1s ease-out forwards;
+  animation-delay: 0.2s;   /* หน่วงก่อนเล่นนิดนึง */
+}
+
+/* ใช้กับชื่อบรรทัดสอง ให้ตามหลังมานิดหน่อย */
+.fade-in-sub {
+  opacity: 0;
+  animation: heroFadeInUp 1.3s ease-out forwards;
+  animation-delay: 0.6s;
+}
+
+/* ===== ปรับตำแหน่งรูป HERO ให้ตรงกลางในแต่ละหน้าจอ ===== */
+
+@media (max-width: 480px) {
+  .about-photo-frame {
+    width: 50vw;        /* จาก 75vw → เล็กลง */
+    max-width: 250px;   /* จำกัดไม่ให้ใหญ่เกิน */
+    border-radius: 20px;
+  }
+
+  .about-photo-frame img {
+    border-radius: 16px;
+  }
+
+  .about-photo-caption {
+    font-size: 0.75rem; /* ลด caption ไม่ให้ยาวเกิน */
+  }
+}
