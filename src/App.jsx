@@ -107,8 +107,8 @@ function AboutSection() {
                 ซึ่งเป็นสิ่งที่ทำให้แฟน ๆ รอชมการแสดงใหม่ ๆ ของเธอเสมอ
               </p>
               <ul className="about-list">
-                <li>??</li>
-                <li>??</li>
+                <li>Upcoming</li>
+                <li>Upcoming</li>
                 <li>??</li>
                 <li>??</li>
               </ul>
