@@ -292,6 +292,12 @@ function DiscographySection() {
 }
 
 function SocialSection() {
+  useEffect(() => {
+  const script = document.createElement("script");
+  script.src = "https://www.instagram.com/embed.js";
+  script.async = true;
+  document.body.appendChild(script);
+}, []);
   return (
     <section id="social" className="page-section page-section--tone2">
       <div className="page-section-inner">
@@ -322,7 +328,7 @@ function SocialSection() {
            <div className="social-embed social-embed--ig">
           <blockquote
             className="instagram-media"
-            data-instgrm-permalink="https://www.instagram.com/p/POST_ID/"
+            data-instgrm-permalink="https://www.instagram.com/rose.bnk48office/"
             data-instgrm-version="14"
           ></blockquote>
             </div>
