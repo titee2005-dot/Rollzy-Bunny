@@ -322,7 +322,7 @@ function SocialSection() {
            <div className="social-embed social-embed--ig">
           <blockquote
             className="instagram-media"
-            data-instgrm-permalink="https://e556eb91e82148e19eac24d4dbdc6adf.elf.site"
+            data-instgrm-permalink="https://www.instagram.com/rose.bnk48office?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
             data-instgrm-version="14"
           ></blockquote>
             </div>
