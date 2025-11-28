@@ -319,13 +319,16 @@ function SocialSection() {
               <span className="social-arrow">↗</span>
             </a>
 
-           <div className="social-embed social-embed--ig">
-          <blockquote
-            className="instagram-media"
-            data-instgrm-permalink="https://www.instagram.com/rose.bnk48office?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
-            data-instgrm-version="14"
-          ></blockquote>
-            </div>
+          <div className="social-embed social-embed--ig">
+  <iframe
+    src="https://e556eb91e82148e19eac24d4dbdc6adf.elf.site"
+    className="insta-widget"
+    scrolling="no"
+    allowTransparency="true"
+    frameBorder="0"
+    style={{ width: "100%", border: 0, overflow: "hidden" }}
+  ></iframe>
+</div>
           </article>
 
           {/* TikTok */}
