@@ -307,7 +307,7 @@ function SocialSection() {
           {/* Instagram */}
           <article className="social-card">
             <a
-              href="https://www.instagram.com/yourinsta_here"
+              href="https://www.instagram.com/rose.bnk48office?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
               target="_blank"
               rel="noopener noreferrer"
               className="social-banner social-banner--ig"
