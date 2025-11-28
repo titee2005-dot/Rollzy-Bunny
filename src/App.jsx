@@ -244,7 +244,7 @@ function DiscographySection() {
         <article className="highlight-card highlight-card--main">
           <div className="highlight-thumb">
               <iframe
-                src="https://youtu.be/jRVOQHriw2w?si=prEuoDIeWFFpdtzc"
+                src="https://youtu.be/embed/jRVOQHriw2w?si=prEuoDIeWFFpdtzc"
                 frameBorder="0"
                 allow="autoplay; encrypted-media"
                 allowFullScreen
