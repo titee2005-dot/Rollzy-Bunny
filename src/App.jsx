@@ -307,14 +307,14 @@ function SocialSection() {
           {/* Instagram */}
           <article className="social-card">
             <a
-              href="https://www.instagram.com/yourinsta_here"
+              href="https://www.instagram.com/rose.bnk48office/#"
               target="_blank"
               rel="noopener noreferrer"
               className="social-banner social-banner--ig"
             >
               <div className="social-banner-left">
                 <span className="social-platform">Instagram</span>
-                <span className="social-handle">@yourinsta_here</span>
+                <span className="social-handle">@rose.bnk48office</span>
               </div>
               <span className="social-arrow">↗</span>
             </a>
@@ -338,7 +338,7 @@ function SocialSection() {
             >
               <div className="social-banner-left">
                 <span className="social-platform">TikTok</span>
-                <span className="social-handle">@yourtiktok_here</span>
+                <span className="social-handle">@rose.bnk48official</span>
               </div>
               <span className="social-arrow">↗</span>
             </a>
