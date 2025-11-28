@@ -292,12 +292,6 @@ function DiscographySection() {
 }
 
 function SocialSection() {
-  useEffect(() => {
-  const script = document.createElement("script");
-  script.src = "https://www.instagram.com/embed.js";
-  script.async = true;
-  document.body.appendChild(script);
-}, []);
   return (
     <section id="social" className="page-section page-section--tone2">
       <div className="page-section-inner">
