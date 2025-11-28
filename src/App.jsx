@@ -321,7 +321,7 @@ function SocialSection() {
 
           <div className="social-embed social-embed--ig">
   <iframe
-    src="https://6e392dcf80924d41b844c2a5263a187a.elf.site"
+    src="https://e556eb91e82148e19eac24d4dbdc6adf.elf.site"
     className="insta-widget"
     scrolling="no"
     allowTransparency="true"
