@@ -140,7 +140,7 @@ function EventsSection() {
     },
     {
       title: "Rose Special Stage",
-      date: "27-28 ธันวาคม 2025",
+      date: "27-29 ธันวาคม 2025",
       place: "Bangkok, Thailand",
       desc: "สเตจพิเศษรวมเพลงของ Rose แบบจัดเต็ม",
       image: "/event2.jpg",
@@ -148,7 +148,7 @@ function EventsSection() {
     },
     {
       title: "Hi-Touch & Fansign",
-      date: "1 กุมภาพันธ์ 2026",
+      date: "2 กุมภาพันธ์ 2026",
       place: "ประกาศสถานที่ภายหลัง",
       desc: "โอกาสเจอ Rose ใกล้ ๆ และทักทายกันแบบอบอุ่น",
       image: "/event3.jpg",
