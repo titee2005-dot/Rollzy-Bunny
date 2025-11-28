@@ -134,18 +134,18 @@ function EventsSection() {
       link: "https://example.com/event1" // ← ลิงก์ของ event 1
     },
     {
-      title: "Rose Special Stage",
+      title: "Handshake Event",
       date: "27-28 ธันวาคม 2025",
-      place: "Bangkok, Thailand",
-      desc: "สเตจพิเศษรวมเพลงของ Rose แบบจัดเต็ม",
+      place: "MCC HALL 3F, The Mall Bangkapi",
+      desc: "งานจับมือ",
       image: "/event2.jpg",
       link: "https://example.com/event2" // ← ลิงก์ของ event 2
     },
     {
       title: "Hi-Touch & Fansign",
       date: "1 กุมภาพันธ์ 2026",
-      place: "ประกาศสถานที่ภายหลัง",
-      desc: "โอกาสเจอ Rose ใกล้ ๆ และทักทายกันแบบอบอุ่น",
+      place: "TBA",
+      desc: "กีฬาสี",
       image: "/event3.jpg",
       link: "https://example.com/event3" // ← ลิงก์ของ event 3
     },
@@ -158,7 +158,7 @@ function EventsSection() {
         <div className="events-header">
           <div className="section-header">
             <h2>ROSE UPCOMING EVENTS</h2>
-            <p>เลื่อนดูงานที่กำลังจะมาถึงของ Rose แล้ววางแพลนไปเจอกัน 💜</p>
+            <p>เลื่อนดูงานที่กำลังจะมาถึงของโรสแล้ววางแพลนไปเจอกันนน 💜</p>
           </div>
 
           {/* ปุ่มไปหน้ารวมกิจกรรมทั้งหมด */}
@@ -238,12 +238,7 @@ function DiscographySection() {
         {/* การ์ดไฮไลต์หลัก */}
         <article className="highlight-card highlight-card--main">
           <div className="highlight-thumb">
-              <iframe
-                src="https://youtu.be/embed/jRVOQHriw2w?si=prEuoDIeWFFpdtzc"
-                frameBorder="0"
-                allow="autoplay; encrypted-media"
-                allowFullScreen
-              />
+             <iframe width="560" height="315" src="https://www.youtube.com/embed/wg8BXD7b42Q?si=FbTH5YQoUQye_Uy6" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
           </div>
           <div className="highlight-body">
             <span className="highlight-tag">MV</span>
