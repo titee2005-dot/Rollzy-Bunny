@@ -1039,7 +1039,6 @@ body {
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  margin-bottom: 4px;
 }
 
 .social-handle {
@@ -1051,24 +1050,16 @@ body {
   font-size: 1.2rem;
 }
 
-/* กล่องที่หุ้ม embed (ทั้ง IG / TikTok) */
+/* ส่วน embed ข้างล่าง */
 .social-embed {
-  margin-top: 10px;
-  padding: 0;            /* ห้ามมี padding ไม่งั้นจะเหลือพื้นขาว */
-  background: transparent;
-  border-radius: 16px;
-  overflow: hidden;
-  min-height: 0;         /* ถ้ามี min-height เดิม ให้ทับเป็น 0 */
+  background: #fff;
+  padding: 10px 10px 14px;
 }
 
-/* ให้ตัว embed กว้างเต็มกล่อง ไม่ล้น/ไม่เล็กกว่า */
-.social-embed iframe,
-.social-embed blockquote {
-  width: 100% !important;
-  max-width: 100% !important;
-  margin: 0 auto !important;
+.social-embed iframe {
+  width: 100%;
+  border: 0;
 }
-
 
 /* แถบด้านบน */
 .social-banner {
@@ -1778,6 +1769,22 @@ lzy-btn--ghost:hover {
 
 /* ===== ปรับตำแหน่งรูป HERO ให้ตรงกลางในแต่ละหน้าจอ ===== */
 
+@media (max-width: 480px) {
+  .about-photo-frame {
+    width: 50vw;        /* จาก 75vw → เล็กลง */
+    max-width: 250px;   /* จำกัดไม่ให้ใหญ่เกิน */
+    border-radius: 20px;
+  }
+
+  .about-photo-frame img {
+    border-radius: 16px;
+  }
+
+  .about-photo-caption {
+    font-size: 0.75rem; /* ลด caption ไม่ให้ยาวเกิน */
+  }
+}
+
 /* มือถือ: ลดพื้นที่ว่างด้านข้างทั้งเว็บ */
 @media (max-width: 768px) {
 
@@ -1787,18 +1794,24 @@ lzy-btn--ghost:hover {
     padding-right: 17px ;
   }
 
-  /* ลบ padding/margin ฝั่งซ้ายขวาของ layout ต่าง ๆ */
+  /* ลบ padding/margin ฝั่งซ้ายขวาที่ซ้อนใน layout ต่าง ๆ */
+  .page-section-inner,
   .social-main-grid,
-  .rollzy-layout {
+  .rollzy-layout,
+  .social-card,
+  .social-embed,
+  .social-banner {
     padding-left: 0 !important;
     padding-right: 0 !important;
     margin-left: 0 !important;
     margin-right: 0 !important;
   }
 
-  
-}  /* ← ปิด @media ให้ครบ */
-
+  /* ถ้ามี max-width ให้ยืดเต็มจอ */
+  .page-section-inner {
+    max-width: 100% !important;
+  }
+}
 /* มือถือ – ให้ส่วน SOCIAL มีระยะห่างจากขอบมากขึ้นนิดหน่อย */
 
 @media (max-width: 768px) {
@@ -1816,7 +1829,6 @@ lzy-btn--ghost:hover {
   }
 }
 /* ปรับ padding ของ Section แรกให้เท่ากับส่วนอื่นบนมือถือ */
-
 @media (max-width: 768px) {
   #about .page-section-inner {
     padding-left: 14px !important;
