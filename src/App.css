@@ -1014,6 +1014,14 @@ body {
   text-decoration: none;
   color: #ffffff;
 }
+.social-banner-icon {
+  animation: pop 1.5s infinite ease-in-out;
+}
+
+@keyframes pop {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.12); }
+}
 
 .social-banner-left {
   display: flex;
