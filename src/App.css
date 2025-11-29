@@ -1783,8 +1783,8 @@ lzy-btn--ghost:hover {
 
   /* ชั้นนอกสุดของแต่ละ section */
   .page-section {
-    padding-left: 17px !important;
-    padding-right: 17px !important;
+    padding-left: 17px ;
+    padding-right: 17px ;
   }
 
   /* ลบ padding/margin ฝั่งซ้ายขวาของ layout ต่าง ๆ */
