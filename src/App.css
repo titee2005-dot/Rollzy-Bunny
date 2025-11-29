@@ -1206,16 +1206,27 @@ body {
 .social-chip-left {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 14px;
 }
 
-.social-chip-logo {
+.social-chip-logo-fb {
   width: 28px;
   height: 28px;
   border-radius: 999px;
   object-fit: contain;
-  background: #ffffff;
+   flex-shrink: 0;
+  transform: scale(2.0);  /* ขยายเฉพาะรูป ไม่กระทบ layout */
 }
+
+.social-chip-logo-iam {
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  object-fit: contain;
+   flex-shrink: 0;
+  transform: scale(1.5);  /* ขยายเฉพาะรูป ไม่กระทบ layout */
+}
+
 
 .social-chip-text {
   display: flex;

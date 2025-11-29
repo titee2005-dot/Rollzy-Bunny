@@ -284,14 +284,14 @@ function SocialSection() {
        {/* แถวล่าง: Facebook + iAM48 แบบแบนเนอร์เต็มๆ */}
 <div className="social-extra-row">
   <a
-    href="https://www.facebook.com/yourfacebook_here"
+    href="https://www.facebook.com/ROLLZYBUNNY"
     target="_blank"
     rel="noopener noreferrer"
     className="social-chip social-chip--fb"
   >
     <div className="social-chip-left">
       {/* โลโก้ Facebook (ใส่ไฟล์ใน public เช่น /icon-fb.png) */}
-      <img src="/icon-fb.png" alt="Facebook" className="social-chip-logo" />
+      <img src="/fblogo.png" alt="Facebook" className="social-chip-logo-fb" />
       <div className="social-chip-text">
         <span className="social-chip-label">Facebook</span>
         <span className="social-chip-handle">Rose BNK48 Official</span>
@@ -308,7 +308,7 @@ function SocialSection() {
   >
     <div className="social-chip-left">
       {/* โลโก้ iAM48 (ใส่ไฟล์ใน public เช่น /icon-iam48.png) */}
-      <img src="/icon-iam48.png" alt="iAM48" className="social-chip-logo" />
+      <img src="/iamlogo.png" alt="iAM48" className="social-chip-logo-iam" />
       <div className="social-chip-text">
         <span className="social-chip-label">iAM48</span>
         <span className="social-chip-handle">Profile & Schedule</span>
