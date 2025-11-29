@@ -1050,16 +1050,24 @@ body {
   font-size: 1.2rem;
 }
 
-/* ส่วน embed ข้างล่าง */
+/* กล่องที่หุ้ม embed (ทั้ง IG / TikTok) */
 .social-embed {
-  background: #fff;
-  padding: 10px 10px 14px;
+  margin-top: 10px;
+  padding: 0;            /* ห้ามมี padding ไม่งั้นจะเหลือพื้นขาว */
+  background: transparent;
+  border-radius: 16px;
+  overflow: hidden;
+  min-height: 0;         /* ถ้ามี min-height เดิม ให้ทับเป็น 0 */
 }
 
-.social-embed iframe {
-  width: 100%;
-  border: 0;
+/* ให้ตัว embed กว้างเต็มกล่อง ไม่ล้น/ไม่เล็กกว่า */
+.social-embed iframe,
+.social-embed blockquote {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 auto !important;
 }
+
 
 /* แถบด้านบน */
 .social-banner {
@@ -1796,11 +1804,7 @@ lzy-btn--ghost:hover {
 
   /* ลบ padding/margin ฝั่งซ้ายขวาที่ซ้อนใน layout ต่าง ๆ */
   .page-section-inner,
-  .social-main-grid,
-  .rollzy-layout,
-  .social-card,
-  .social-embed,
-  .social-banner {
+  .rollzy-layout {
     padding-left: 0 !important;
     padding-right: 0 !important;
     margin-left: 0 !important;
@@ -1829,6 +1833,7 @@ lzy-btn--ghost:hover {
   }
 }
 /* ปรับ padding ของ Section แรกให้เท่ากับส่วนอื่นบนมือถือ */
+
 @media (max-width: 768px) {
   #about .page-section-inner {
     padding-left: 14px !important;
