@@ -1796,10 +1796,7 @@ lzy-btn--ghost:hover {
     margin-right: 0 !important;
   }
 
-  /* ให้ content กว้างเต็มจอ */
-  .page-section-inner {
-    max-width: 100% !important;
-  }
+  
 }  /* ← ปิด @media ให้ครบ */
 
 /* มือถือ – ให้ส่วน SOCIAL มีระยะห่างจากขอบมากขึ้นนิดหน่อย */
