@@ -1785,14 +1785,30 @@ lzy-btn--ghost:hover {
   }
 }
 
-/* ลดขอบด้านข้างทั้งเว็บบนมือถือ */
+/* มือถือ: ลดพื้นที่ว่างด้านข้างทั้งเว็บ */
 @media (max-width: 768px) {
-  .page-section,
+
+  /* ชั้นนอกสุดของแต่ละ section */
+  .page-section {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+
+  /* ลบ padding/margin ฝั่งซ้ายขวาที่ซ้อนใน layout ต่าง ๆ */
   .page-section-inner,
-  .app-root,
   .social-main-grid,
-  .rollzy-layout {
-    padding-left: 12px !important;
-    padding-right: 12px !important;
+  .rollzy-layout,
+  .social-card,
+  .social-embed,
+  .social-banner {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  /* ถ้ามี max-width ให้ยืดเต็มจอ */
+  .page-section-inner {
+    max-width: 100% !important;
   }
 }
