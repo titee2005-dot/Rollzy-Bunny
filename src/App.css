@@ -1007,30 +1007,28 @@ body {
 
 /* แถบด้านบน */
 .social-banner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 14px 16px;
-  text-decoration: none;
-  color: #ffffff;
+  position: relative;
+  overflow: hidden;
 }
 
+.social-banner::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, #fff0, #fff9, #fff0);
+  animation: lineSlide 2.5s linear infinite;
+}
+
+@keyframes lineSlide {
+  from { left: -100%; }
+  to { left: 100%; }
+}
 .social-banner-left {
   display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.social-banner-icon {
-  width: 32px;
-  height: 32px;
-  object-fit: contain;
-}
-
-.text-zone {
-  display: flex;
   flex-direction: column;
-  line-height: 1.1;
 }
 
 .social-platform {
