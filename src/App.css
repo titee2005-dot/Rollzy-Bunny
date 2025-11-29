@@ -969,7 +969,7 @@ body {
   }
 
   .highlight-body {
-    padding: 4px 14px 14px;
+    padding: 12px 14px 14px;
   }
 
   .highlight-title {
@@ -1804,6 +1804,7 @@ lzy-btn--ghost:hover {
   }
 
   /* ลบ padding/margin ฝั่งซ้ายขวาที่ซ้อนใน layout ต่าง ๆ */
+  .highlight-body,
   .social-main-grid,
   .rollzy-layout, {
     padding-left: 0 !important;
