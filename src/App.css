@@ -1069,23 +1069,19 @@ body {
 }
 
 
-/* แถวบนของการ์ด (โลโก้ + Instagram/TikTok + @handle) */
-.social-banner-left {
+/* แถบด้านบน */
+.social-banner {
   display: flex;
   align-items: center;
-  gap: 6px;                /* ระยะห่างโลโก้กับตัวหนังสือ */
+  justify-content: space-between;
+  padding: 14px 16px;
+  text-decoration: none;
+  color: #ffffff;
 }
 
-/* ปรับ padding ด้านในของแถบสีด้านบน */
-.social-banner {
-  padding: 8px 14px;       /* ← ตรงนี้ทำให้ไม่ชิดขอบเกินไป */
-}
-
-/* ถ้าในมือถือมันยังชิดเกิน ก็เพิ่มเฉพาะมือถือได้ */
-@media (max-width: 768px) {
-  .social-banner {
-    padding: 10px 16px;
-  }
+.social-banner-left {
+  display: flex;
+  flex-direction: column;
 }
 
 .social-platform {
@@ -1830,14 +1826,14 @@ lzy-btn--ghost:hover {
 
   /* กล่องรวมทั้ง section social */
   #social .page-section-inner {
-    padding-left: 4px;
-    padding-right: 4px;
+    padding-left: 14px;
+    padding-right: 14px;
   }
 
   /* ตัวการ์ด IG / TikTok ให้ไม่ชนขอบจอ */
   .social-card {
-    margin-left: 4px;
-    margin-right: 4px;
+    margin-left: 14px;
+    margin-right: 14px;
   }
 }
 /* ปรับ padding ของ Section แรกให้เท่ากับส่วนอื่นบนมือถือ */
