@@ -1037,6 +1037,9 @@ body {
 
 /* gradient แต่ละแอป */
 .social-banner--ig {
+  background: linear-gradient(90deg, #ff9a5a, #ff577f, #9b4dff);
+}
+.social-banner--ig {
   position: relative;
 }
 
