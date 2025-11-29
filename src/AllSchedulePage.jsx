@@ -1,6 +1,6 @@
 // src/AllSchedulePage.jsx
 import Navbar from "./Navbar.jsx";
-import EventsSection from "./EventsSection.jsx";
+import AllScheduleList from "./AllScheduleList.jsx";
 
 function AllSchedulePage() {
   return (
