@@ -6,7 +6,7 @@ function EventsSection() {
       place: "MCC HALL 3F, The Mall Bangkae",
       desc: "จิงโจ้",
       image: "/event1.jpg",
-      link: "https://example.com/event1" // ← ลิงก์ของ event 1
+      link: "https://www.facebook.com/share/p/1ABrNvjBWq/" // ← ลิงก์ของ event 1
     },
     {
       title: "Handshake Event",
@@ -14,7 +14,7 @@ function EventsSection() {
       place: "MCC HALL 3F, The Mall Bangkapi",
       desc: "งานจับมือ",
       image: "/event2.jpg",
-      link: "https://example.com/event2" // ← ลิงก์ของ event 2
+      link: "https://www.facebook.com/share/p/17vULEJkk5/" // ← ลิงก์ของ event 2
     },
     {
       title: "War of Goddess",
@@ -22,7 +22,7 @@ function EventsSection() {
       place: "TBA",
       desc: "กีฬาสี",
       image: "/event3.jpg",
-      link: "https://example.com/event3" // ← ลิงก์ของ event 3
+      link: "https://www.facebook.com/share/p/16yQFhDc2G/" // ← ลิงก์ของ event 3
     },
   ];
 
