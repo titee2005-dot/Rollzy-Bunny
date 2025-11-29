@@ -410,11 +410,10 @@ function RollzyBunnySection() {
         <div className="rollzy-left">
           <h2 className="rollzy-title">Rollzy Bunny</h2>
           <p className="rollzy-lead">
-            แฟนด้อมที่มาไกลกว่าการติดตาม
+            ???
           </p>
           <p className="rollzy-subtitle">
-            รับชมผลงาน ติดตามข่าวสาร และพูดคุยกันยาว ๆ รู้จักมุมเบื้องหลัง
-            และคอยส่งกำลังใจให้ Rollzy ไปด้วยกันในทุกสเตจ
+            ???
           </p>
 
           <div className="rollzy-actions">
@@ -462,8 +461,7 @@ function RollzyBunnySection() {
           >
             <h3 className="rollzy-modal-title">ช่องทางติดตามข่าวสาร</h3>
             <p className="rollzy-modal-text">
-              เลือกช่องทางที่สะดวกสำหรับติดตามประกาศ งาน และกิจกรรมของ Rollzy Bunny
-              ได้จากด้านล่างนี้
+              สามารถติดตามแฟนด้อมได้จากด้านล่างนี้
             </p>
 
             <div className="rollzy-channel-list">
