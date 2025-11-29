@@ -1778,47 +1778,30 @@ lzy-btn--ghost:hover {
 
 /* ===== ปรับตำแหน่งรูป HERO ให้ตรงกลางในแต่ละหน้าจอ ===== */
 
-@media (max-width: 480px) {
-  .about-photo-frame {
-    width: 50vw;        /* จาก 75vw → เล็กลง */
-    max-width: 250px;   /* จำกัดไม่ให้ใหญ่เกิน */
-    border-radius: 20px;
-  }
-
-  .about-photo-frame img {
-    border-radius: 16px;
-  }
-
-  .about-photo-caption {
-    font-size: 0.75rem; /* ลด caption ไม่ให้ยาวเกิน */
-  }
-}
-
 /* มือถือ: ลดพื้นที่ว่างด้านข้างทั้งเว็บ */
 @media (max-width: 768px) {
 
   /* ชั้นนอกสุดของแต่ละ section */
   .page-section {
-    padding-left: 17px ;
-    padding-right: 17px ;
+    padding-left: 17px !important;
+    padding-right: 17px !important;
   }
 
-  /* ลบ padding/margin ฝั่งซ้ายขวาที่ซ้อนใน layout ต่าง ๆ */
-  .highlight-body,
-  .events-header,
+  /* ลบ padding/margin ฝั่งซ้ายขวาของ layout ต่าง ๆ */
   .social-main-grid,
-  .rollzy-layout, {
+  .rollzy-layout {
     padding-left: 0 !important;
     padding-right: 0 !important;
     margin-left: 0 !important;
     margin-right: 0 !important;
   }
 
-  /* ถ้ามี max-width ให้ยืดเต็มจอ */
+  /* ให้ content กว้างเต็มจอ */
   .page-section-inner {
     max-width: 100% !important;
   }
-}
+}  /* ← ปิด @media ให้ครบ */
+
 /* มือถือ – ให้ส่วน SOCIAL มีระยะห่างจากขอบมากขึ้นนิดหน่อย */
 
 @media (max-width: 768px) {
