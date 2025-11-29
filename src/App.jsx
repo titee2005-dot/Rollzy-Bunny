@@ -321,7 +321,7 @@ function SocialSection() {
 
           <div className="social-embed social-embed--ig">
   <iframe
-    src="https://e556eb91e82148e19eac24d4dbdc6adf.elf.site"
+    src="https://widgets.sociablekit.com/instagram-feed/iframe/25627734"
     className="insta-widget"
     scrolling="no"
     allowTransparency="true"
