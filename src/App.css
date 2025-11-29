@@ -131,21 +131,19 @@ body {
 .page-section-inner {
   max-width: 360px;
   margin: 0 auto;
-  padding: 0 14px;
-  
-  @media (max-width: 600px) {
-  .page-section-inner {
-    padding-left: 10px !important;
-    padding-right: 10px !important;
-  }
-}
-
+  padding: 0 5px;
 }
 
 @media (min-width: 768px) {
   .page-section-inner {
     max-width: 1120px;
     padding: 0 28px;
+  }
+}
+@media (max-width: 600px) {
+  .page-section-inner {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
   }
 }
 
@@ -1618,7 +1616,7 @@ lzy-btn--ghost:hover {
 
   .page-section-inner {
     max-width: 1120px;
-    padding: 0 28px;
+    padding: 0 12px;
   }
   @media (max-width: 600px) {
   .page-section-inner {
