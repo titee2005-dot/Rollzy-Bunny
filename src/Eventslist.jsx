@@ -37,12 +37,7 @@ function Eventslist() {
           </div>
 
           {/* ปุ่มไปหน้ารวมกิจกรรมทั้งหมด */}
-          <a 
-            href="/"   // ← หน้าใหม่
-            className="all-schedule-btn"
-          >
-            Back
-          </a>
+          <a href="/" className="all-schedule-btn">Back</a>
         </div>
 
         <div className="card-row">
