@@ -313,7 +313,10 @@ function SocialSection() {
               className="social-banner social-banner--ig"
             >
               <div className="social-banner-left">
+                <div className="social-logo-row">
+                <img src="/social/ig-icon.png" alt="IG" className="social-icon" />
                 <span className="social-platform">Instagram</span>
+                </div>
                 <span className="social-handle">@rose.bnk48office</span>
               </div>
               <span className="social-arrow">↗</span>
