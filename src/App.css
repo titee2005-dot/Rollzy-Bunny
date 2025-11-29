@@ -1039,30 +1039,6 @@ body {
 .social-banner--ig {
   background: linear-gradient(90deg, #ff9a5a, #ff577f, #9b4dff);
 }
-.social-banner--ig {
-  position: relative;
-}
-
-.social-banner--ig::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 2px;
-  background: linear-gradient(90deg, #ff9a9e, #fad0c4, #fad0c4);
-  -webkit-mask: 
-      linear-gradient(#fff 0 0) content-box, 
-      linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-          mask-composite: exclude;
-  animation: glow 3s linear infinite;
-}
-
-@keyframes glow {
-  0% { filter: hue-rotate(0deg); }
-  100% { filter: hue-rotate(360deg); }
-}
-
 
 .social-banner--tt {
   background: #000000;
