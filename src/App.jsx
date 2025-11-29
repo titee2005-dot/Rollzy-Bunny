@@ -1,6 +1,7 @@
 import './App.css';
-
 import Navbar from "./Navbar.jsx";
+import EventsSection from "./EventsSection.jsx";
+import { useState } from "react";
 
 /* ตัวช่วยห่อแต่ละ section ให้พื้นหลังเต็มจอ แต่เนื้อหาอยู่กลาง */
 function PageSection({ id, tone, children }) {
@@ -32,10 +33,6 @@ function Hero() {
     </section>
   );
 }
-
-
-
-import { useState } from "react";
 
 function AboutSection() {
   const [showMore, setShowMore] = useState(false);
@@ -106,12 +103,6 @@ function AboutSection() {
     </div>
   );
 }
-
-import EventsSection from "./EventsSection.jsx";
-
-<PageSection id="schedule" tone="purple">
-  <EventsSection />
-</PageSection>
 
 
 function DiscographySection() {
