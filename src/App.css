@@ -1804,11 +1804,7 @@ lzy-btn--ghost:hover {
 
   /* ลบ padding/margin ฝั่งซ้ายขวาที่ซ้อนใน layout ต่าง ๆ */
   .page-section-inner,
-  .social-main-grid,
-  .rollzy-layout,
-  .social-card,
-  .social-embed,
-  .social-banner {
+  .rollzy-layout, {
     padding-left: 0 !important;
     padding-right: 0 !important;
     margin-left: 0 !important;
@@ -1826,14 +1822,14 @@ lzy-btn--ghost:hover {
 
   /* กล่องรวมทั้ง section social */
   #social .page-section-inner {
-    padding-left: 14px;
-    padding-right: 14px;
+    padding-left: 4px;
+    padding-right: 4px;
   }
 
   /* ตัวการ์ด IG / TikTok ให้ไม่ชนขอบจอ */
   .social-card {
-    margin-left: 14px;
-    margin-right: 14px;
+    margin-left: 4px;
+    margin-right: 4px;
   }
 }
 /* ปรับ padding ของ Section แรกให้เท่ากับส่วนอื่นบนมือถือ */
