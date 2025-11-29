@@ -321,7 +321,7 @@ function SocialSection() {
 
           <div className="social-embed social-embed--ig">
   <iframe
-    src="//www.instagram.com/embed.js"
+    src="https://e556eb91e82148e19eac24d4dbdc6adf.elf.site"
     className="insta-widget"
     scrolling="no"
     allowTransparency="true"
@@ -348,12 +348,7 @@ function SocialSection() {
 
             <div className="social-embed social-embed--tt">
               {/* เปลี่ยน src เป็น embed จริงของ TikTok */}
-              <iframe
-                src="https://www.tiktok.com/embed/v2/xxxxxxxxx"
-                frameBorder="0"
-                scrolling="no"
-                allow="encrypted-media;"
-              />
+              <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@rose.bnk48official" data-unique-id="rose.bnk48official" data-embed-type="creator" style="max-width: 780px; min-width: 288px;" > <section> <a target="_blank" href="https://www.tiktok.com/@rose.bnk48official?refer=creator_embed">@rose.bnk48official</a> </section> </blockquote> <script async src="https://www.tiktok.com/embed.js"></script>
             </div>
           </article>
         </div>
