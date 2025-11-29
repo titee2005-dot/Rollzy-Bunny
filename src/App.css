@@ -1005,6 +1005,60 @@ body {
   border: 1px solid rgba(215, 200, 245, 0.9);
 }
 
+/* การ์ดหลักของแต่ละแพลตฟอร์ม */
+.social-card {
+  background: #ffffff;
+  border-radius: 22px;
+  box-shadow: 0 16px 36px rgba(150, 130, 220, 0.25);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* หัวการ์ดด้านบน (แถบสี) */
+.social-banner {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 18px;
+  color: #ffffff;
+  border-radius: 22px 22px 0 0;
+  overflow: hidden;
+}
+
+.social-banner-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.social-platform {
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.social-handle {
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.social-arrow {
+  font-size: 1.2rem;
+}
+
+/* ส่วน embed ข้างล่าง */
+.social-embed {
+  background: #fff;
+  padding: 10px 10px 14px;
+}
+
+.social-embed iframe {
+  width: 100%;
+  border: 0;
+}
+
 /* แถบด้านบน */
 .social-banner {
   display: flex;
@@ -1013,14 +1067,6 @@ body {
   padding: 14px 16px;
   text-decoration: none;
   color: #ffffff;
-}
-.social-banner-icon {
-  animation: pop 1.5s infinite ease-in-out;
-}
-
-@keyframes pop {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.12); }
 }
 
 .social-banner-left {
@@ -1045,11 +1091,43 @@ body {
 
 /* gradient แต่ละแอป */
 .social-banner--ig {
-  background: linear-gradient(90deg, #ff9a5a, #ff577f, #9b4dff);
+  background: linear-gradient(120deg, #f9ce34, #ee2a7b, #6228d7);
+}
+
+/* วงกลมไอคอน IG จาง ๆ ด้านหลัง */
+.social-banner--ig::after {
+  content: "";
+  position: absolute;
+  right: -40px;
+  top: -30px;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  /* ใช้สีไล่โทน IG ให้ดูเป็นโลโก้ฟุ้ง ๆ */
+  background: radial-gradient(circle at center, rgba(255,255,255,0.8) 0%, transparent 60%),
+              radial-gradient(circle at 30% 30%, rgba(255,255,255,0.35) 0%, transparent 55%);
+  opacity: 0.65;
+  pointer-events: none;
 }
 
 .social-banner--tt {
-  background: #000000;
+  background: #050509;
+}
+
+/* ลาย TikTok ด้านหลัง */
+.social-banner--tt::after {
+  content: "";
+  position: absolute;
+  right: -40px;
+  top: -40px;
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(0, 242, 234, 0.7), transparent 60%),
+    radial-gradient(circle at 70% 60%, rgba(255, 0, 80, 0.7), transparent 60%);
+  opacity: 0.7;
+  pointer-events: none;
 }
 
 /* ส่วน embed */
