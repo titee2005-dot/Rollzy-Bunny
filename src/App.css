@@ -140,6 +140,13 @@ body {
     padding: 0 28px;
   }
 }
+@media (max-width: 600px) {
+  .page-section-inner {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+}
+
 
 
 /* SECTION HEADER */
@@ -1611,6 +1618,12 @@ lzy-btn--ghost:hover {
     max-width: 1120px;
     padding: 0 28px;
   }
+  @media (max-width: 600px) {
+  .page-section-inner {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+}
 
   .hero {
     flex-direction: row;
