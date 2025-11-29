@@ -142,8 +142,8 @@ body {
 }
 @media (max-width: 600px) {
   .page-section-inner {
-    padding-left: 10px !important;
-    padding-right: 10px !important;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
   }
 }
 
@@ -1620,8 +1620,8 @@ lzy-btn--ghost:hover {
   }
   @media (max-width: 600px) {
   .page-section-inner {
-    padding-left: 10px !important;
-    padding-right: 10px !important;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
   }
 }
 
