@@ -1804,8 +1804,11 @@ lzy-btn--ghost:hover {
   }
 
   /* ลบ padding/margin ฝั่งซ้ายขวาที่ซ้อนใน layout ต่าง ๆ */
-  .page-section-inner,
-  .rollzy-layout, {
+  .social-main-grid,
+  .rollzy-layout,
+  .social-card,
+  .social-embed,
+  .social-banner, {
     padding-left: 0 !important;
     padding-right: 0 !important;
     margin-left: 0 !important;
