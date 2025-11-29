@@ -1812,3 +1812,27 @@ lzy-btn--ghost:hover {
     max-width: 100% !important;
   }
 }
+/* มือถือ – ให้ส่วน SOCIAL มีระยะห่างจากขอบมากขึ้นนิดหน่อย */
+
+@media (max-width: 768px) {
+
+  /* กล่องรวมทั้ง section social */
+  #social .page-section-inner {
+    padding-left: 4px;
+    padding-right: 4px;
+  }
+
+  /* ตัวการ์ด IG / TikTok ให้ไม่ชนขอบจอ */
+  .social-card {
+    margin-left: 4px;
+    margin-right: 4px;
+  }
+}
+/* ปรับ padding ของ Section แรกให้เท่ากับส่วนอื่นบนมือถือ */
+
+@media (max-width: 768px) {
+  #about .page-section-inner {
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+  }
+}
