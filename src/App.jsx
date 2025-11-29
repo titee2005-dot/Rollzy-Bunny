@@ -343,7 +343,10 @@ function SocialSection() {
     className="social-banner social-banner--tt"
   >
     <div className="social-banner-left">
+       <div className="social-logo-row">
+      <img src="/social/tiktokicon.png" alt="TikTok" className="social-icon" />
       <span className="social-platform">TikTok</span>
+      </div>
       <span className="social-handle">@rose.bnk48official</span>
     </div>
     <span className="social-arrow">↗</span>
