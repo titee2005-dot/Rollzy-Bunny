@@ -313,10 +313,10 @@ function SocialSection() {
               className="social-banner social-banner--ig"
             >
               <div className="social-banner-left">
-                <div className="social-logo-row">
+                <span className="social-platform">
                 <img src="/igicon.png" alt="IG" className="social-icon" />
-                <span className="social-platform">Instagram</span>
-                </div>
+                <span>Instagram</span>
+          
                 <span className="social-handle">@rose.bnk48office</span>
               </div>
               <span className="social-arrow">↗</span>
@@ -343,10 +343,9 @@ function SocialSection() {
     className="social-banner social-banner--tt"
   >
     <div className="social-banner-left">
-       <div className="social-logo-row">
+      <span className="social-platform">
       <img src="/tiktokicon.png" alt="TikTok" className="social-icon" />
-      <span className="social-platform">TikTok</span>
-      </div>
+      <span>TikTok</span>
       <span className="social-handle">@rose.bnk48official</span>
     </div>
     <span className="social-arrow">↗</span>
