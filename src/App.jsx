@@ -307,17 +307,21 @@ function SocialSection() {
           {/* Instagram */}
           <article className="social-card">
             <a
-              href="https://www.instagram.com/rose.bnk48office/#"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="social-banner social-banner--ig"
-            >
-              <div className="social-banner-left">
-                <span className="social-platform">Instagram</span>
-                <span className="social-handle">@rose.bnk48office</span>
-              </div>
-              <span className="social-arrow">↗</span>
-            </a>
+  href="https://www.instagram.com/rose.bnk48office"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="social-banner social-banner--ig"
+>
+  <div className="social-banner-left">
+    <img src="/icon-ig.png" className="social-banner-icon" alt="" />
+    <div className="text-zone">
+      <span className="social-platform">Instagram</span>
+      <span className="social-handle">@rose.bnk48office</span>
+    </div>
+  </div>
+
+  <span className="social-arrow">↗</span>
+</a>
 
           <div className="social-embed social-embed--ig">
   <iframe
