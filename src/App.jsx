@@ -333,24 +333,40 @@ function SocialSection() {
 
           {/* TikTok */}
           <article className="social-card">
-            <a
-              href="https://www.tiktok.com/@yourtiktok_here"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="social-banner social-banner--tt"
-            >
-              <div className="social-banner-left">
-                <span className="social-platform">TikTok</span>
-                <span className="social-handle">@rose.bnk48official</span>
-              </div>
-              <span className="social-arrow">↗</span>
-            </a>
+  <a
+    href="https://www.tiktok.com/@rose.bnk48official"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="social-banner social-banner--tt"
+  >
+    <div className="social-banner-left">
+      <span className="social-platform">TikTok</span>
+      <span className="social-handle">@rose.bnk48official</span>
+    </div>
+    <span className="social-arrow">↗</span>
+  </a>
 
-            <div className="social-embed social-embed--tt">
-              {/* เปลี่ยน src เป็น embed จริงของ TikTok */}
-              <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@rose.bnk48official" data-unique-id="rose.bnk48official" data-embed-type="creator" style="max-width: 780px; min-width: 288px;" > <section> <a target="_blank" href="https://www.tiktok.com/@rose.bnk48official?refer=creator_embed">@rose.bnk48official</a> </section> </blockquote> <script async src="https://www.tiktok.com/embed.js"></script>
-            </div>
-          </article>
+  <div className="social-embed social-embed--tt">
+    <blockquote
+      className="tiktok-embed"
+      cite="https://www.tiktok.com/@rose.bnk48official"
+      data-unique-id="rose.bnk48official"
+      data-embed-type="creator"
+      style={{ maxWidth: "780px", minWidth: "288px" }}
+    >
+      <section>
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://www.tiktok.com/@rose.bnk48official?refer=creator_embed"
+        >
+          @rose.bnk48official
+        </a>
+      </section>
+    </blockquote>
+    {/* ไม่ต้องใส่ <script> ตรงนี้แล้ว เพราะเราไปใส่ใน index.html แล้ว */}
+  </div>
+</article>
         </div>
 
         {/* แถวล่าง: ปุ่มไป Facebook / iAM48 */}
