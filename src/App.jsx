@@ -105,7 +105,7 @@ function AboutSection() {
                 <li>Upcoming</li>
                 <li>Upcoming</li>
                 <li>Upcoming</li>
-                <li>Upcomping</li>
+                <li>Upcoming</li>
               </ul>
             </div>
           )}
@@ -129,7 +129,7 @@ function EventsSection() {
       title: "Kangaroo Village Christmas Festival",
       date: "19 – 21 ธันวาคม 2025",
       place: "MCC HALL 3F, The Mall Bangkae",
-      desc: "บรรยากาศคริสต์มาสสุดน่ารัก พร้อมไฟและฉากเทศกาล",
+      desc: "จิงโจ้",
       image: "/event1.jpg",
       link: "https://example.com/event1" // ← ลิงก์ของ event 1
     },
@@ -230,7 +230,7 @@ function DiscographySection() {
       <div className="section-header highlight-header">
         <h2>Highlight</h2>
         <p>
-          รวมโมเมนต์ที่แฟน ๆ พูดถึงบ่อยที่สุดของ Rose — ทั้งสเตจ, แฟนแคม และเหตุการณ์พิเศษที่ทำให้ตกหลุมรักซ้ำ ๆ 💜
+          รวม Highlight ของโรส 💜
         </p>
       </div>
 
