@@ -17,7 +17,7 @@ function EventsSection() {
       link: "https://example.com/event2" // ← ลิงก์ของ event 2
     },
     {
-      title: "Hi-Touch & Fansign",
+      title: "War of Goddess",
       date: "1 กุมภาพันธ์ 2026",
       place: "TBA",
       desc: "กีฬาสี",
