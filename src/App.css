@@ -1017,7 +1017,20 @@ body {
 
 .social-banner-left {
   display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.social-banner-icon {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+.text-zone {
+  display: flex;
   flex-direction: column;
+  line-height: 1.1;
 }
 
 .social-platform {
