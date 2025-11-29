@@ -131,7 +131,7 @@ body {
 .page-section-inner {
   max-width: 360px;
   margin: 0 auto;
-  padding: 0 5px;
+  padding: 0 14px;
 }
 
 @media (min-width: 768px) {
@@ -140,12 +140,7 @@ body {
     padding: 0 28px;
   }
 }
-@media (max-width: 600px) {
-  .page-section-inner {
-    padding-left: 10px !important;
-    padding-right: 10px !important;
-  }
-}
+
 
 
 
@@ -1616,14 +1611,9 @@ lzy-btn--ghost:hover {
 
   .page-section-inner {
     max-width: 1120px;
-    padding: 0 12px;
+    padding: 0 28px;
   }
-  @media (max-width: 600px) {
-  .page-section-inner {
-    padding-left: 15px !important;
-    padding-right: 15px !important;
-  }
-}
+  
 
   .hero {
     flex-direction: row;
@@ -1792,5 +1782,17 @@ lzy-btn--ghost:hover {
 
   .about-photo-caption {
     font-size: 0.75rem; /* ลด caption ไม่ให้ยาวเกิน */
+  }
+}
+
+/* ลดขอบด้านข้างทั้งเว็บบนมือถือ */
+@media (max-width: 768px) {
+  .page-section,
+  .page-section-inner,
+  .app-root,
+  .social-main-grid,
+  .rollzy-layout {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
   }
 }
