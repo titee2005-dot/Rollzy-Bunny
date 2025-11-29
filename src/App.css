@@ -132,18 +132,20 @@ body {
   max-width: 360px;
   margin: 0 auto;
   padding: 0 14px;
+  
+  @media (max-width: 600px) {
+  .page-section-inner {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+}
+
 }
 
 @media (min-width: 768px) {
   .page-section-inner {
     max-width: 1120px;
     padding: 0 28px;
-  }
-}
-@media (max-width: 600px) {
-  .page-section-inner {
-    padding-left: 15px !important;
-    padding-right: 15px !important;
   }
 }
 
