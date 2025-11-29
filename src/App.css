@@ -1079,20 +1079,22 @@ body {
   opacity: 0.9;
 }
 
+/* ทำให้โลโก้ + ชื่ออยู่บรรทัดเดียว */
 .social-platform {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-weight: 700;
-  font-size: 0.9rem;
+  white-space: nowrap;    /* ป้องกันขึ้นบรรทัดใหม่ */
 }
 
-/* ไอคอนเล็ก */
+/* โลโก้เล็กพอดี */
 .social-icon {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   object-fit: contain;
+  display: inline-block;
 }
+
 
 .social-handle {
   font-size: 1rem;

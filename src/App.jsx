@@ -316,6 +316,7 @@ function SocialSection() {
                 <span className="social-platform">
                 <img src="/igicon.png" alt="IG" className="social-icon" />
                 <span>Instagram</span>
+                </span>
           
                 <span className="social-handle">@rose.bnk48office</span>
               </div>
@@ -346,6 +347,7 @@ function SocialSection() {
       <span className="social-platform">
       <img src="/tiktokicon.png" alt="TikTok" className="social-icon" />
       <span>TikTok</span>
+      </span>
       <span className="social-handle">@rose.bnk48official</span>
     </div>
     <span className="social-arrow">↗</span>
