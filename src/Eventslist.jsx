@@ -38,7 +38,7 @@ function Eventslist() {
 
           {/* ปุ่มไปหน้ารวมกิจกรรมทั้งหมด */}
           <a 
-            href="https://rollzy-bunny.vercel.app/"   // ← หน้าใหม่
+            href="/"   // ← หน้าใหม่
             className="all-schedule-btn"
           >
             Back
