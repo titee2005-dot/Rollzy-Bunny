@@ -75,3 +75,5 @@ function Eventslist() {
     </section>
   );
 }
+
+export default Eventslist;
