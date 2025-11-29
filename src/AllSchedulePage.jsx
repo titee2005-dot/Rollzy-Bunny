@@ -1,6 +1,6 @@
 // src/AllSchedulePage.jsx
 import Navbar from "./Navbar.jsx";
-import EventsSection from "./EventsSection.jsx"; // ถ้าคุณประกาศใน App.jsx ก็แยกออกมาก่อน
+import EventsSection from "./EventsSection.jsx";
 
 function AllSchedulePage() {
   return (
