@@ -74,7 +74,15 @@ body {
   align-items: center;
   justify-content: space-between;
 }
-
+/* .nav {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}*/
 
 /* NAVBAR */
 
@@ -210,7 +218,6 @@ body {
     justify-content: space-between;
   }
 
-  /* ปุ่ม 3 ขีดแสดงเฉพาะมือถือ */
   .nav-toggle {
     display: flex;
     align-items: center;
@@ -227,13 +234,19 @@ body {
     display: none;
   }
 
-  /* พอกด 3 ขีด (มี class nav-links--open) ให้โชว์เป็นแถวยาวแบบเดิม */
+  /* ตอนกดปุ่ม 3 ขีด → เมนูโชว์ + รูดซ้ายขวาได้ */
   .nav-links.nav-links--open {
     display: flex;
     gap: 6px;
-    overflow-x: auto;
     padding-bottom: 4px;
-    margin-top: 8px;   /* ดันลงจากโลโก้นิดนึง */
+    margin-top: 8px;
+
+    width: 110%;                 /* ให้กินเต็มบรรทัดใต้โลโก้ */
+    overflow-x: auto;            /* เปิดเลื่อนแกน X */
+    overflow-y: hidden;
+    white-space: nowrap;         /* บังคับให้อยู่บรรทัดเดียว ยาว ๆ */
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-x;
   }
 }
 
