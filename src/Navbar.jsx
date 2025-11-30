@@ -1,113 +1,116 @@
 // src/Navbar.jsx
-import { useEffect, useState } from "react";
-
-// id ของแต่ละ section บนหน้า
-const SECTION_IDS = ["home", "about", "schedule", "discography", "social", "rollzy"];
+import { useState, useEffect } from "react";
 
 function Navbar() {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState("home");
+  const [open, setOpen] = useState(false);
+  const [activeId, setActiveId] = useState("home");
 
+  const toggleMenu = () => setOpen(!open);
+  const closeMenu = () => setOpen(false);
+
+  // ทำ scroll spy ให้รู้ว่าอยู่ section ไหน
   useEffect(() => {
-    // เวลา hash ใน URL เปลี่ยน (เช่น /#about) ให้ active ตาม
-    const handleHashChange = () => {
-      const hash = window.location.hash.replace("#", "");
-      if (SECTION_IDS.includes(hash)) {
-        setActiveSection(hash);
+    const sectionIds = ["home", "about", "schedule", "discography", "social", "rollzy"];
+    const OFFSET = 80; // เผื่อความสูง navbar
+
+    const handleScroll = () => {
+      let current = "home";
+
+      for (const id of sectionIds) {
+        const el = document.getElementById(id);
+        if (!el) continue;
+
+        const rect = el.getBoundingClientRect();
+        // ถ้าด้านบนของ section เลย navbar ขึ้นไปนิด และยังไม่หลุดล่างจอ
+        if (rect.top <= OFFSET && rect.bottom > OFFSET) {
+          current = id;
+          break;
+        }
       }
+
+      setActiveId(current);
     };
 
-    window.addEventListener("hashchange", handleHashChange);
-    handleHashChange(); // เช็กตอนโหลดครั้งแรก
-
-    // ใช้ IntersectionObserver ดูว่า section ไหนอยู่กลางจอ → ให้ active ตัวนั้น
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const id = entry.target.id;
-            if (SECTION_IDS.includes(id)) {
-              setActiveSection(id);
-            }
-          }
-        });
-      },
-      {
-        root: null,
-        rootMargin: "-50% 0px -50% 0px", // โซนกลางหน้าจอ
-        threshold: 0,
-      }
-    );
-
-    SECTION_IDS.forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    });
-
-    return () => {
-      window.removeEventListener("hashchange", handleHashChange);
-      observer.disconnect();
-    };
+    // เช็กครั้งแรกตอนโหลด
+    handleScroll();
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const toggleMenu = () => setMenuOpen((prev) => !prev);
-  const closeMenu = () => setMenuOpen(false);
-
   const linkClass = (id) =>
-    "nav-link" + (activeSection === id ? " nav-link--active" : "");
+    activeId === id ? "nav-link--active" : "";
 
   return (
     <header className="nav-wrapper">
       <nav className="nav">
-        {/* แถวบน: โลโก้ + ชื่อ + ปุ่มสามขีด */}
         <div className="nav-main">
-          <div className="nav-brand">
-            {/* ตรง src เปลี่ยนเป็นโลโก้ที่คุณใช้จริงได้เลย */}
+          {/* โลโก้ + ชื่อ ROSE GARDEN */}
+          <div className="nav-logo">
+            {/* เปลี่ยน path รูปตามที่เราใช้จริงใน public */}
             <img
-              src="/rose-logo.png"
-              alt="Rose logo"
-              className="nav-logo-image"
+              src="/logo.png"
+              alt="Rose Garden Logo"
+              className="nav-logo-img"
             />
-            <span className="nav-logo-text">Rose&apos;s Garden</span>
+            <span>ROSE'S GARDEN</span>
           </div>
 
+          {/* ปุ่ม 3 ขีด */}
           <button
-  type="button"
-  className={`nav-toggle ${menuOpen ? "nav-toggle--open" : ""}`}
-  onClick={toggleMenu}
->
-  <span className="nav-toggle-line"></span>
-  <span className="nav-toggle-line"></span>
-  <span className="nav-toggle-line"></span>
-</button>
+            type="button"
+            className={`nav-toggle ${open ? "nav-toggle--open" : ""}`}
+            onClick={toggleMenu}
+          >
+            <span className="nav-toggle-lines">
+              <span className="nav-toggle-line" />
+              <span className="nav-toggle-line" />
+              <span className="nav-toggle-line" />
+            </span>
+          </button>
         </div>
 
-        {/* เมนู – เดสก์ท็อปโชว์ตลอด / มือถือโชว์ตอน menuOpen = true */}
-        <div className={`nav-links ${menuOpen ? "nav-links--open" : ""}`}>
-          <a href="/#home" className={linkClass("home")} onClick={closeMenu}>
+        {/* เมนู ยาวแบบเดิม แต่บนมือถือจะซ่อน/แสดงตาม open */}
+        <div className={`nav-links ${open ? "nav-links--open" : ""}`}>
+          <a
+            href="/#home"
+            onClick={closeMenu}
+            className={linkClass("home")}
+          >
             Home
           </a>
-          <a href="/#about" className={linkClass("about")} onClick={closeMenu}>
+          <a
+            href="/#about"
+            onClick={closeMenu}
+            className={linkClass("about")}
+          >
             About Rose
           </a>
           <a
             href="/#schedule"
-            className={linkClass("schedule")}
             onClick={closeMenu}
+            className={linkClass("schedule")}
           >
             Schedule
           </a>
           <a
             href="/#discography"
-            className={linkClass("discography")}
             onClick={closeMenu}
+            className={linkClass("discography")}
           >
             Highlight
           </a>
-          <a href="/#social" className={linkClass("social")} onClick={closeMenu}>
+          <a
+            href="/#social"
+            onClick={closeMenu}
+            className={linkClass("social")}
+          >
             Social Media
           </a>
-          <a href="/#rollzy" className={linkClass("rollzy")} onClick={closeMenu}>
+          <a
+            href="/#rollzy"
+            onClick={closeMenu}
+            className={linkClass("rollzy")}
+          >
             Rollzy Bunny
           </a>
         </div>

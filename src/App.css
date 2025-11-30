@@ -76,12 +76,26 @@ body {
 }
 
 
+/* NAVBAR */
+
 .nav-logo {
+  display: flex;              /* ทำให้โลโก้ + ตัวหนังสือเรียงเป็นแถว */
+  align-items: center;
+  gap: 6px;                   /* ระยะห่างโลโก้กับ ROSE GARDEN */
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   font-size: 0.85rem;
 }
+
+/* รูปโลโก้หน้า ROSE GARDEN */
+.nav-logo-img {
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;       /* ถ้าอยากได้วงกลม */
+  object-fit: cover;
+}
+
 
 .nav-links {
   display: flex;
@@ -142,131 +156,96 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
-
-.nav-brand {
-  display: flex;
-  align-items: center;
-  gap: 8px; /* ระยะห่างโลโก้กับตัวหนังสือ */
-}
-
-.nav-logo-image {
-  width: 24px;
-  height: 24px;
-  border-radius: 999px;
-  object-fit: cover;
-}
-
-.nav-logo-text {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--text-main);
+  gap: 12px; /* ← เพิ่มระยะห่างระหว่าง Logo กับ ปุ่ม 3 ขีด */
 }
 
 /* ปุ่ม 3 ขีด */
 .nav-toggle {
-  display: none; /* โชว์เฉพาะมือถือ */
-  background: none;
-  border: none;
+  width: 34px;
+  height: 24px;
+  padding: 0;
+  border-radius: 999px;
+
+  background: #ffffff;
+  border: 2px solid #2c2537;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   cursor: pointer;
-  padding: 6px;
+}
+
+.nav-toggle-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 
 .nav-toggle-line {
-  display: block;
-  width: 22px;     /* ความยาวขีด (เหมือนในภาพ) */
-  height: 2px;     /* ความหนาขีด */
-  background: #3a2a5e; /* สีแบบในภาพ (น้ำตาลเข้ม) */
+  width: 14px;  /* เล็กลงจากของเดิม */
+  height: 2px;
+  background: #2c2537;
   border-radius: 2px;
-  margin: 4px 0;   /* ระยะห่างระหว่างแต่ละขีด */
+  transition: 0.25s;
+  margin: 0px 0;  /* ระยะห่างขีด */
 }
 
-/* เวลาเมนูเปิด ให้สามขีดแปลงเป็นกากบาทนิด ๆ */
+/* ตอนเปิดเมนู แปลงเป็นกากบาท */
 .nav-toggle--open .nav-toggle-line:nth-child(1) {
-  transform: translateY(4px) rotate(45deg);
+  transform: translateY(5px) rotate(45deg);
 }
 .nav-toggle--open .nav-toggle-line:nth-child(2) {
   opacity: 0;
 }
 .nav-toggle--open .nav-toggle-line:nth-child(3) {
-  transform: translateY(-4px) rotate(-45deg);
+  transform: translateY(-5px) rotate(-45deg);
 }
 
-/* จอเล็ก: โชว์ปุ่ม 3 ขีด + ซ่อนเมนูแนวนอน */
 /* มือถือ */
 @media (max-width: 720px) {
-  .nav {
-    max-width: 100%;
+  .nav-main {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 
+  /* ปุ่ม 3 ขีดแสดงเฉพาะมือถือ */
   .nav-toggle {
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: 999px;
+    border: 1px solid rgba(132, 107, 196, 0.4);
+    background: rgba(255, 255, 255, 0.96);
+    padding: 6px 8px;
+    cursor: pointer;
   }
 
   /* ซ่อนเมนูไว้ก่อน */
   .nav-links {
     display: none;
-    padding-bottom: 0;
   }
 
-  /* พอกดสามขีด (มีคลาส nav-links--open) ให้โชว์เป็นแถวยาว pill แบบเดิม */
+  /* พอกด 3 ขีด (มี class nav-links--open) ให้โชว์เป็นแถวยาวแบบเดิม */
   .nav-links.nav-links--open {
     display: flex;
     gap: 6px;
     overflow-x: auto;
     padding-bottom: 4px;
-    margin-top: 8px;
+    margin-top: 8px;   /* ดันลงจากโลโก้นิดนึง */
   }
 }
 
 /* เดสก์ท็อป */
 @media (min-width: 721px) {
   .nav-links {
-    display: flex;
+    display: flex;    /* เห็นแถวยาวตลอด */
   }
 
   .nav-toggle {
-    display: none;
+    display: none;    /* ไม่ต้องมีปุ่ม 3 ขีดบนจอใหญ่ */
   }
 }
-
-/* PAGE SECTIONS – พื้นหลังเต็มจอแน่นอน */
-
-/* ให้แต่ละ section กินเต็มความกว้างหน้าต่าง โดยไม่ใช้ 100vw */
-.page-section {
-  width: 100%;
-  padding: 32px 0 36px;
-  margin: 0;
-}
-
-
-.page-section--purple {
-  background: var(--bg-purple-1);
-}
-
-.page-section--light {
-  background: var(--bg-purple-2);
-}
-
-/* กล่องเนื้อหา – ขนาดเท่าเดิม */
-
-.page-section-inner {
-  max-width: 360px;
-  margin: 0 auto;
-  padding: 0 14px;
-}
-
-@media (min-width: 768px) {
-  .page-section-inner {
-    max-width: 1120px;
-    padding: 0 28px;
-  }
-}
-
-
-
 
 /* SECTION HEADER */
 
