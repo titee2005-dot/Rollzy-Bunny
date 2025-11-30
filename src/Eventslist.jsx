@@ -33,7 +33,7 @@ function Eventslist() {
         <div className="events-header">
           <div className="section-header">
             <h2>ROSE UPCOMING EVENTS</h2>
-            <p>กำลังพัฒนาระบบ</p>
+            <p>?</p>
           </div>
 
           {/* ปุ่มไปหน้ารวมกิจกรรมทั้งหมด */}

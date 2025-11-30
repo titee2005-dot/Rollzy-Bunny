@@ -44,9 +44,9 @@ function AboutSection() {
         <div className="about-photo-frame">
           <img src="/rose-about.jpg" alt="Rose BNK48" />
         </div>
-        <p className="about-photo-caption">
-         
-        </p>
+        {/* <p className="about-photo-caption">
+        
+        </p> */}
       </aside>
 
       {/* เนื้อหา */}
@@ -83,10 +83,10 @@ function AboutSection() {
                 รออัปเดต
               </p>
               <ul className="about-list">
-                <li>Upcoming</li>
-                <li>Upcoming</li>
-                <li>Upcoming</li>
-                <li>Upcoming</li>
+                <li>Coming Soon</li>
+                <li>Coming Soon</li>
+                <li>Coming Soon</li>
+                <li>Coming Soon</li>
               </ul>
             </div>
           )}
@@ -180,10 +180,10 @@ function DiscographySection() {
             />
           </div>
           <div className="highlight-body">
-            <span className="highlight-tag">MC / Talk</span>
-            <h3 className="highlight-title">Upcoming</h3>
+            <span className="highlight-tag">TBA</span>
+            <h3 className="highlight-title">Coming Soon</h3>
             <p className="highlight-desc">
-              Upcoming
+              Coming Soon
             </p>
           </div>
         </article>
@@ -517,6 +517,19 @@ function App() {
     </div>
   );
 }
+
+/*ของ Navbar */
+window.addEventListener("load", () => {
+  const { hash } = window.location;
+  if (hash) {
+    const el = document.querySelector(hash);
+    if (el) {
+      setTimeout(() => {
+        el.scrollIntoView({ behavior: "smooth" });
+      }, 100); // ดีเลย์เล็กน้อยให้ DOM โหลดให้ครบ
+    }
+  }
+});
 
 export default App;
 

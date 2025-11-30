@@ -48,13 +48,16 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  padding-top: 50px;  /* เพิ่มบรรทัดนี้ */
 }
 
 /* NAVBAR */
 .nav-wrapper {
-  position: sticky;
+  position: fixed;           /* เปลี่ยนจาก sticky -> fixed */
   top: 0;
-  z-index: 20;
+  left: 0;
+  right: 0;
+  z-index: 100;              /* ดันให้อยู่เหนือ content อื่น */
   background: rgba(253, 251, 255, 0.95);
   border-bottom: 1px solid rgba(197, 116, 255, 0.15);
   backdrop-filter: blur(12px);
@@ -91,6 +94,7 @@ body {
   border-radius: 999px;
 }
 
+/* ลิงก์ปกติ */
 .nav-links a {
   white-space: nowrap;
   font-size: 0.8rem;
@@ -102,6 +106,20 @@ body {
   border: 1px solid transparent;
   transition: all 0.15s ease-out;
 }
+
+/* ลิงก์ที่กำลัง active (ตาม section ที่เห็นบนจอ) */
+.nav-links .nav-link--active {
+  color: var(--text-main);
+  background: rgba(197, 116, 255, 0.14);
+  border-color: rgba(197, 116, 255, 0.6);
+}
+
+/* hover ก็ยังทำงานเหมือนเดิมได้ */
+.nav-links a:hover {
+  color: var(--text-main);
+  border-color: rgba(197, 116, 255, 0.5);
+}
+
 
 .nav-links a:hover {
   color: var(--text-main);

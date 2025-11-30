@@ -8,7 +8,7 @@ function AllSchedulePage() {
       <Navbar />
       <main className="page-section page-section--tone2">
         <div className="page-section-inner">
-          <h1 style={{ marginBottom: "16px" }}>All Schedule</h1>
+          <h1 style={{ marginBottom: "16px" }}>All Schedule (Beta)</h1>
           <Eventslist />
         </div>
       </main>
