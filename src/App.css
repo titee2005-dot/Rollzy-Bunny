@@ -1200,13 +1200,20 @@ body {
   background: #ffffff;
   box-shadow: 0 10px 22px rgba(160, 130, 225, 0.18);
   border: 1px solid rgba(220, 205, 250, 0.9);
+  position: relative;
+  overflow: hidden;
+  transition: background 0.35s ease, box-shadow 0.35s ease, transform 0.2s ease;
+}
+
+.social-chip:hover {
+  transform: translateY(-2px);
 }
 
 /* ฝั่งซ้าย: โลโก้ + ข้อความ */
 .social-chip-left {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 16px;
 }
 
 .social-chip-logo-fb {
@@ -1215,7 +1222,7 @@ body {
   border-radius: 999px;
   object-fit: contain;
    flex-shrink: 0;
-  transform: scale(2.0);  /* ขยายเฉพาะรูป ไม่กระทบ layout */
+  transform: scale(2.5);  /* ขยายเฉพาะรูป ไม่กระทบ layout */
 }
 
 .social-chip-logo-iam {
@@ -1224,7 +1231,7 @@ body {
   border-radius: 999px;
   object-fit: contain;
    flex-shrink: 0;
-  transform: scale(1.5);  /* ขยายเฉพาะรูป ไม่กระทบ layout */
+  transform: scale(1.8);  /* ขยายเฉพาะรูป ไม่กระทบ layout */
 }
 
 
@@ -1253,14 +1260,93 @@ body {
 
 /* สีเฉพาะของแต่ละแอป */
 .social-chip--fb {
-  background: #e9f1ff;
+  background: linear-gradient(90deg, #e9f1ff, #d4e3ff);
   border-color: #c8dafc;
 }
 
+.social-chip--fb:hover {
+  background: linear-gradient(90deg, #1877f2, #4c9aff);
+  box-shadow: 0 10px 24px rgba(150, 120, 220, 0.26);
+}
+
+/* ลายน้ำ FB ด้านขวา */
+.social-chip--fb::after {
+  content: "";
+  position: absolute;
+  right: 5px;
+  top: 75%;
+  width: 140px;
+  height: 140px;
+  background-image: url('/fblogo3.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+
+  opacity: 0;
+  transform: translate(40px, -50%) rotate(0deg);  /* เริ่ม: อยู่ขวากว่าเดิม */
+  transition: opacity 0.45s ease, transform 0.45s ease;
+}
+
+.social-chip--fb:hover::after {
+  opacity: 0.25;
+  transform: translate(0, -50%) rotate(10deg);  /* เลื่อนเข้าที่ พร้อมหมุนเบา ๆ */
+}
+/* เปลี่ยนสีตัวอักษร + โลโก้ ตอน hover */
+.social-chip--fb:hover .social-chip-logo-fb {
+  filter: brightness(0) invert(1);
+}
+
+/* ข้อความ “Facebook” + “Rose BNK48 Official” + ลูกศร */
+.social-chip--fb:hover .social-chip-label,
+.social-chip--fb:hover .social-chip-handle,
+.social-chip--fb:hover .social-chip-arrow {
+  color: #ffffff;
+}
+
+/* iAM*/
+
 .social-chip--iam {
-  background: #f6f0ff;
+  background: linear-gradient(90deg, #fbe7ff, #f6d7ff);
   border-color: #ddccff;
 }
+
+.social-chip--iam:hover {
+  background: linear-gradient(90deg, #d34bff, #ff7dfa);
+  box-shadow: 0 10px 24px rgba(200, 120, 255, 0.26);
+}
+
+/* ลายน้ำ iAM48 ด้านขวา */
+.social-chip--iam::after {
+  content: "";
+  position: absolute;
+  right: -0px;
+  top: 80%;
+  width: 140px;
+  height: 140px;
+  background-image: url('/iamlogo.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+
+  opacity: 0;
+  transform: translate(40px, -50%) rotate(0deg);  /* เริ่ม: อยู่ขวากว่าเดิม */
+  transition: opacity 0.45s ease, transform 0.45s ease;
+}
+
+.social-chip--iam:hover::after {
+  opacity: 0.25;
+  transform: translate(0, -50%) rotate(25deg);  /* เลื่อนเข้าที่ พร้อมหมุนเบา ๆ */
+}
+
+/* โลโก้ + ข้อความเปลี่ยนสี ตอน hover */
+.social-chip--iam:hover .social-chip-logo-iam {
+  filter: brightness(0) invert(1);
+}
+
+.social-chip--iam:hover .social-chip-label,
+.social-chip--iam:hover .social-chip-handle,
+.social-chip--iam:hover .social-chip-arrow {
+  color: #ffffff;
+}
+
 
 /* Desktop: ยังเต็ม แต่ห่างกันมากขึ้นนิดหน่อย */
 @media (min-width: 1024px) {
@@ -1272,6 +1358,7 @@ body {
     padding: 14px 22px;
   }
 }
+
 
 /* ===== Desktop: แบ่ง 2 คอลัมน์ ===== */
 @media (min-width: 1024px) {
@@ -1313,6 +1400,20 @@ body {
 
 /* ===== Rollzy Bunny – layout ด้านนอก ===== */
 
+.title-image {
+text-align: left;     /* เหมือนตอนข้อความ */
+  margin-bottom: 4px;  /* คงระยะเหมือนเดิม */
+  height: auto;
+}
+
+.title-image {
+   width: 300px;         /* ← ขนาดหัวข้อ (เล็กลงกว่าตอนนี้) ปรับได้ */
+  height: auto;
+  display: inline-block;
+  vertical-align: left;
+  margin-left: -24px;
+}
+
 .rollzy-layout {
   display: flex;
   flex-direction: column;
@@ -1350,7 +1451,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  margin-top: 18px;
+  margin-top: 24px;
 }
 
 /* ปุ่มสองแบบ */
@@ -1381,11 +1482,21 @@ body {
   border: none;
   box-shadow: 0 8px 18px rgba(200, 130, 230, 0.5);
 }
-.rol
-lzy-btn--ghost:hover {
+.rollzy-btn--ghost:hover {
   transform: translateY(-1px);
   box-shadow: 0 10px 22px rgba(190, 110, 220, 0.6);
 }
+
+.rollzy-btn {
+  transition: all 0.25s ease;
+}
+
+.rollzy-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(180, 120, 255, 0.32);
+  opacity: 0.95;
+}
+
 
 /* ฝั่งขวา: รูป preview */
 
@@ -1499,16 +1610,40 @@ lzy-btn--ghost:hover {
 .rollzy-channel-left {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 14px;
 }
 
 /* โลโก้แต่ละแอป (ใช้ <img>) */
-.rollzy-channel-logo {
+.rollzy-channel-logo-fb {
   width: 30px;
   height: 30px;
   border-radius: 999px;
   object-fit: contain;
-  background: #ffffff;
+  transform: scale(2.0);
+}
+
+.rollzy-channel-logo-ig {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  object-fit: contain;
+  transform: scale(0.9);
+}
+
+.rollzy-channel-logo-x {
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  object-fit: contain;
+  transform: scale(1.0);
+}
+
+.rollzy-channel-logo-opc {
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  object-fit: contain;
+  transform: scale(1.0);
 }
 
 .rollzy-channel-name {
@@ -1527,17 +1662,129 @@ lzy-btn--ghost:hover {
   background: linear-gradient(90deg, #e9f1ff, #d4e3ff);
 }
 
+.rollzy-channel--fb:hover {
+  background: linear-gradient(90deg, #1877f2, #4c9aff);
+}
+
+.rollzy-channel--fb::after {
+  content: "";
+  position: absolute;
+  right: -40px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 120px;
+  height: 120px;
+  background-image: url('/fblogo.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.rollzy-channel--fb:hover::after {
+  opacity: 0.25;
+}
+
+.rollzy-channel--fb:hover .rollzy-channel-logo-fb {
+  filter: brightness(0) invert(1);
+}
+
+/* IG */
+
 .rollzy-channel--ig {
   background: linear-gradient(90deg, #ffe6ee, #ffe7f8);
 }
+.rollzy-channel--ig {
+  background: linear-gradient(90deg, #ffe8ef, #f3d9ff);
+}
+.rollzy-channel--ig:hover {
+  background: linear-gradient(90deg, #f58529, #dd2a7b, #8134af, #515bd4);
+}
+.rollzy-channel--ig::after {
+  content: "";
+  position: absolute;
+  right: -40px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 120px;
+  height: 120px;
+  background-image: url('/igicon3.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.rollzy-channel--ig:hover::after {
+  opacity: 0.25;
+}
+.rollzy-channel--ig:hover .rollzy-channel-logo-ig {
+  filter: brightness(0) invert(1);
+}
+.rollzy-channel--ig:hover .rollzy-channel-logo-ig {
+  filter: brightness(0) invert(1);
+}
+
+/* X */
 
 .rollzy-channel--x {
   background: linear-gradient(90deg, #f5f5f5, #e5e5e5);
 }
+.rollzy-channel--x:hover {
+  background: linear-gradient(90deg, #000000, #2f2f2f);
+}
+.rollzy-channel--x::after {
+  content: "";
+  position: absolute;
+  right: -40px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 120px;
+  height: 120px;
+  background-image: url('/xicon.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.rollzy-channel--x:hover::after {
+  opacity: 0.3;
+}
+.rollzy-channel--x:hover .rollzy-channel-logo-x {
+  filter: brightness(0) invert(1);
+}
+
+/* Line */
 
 .rollzy-channel--line {
   background: linear-gradient(90deg, #e3fcec, #d0f7e0);
 }
+.rollzy-channel--line:hover {
+  background: linear-gradient(90deg, #06c755, #49da8b);
+}
+.rollzy-channel--line::after {
+  content: "";
+  position: absolute;
+  right: -40px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 120px;
+  height: 120px;
+  background-image: url('/opcicon.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.rollzy-channel--line:hover::after {
+  opacity: 0.25;
+}
+.rollzy-channel--line:hover .rollzy-channel-logo-opc {
+  filter: brightness(0) invert(1);
+}
+
 
 .rollzy-channel:hover {
   transform: translateY(-2px);
@@ -1600,6 +1847,20 @@ lzy-btn--ghost:hover {
   .rollzy-modal-text {
     font-size: 0.95rem;
   }
+}
+
+.rollzy-channel {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.35s ease;
+}
+.rollzy-channel-left img {
+  transition: filter 0.0s ease, transform 0.35s ease;
+}
+
+.rollzy-channel:hover .rollzy-channel-name,
+.rollzy-channel:hover .rollzy-channel-arrow {
+  color: #fff !important;
 }
 
 /* FOOTER */

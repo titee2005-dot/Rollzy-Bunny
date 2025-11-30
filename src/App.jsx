@@ -284,14 +284,14 @@ function SocialSection() {
        {/* แถวล่าง: Facebook + iAM48 แบบแบนเนอร์เต็มๆ */}
 <div className="social-extra-row">
   <a
-    href="https://www.facebook.com/ROLLZYBUNNY"
+    href="https://www.facebook.com/rose.bnk48official"
     target="_blank"
     rel="noopener noreferrer"
     className="social-chip social-chip--fb"
   >
     <div className="social-chip-left">
       {/* โลโก้ Facebook (ใส่ไฟล์ใน public เช่น /icon-fb.png) */}
-      <img src="/fblogo.png" alt="Facebook" className="social-chip-logo-fb" />
+      <img src="/fblogo2.png" alt="Facebook" className="social-chip-logo-fb" />
       <div className="social-chip-text">
         <span className="social-chip-label">Facebook</span>
         <span className="social-chip-handle">Rose BNK48 Official</span>
@@ -301,7 +301,7 @@ function SocialSection() {
   </a>
 
   <a
-    href="https://www.iam48.com/"
+    href="https://app.bnk48.com/member-profile/157"
     target="_blank"
     rel="noopener noreferrer"
     className="social-chip social-chip--iam"
@@ -311,7 +311,7 @@ function SocialSection() {
       <img src="/iamlogo.png" alt="iAM48" className="social-chip-logo-iam" />
       <div className="social-chip-text">
         <span className="social-chip-label">iAM48</span>
-        <span className="social-chip-handle">Profile & Schedule</span>
+        <span className="social-chip-handle">Rose</span>
       </div>
     </div>
     <span className="social-chip-arrow">↗</span>
@@ -330,17 +330,17 @@ function RollzyBunnySection() {
       <div className="page-section-inner rollzy-layout">
         {/* ฝั่งซ้าย: ข้อความ + ปุ่ม */}
         <div className="rollzy-left">
-          <h2 className="rollzy-title">Rollzy Bunny</h2>
+          <img src="rollzy-title.png" alt="Rollzy Bunny" className="title-image" />
           <p className="rollzy-lead">
-            ???
+            แฟนด้อม
           </p>
           <p className="rollzy-subtitle">
-            ???
+            Coming Soon
           </p>
 
           <div className="rollzy-actions">
             <a
-              href="https://facebook.com/"
+              href="https://line.me/ti/g2/Unlc6VfjqNXos90q-mWUW80tatHddPT-11-3Gg?utm_source=invitation&utm_medium=link_copy&utm_campaign=default"
               target="_blank"
               rel="noopener noreferrer"
               className="rollzy-btn rollzy-btn--primary"
@@ -389,72 +389,72 @@ function RollzyBunnySection() {
             <div className="rollzy-channel-list">
               {/* Facebook */}
               <a
-                href="https://facebook.com/"
+                href="https://www.facebook.com/ROLLZYBUNNY"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="rollzy-channel rollzy-channel--fb"
               >
                 <span className="rollzy-channel-left">
                   <img
-                    src="/icon-fb.png"
+                    src="/fblogo2.png"
                     alt="Facebook"
-                    className="rollzy-channel-logo"
+                    className="rollzy-channel-logo-fb"
                   />
-                  <span className="rollzy-channel-name">Facebook Page</span>
+                  <span className="rollzy-channel-name">Rollzy Bunny - Rose BNK48 Supporters </span>
                 </span>
                 <span className="rollzy-channel-arrow">↗</span>
               </a>
 
               {/* Instagram */}
               <a
-                href="https://instagram.com/"
+                href="https://www.instagram.com/rollzybunny?igsh=MTVremY3NTltb29zZw=="
                 target="_blank"
                 rel="noopener noreferrer"
                 className="rollzy-channel rollzy-channel--ig"
               >
                 <span className="rollzy-channel-left">
                   <img
-                    src="/icon-ig.png"
+                    src="/igicon3.png"
                     alt="Instagram"
-                    className="rollzy-channel-logo"
+                    className="rollzy-channel-logo-ig"
                   />
-                  <span className="rollzy-channel-name">Instagram</span>
+                  <span className="rollzy-channel-name">rollzybunny</span>
                 </span>
                 <span className="rollzy-channel-arrow">↗</span>
               </a>
 
               {/* X */}
               <a
-                href="https://x.com/"
+                href="https://x.com/rollzybunny?s=21"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="rollzy-channel rollzy-channel--x"
               >
                 <span className="rollzy-channel-left">
                   <img
-                    src="/icon-x.png"
+                    src="/xicon.png"
                     alt="X"
-                    className="rollzy-channel-logo"
+                    className="rollzy-channel-logo-x"
                   />
-                  <span className="rollzy-channel-name">X (Twitter)</span>
+                  <span className="rollzy-channel-name">ROLLZYBUNNY</span>
                 </span>
                 <span className="rollzy-channel-arrow">↗</span>
               </a>
 
               {/* Line OpenChat */}
               <a
-                href="https://line.me/"
+                href="https://line.me/ti/g2/Unlc6VfjqNXos90q-mWUW80tatHddPT-11-3Gg?utm_source=invitation&utm_medium=link_copy&utm_campaign=default/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="rollzy-channel rollzy-channel--line"
               >
                 <span className="rollzy-channel-left">
                   <img
-                    src="/icon-line.png"
+                    src="/opcicon.png"
                     alt="Line OpenChat"
-                    className="rollzy-channel-logo"
+                    className="rollzy-channel-logo-opc"
                   />
-                  <span className="rollzy-channel-name">Line OpenChat</span>
+                  <span className="rollzy-channel-name">Rollzy Bunny - Rose BNK48 Supporters </span>
                 </span>
                 <span className="rollzy-channel-arrow">↗</span>
               </a>
