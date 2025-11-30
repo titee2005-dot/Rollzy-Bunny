@@ -75,6 +75,7 @@ body {
   justify-content: space-between;
 }
 
+
 .nav-logo {
   font-weight: 700;
   letter-spacing: 0.12em;
@@ -110,12 +111,18 @@ body {
   transition: all 0.15s ease-out;
 }
 
-/* ลิงก์ที่กำลัง active (ตาม section ที่เห็นบนจอ) */
+/* ลิงก์ที่ active ตาม section */
 .nav-links .nav-link--active {
   color: var(--text-main);
   background: rgba(197, 116, 255, 0.14);
   border-color: rgba(197, 116, 255, 0.6);
 }
+
+.nav-links a:hover {
+  color: var(--text-main);
+  border-color: rgba(197, 116, 255, 0.5);
+}
+
 
 /* hover ก็ยังทำงานเหมือนเดิมได้ */
 .nav-links a:hover {
@@ -137,71 +144,84 @@ body {
   justify-content: space-between;
 }
 
-/* ปุ่ม 3 ขีด */
-.nav-toggle {
-  display: none; /* เดี๋ยวให้แสดงในจอเล็ก */
-  border-radius: 999px;
-  border: 1px solid rgba(132, 107, 196, 0.4);
-  background: rgba(255, 255, 255, 0.96);
-  padding: 6px 8px;
-  cursor: pointer;
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* ระยะห่างโลโก้กับตัวหนังสือ */
 }
 
-.nav-toggle-lines {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
+.nav-logo-image {
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  object-fit: cover;
+}
+
+.nav-logo-text {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+/* ปุ่ม 3 ขีด */
+.nav-toggle {
+  display: none; /* โชว์เฉพาะมือถือ */
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
 }
 
 .nav-toggle-line {
-  width: 14px;
-  height: 2px;
-  border-radius: 999px;
-  background: var(--text-main);
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  display: block;
+  width: 22px;     /* ความยาวขีด (เหมือนในภาพ) */
+  height: 2px;     /* ความหนาขีด */
+  background: #3a2a5e; /* สีแบบในภาพ (น้ำตาลเข้ม) */
+  border-radius: 2px;
+  margin: 4px 0;   /* ระยะห่างระหว่างแต่ละขีด */
 }
 
-/* ตอนเปิดเมนู แปลงเป็นกากบาท */
+/* เวลาเมนูเปิด ให้สามขีดแปลงเป็นกากบาทนิด ๆ */
 .nav-toggle--open .nav-toggle-line:nth-child(1) {
-  transform: translateY(5px) rotate(45deg);
+  transform: translateY(4px) rotate(45deg);
 }
 .nav-toggle--open .nav-toggle-line:nth-child(2) {
   opacity: 0;
 }
 .nav-toggle--open .nav-toggle-line:nth-child(3) {
-  transform: translateY(-5px) rotate(-45deg);
+  transform: translateY(-4px) rotate(-45deg);
 }
 
 /* จอเล็ก: โชว์ปุ่ม 3 ขีด + ซ่อนเมนูแนวนอน */
+/* มือถือ */
 @media (max-width: 720px) {
+  .nav {
+    max-width: 100%;
+  }
+
   .nav-toggle {
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
+  /* ซ่อนเมนูไว้ก่อน */
   .nav-links {
     display: none;
     padding-bottom: 0;
   }
 
+  /* พอกดสามขีด (มีคลาส nav-links--open) ให้โชว์เป็นแถวยาว pill แบบเดิม */
   .nav-links.nav-links--open {
     display: flex;
-    flex-direction: column;
-    position: fixed;
-    top: 56px;
-    left: 0;
-    right: 0;
-    padding: 12px 16px 24px;
-    background: rgba(249, 244, 255, 0.98);
-    backdrop-filter: blur(14px);
-    box-shadow: 0 12px 30px rgba(97, 64, 175, 0.18);
-    gap: 8px;
-    z-index: 90;
+    gap: 6px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    margin-top: 8px;
   }
 }
 
-/* จอใหญ่: ให้เมนูแนวนอนแสดงปกติ */
+/* เดสก์ท็อป */
 @media (min-width: 721px) {
   .nav-links {
     display: flex;
@@ -211,8 +231,6 @@ body {
     display: none;
   }
 }
-
-
 
 /* PAGE SECTIONS – พื้นหลังเต็มจอแน่นอน */
 
