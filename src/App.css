@@ -79,20 +79,20 @@ body {
 /* NAVBAR */
 
 .nav-logo {
-  display: flex;              /* ทำให้โลโก้ + ตัวหนังสือเรียงเป็นแถว */
+  display: flex;
   align-items: center;
-  gap: 6px;                   /* ระยะห่างโลโก้กับ ROSE GARDEN */
+  gap: 6px;                  /* ระยะห่างโลโก้กับตัวอักษร */
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   font-size: 0.85rem;
 }
 
-/* รูปโลโก้หน้า ROSE GARDEN */
+/* รูปโลโก้หน้า ROSE'S GARDEN */
 .nav-logo-img {
   width: 24px;
   height: 24px;
-  border-radius: 999px;       /* ถ้าอยากได้วงกลม */
+  border-radius: 999px;      /* ถ้าอยากให้เป็นวงกลม */
   object-fit: cover;
 }
 
@@ -131,6 +131,7 @@ body {
   background: rgba(197, 116, 255, 0.14);
   border-color: rgba(197, 116, 255, 0.6);
 }
+
 
 .nav-links a:hover {
   color: var(--text-main);
@@ -244,6 +245,39 @@ body {
 
   .nav-toggle {
     display: none;    /* ไม่ต้องมีปุ่ม 3 ขีดบนจอใหญ่ */
+  }
+}
+
+/* PAGE SECTIONS – พื้นหลังเต็มจอแน่นอน */
+
+/* ให้แต่ละ section กินเต็มความกว้างหน้าต่าง โดยไม่ใช้ 100vw */
+.page-section {
+  width: 100%;
+  padding: 32px 0 36px;
+  margin: 0;
+}
+
+
+.page-section--purple {
+  background: var(--bg-purple-1);
+}
+
+.page-section--light {
+  background: var(--bg-purple-2);
+}
+
+/* กล่องเนื้อหา – ขนาดเท่าเดิม */
+
+.page-section-inner {
+  max-width: 360px;
+  margin: 0 auto;
+  padding: 0 14px;
+}
+
+@media (min-width: 768px) {
+  .page-section-inner {
+    max-width: 1120px;
+    padding: 0 28px;
   }
 }
 

@@ -1,40 +1,67 @@
 // src/Navbar.jsx
 import { useState, useEffect } from "react";
 
+const SECTION_IDS = ["home", "about", "schedule", "highlight", "social", "rollzy"];
+const HEADER_OFFSET = 80; // ถ้ากดแล้วรู้สึกเลย/เตี้ยไป ปรับเลขนี้ได้
+
 function Navbar() {
   const [open, setOpen] = useState(false);
   const [activeId, setActiveId] = useState("home");
 
-  const toggleMenu = () => setOpen(!open);
+  const toggleMenu = () => setOpen((o) => !o);
   const closeMenu = () => setOpen(false);
 
-  // ทำ scroll spy ให้รู้ว่าอยู่ section ไหน
+  // เลื่อนไป section แบบเผื่อความสูง navbar
+  const scrollToSection = (id) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+
+    const rect = el.getBoundingClientRect();
+    const scrollTop = window.scrollY || window.pageYOffset;
+    const targetY = rect.top + scrollTop - HEADER_OFFSET;
+
+    window.scrollTo({
+      top: targetY,
+      behavior: "smooth",
+    });
+  };
+
+  const handleNavClick = (id) => (e) => {
+    e.preventDefault();       // กันไม่ให้เบราว์เซอร์เลื่อนเอง (ซึ่งไม่เผื่อ navbar)
+    scrollToSection(id);
+    closeMenu();
+  };
+
+  // ให้ navbar รู้ว่าเรากำลังอยู่ section ไหน (สำหรับ highlight)
   useEffect(() => {
-    const sectionIds = ["home", "about", "schedule", "discography", "social", "rollzy"];
-    const OFFSET = 80; // เผื่อความสูง navbar
+    const observer = new IntersectionObserver(
+      (entries) => {
+        let mostVisible = null;
 
-    const handleScroll = () => {
-      let current = "home";
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          if (!mostVisible || entry.intersectionRatio > mostVisible.intersectionRatio) {
+            mostVisible = entry;
+          }
+        });
 
-      for (const id of sectionIds) {
-        const el = document.getElementById(id);
-        if (!el) continue;
-
-        const rect = el.getBoundingClientRect();
-        // ถ้าด้านบนของ section เลย navbar ขึ้นไปนิด และยังไม่หลุดล่างจอ
-        if (rect.top <= OFFSET && rect.bottom > OFFSET) {
-          current = id;
-          break;
+        if (mostVisible?.target?.id) {
+          setActiveId(mostVisible.target.id);
         }
+      },
+      {
+        root: null,
+        threshold: 0.4,                       // ต้องเห็น 40% ของ section ถึงจะนับว่า active
+        rootMargin: `-${HEADER_OFFSET}px 0px 0px 0px`, // ตัดส่วนที่โดน navbar บังออก
       }
+    );
 
-      setActiveId(current);
-    };
+    SECTION_IDS.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
 
-    // เช็กครั้งแรกตอนโหลด
-    handleScroll();
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => observer.disconnect();
   }, []);
 
   const linkClass = (id) =>
@@ -44,22 +71,23 @@ function Navbar() {
     <header className="nav-wrapper">
       <nav className="nav">
         <div className="nav-main">
-          {/* โลโก้ + ชื่อ ROSE GARDEN */}
+          {/* โลโก้ + ชื่อ */}
           <div className="nav-logo">
-            {/* เปลี่ยน path รูปตามที่เราใช้จริงใน public */}
+            {/* เอาไฟล์โลโก้ไปวางไว้ที่ public/rosegarden-logo.png หรือชื่ออื่นแล้วแก้ src ให้ตรง */}
             <img
               src="/logo.png"
-              alt="Rose Garden Logo"
+              alt="Rose's Garden Logo"
               className="nav-logo-img"
             />
-            <span>ROSE'S GARDEN</span>
+            <span>ROSE&apos;S GARDEN</span>
           </div>
 
           {/* ปุ่ม 3 ขีด */}
           <button
             type="button"
-            className={`nav-toggle ${open ? "nav-toggle--open" : ""}`}
+            className="nav-toggle"
             onClick={toggleMenu}
+            aria-label="Toggle navigation"
           >
             <span className="nav-toggle-lines">
               <span className="nav-toggle-line" />
@@ -69,46 +97,46 @@ function Navbar() {
           </button>
         </div>
 
-        {/* เมนู ยาวแบบเดิม แต่บนมือถือจะซ่อน/แสดงตาม open */}
+        {/* ลิงก์เมนู */}
         <div className={`nav-links ${open ? "nav-links--open" : ""}`}>
           <a
             href="/#home"
-            onClick={closeMenu}
+            onClick={handleNavClick("home")}
             className={linkClass("home")}
           >
             Home
           </a>
           <a
             href="/#about"
-            onClick={closeMenu}
+            onClick={handleNavClick("about")}
             className={linkClass("about")}
           >
             About Rose
           </a>
           <a
             href="/#schedule"
-            onClick={closeMenu}
+            onClick={handleNavClick("schedule")}
             className={linkClass("schedule")}
           >
             Schedule
           </a>
           <a
-            href="/#discography"
-            onClick={closeMenu}
-            className={linkClass("discography")}
+            href="/#highlight"         /* สำคัญ: id จริงของ section นี้คือ highlight */
+            onClick={handleNavClick("highlight")}
+            className={linkClass("highlight")}
           >
             Highlight
           </a>
           <a
             href="/#social"
-            onClick={closeMenu}
+            onClick={handleNavClick("social")}
             className={linkClass("social")}
           >
             Social Media
           </a>
           <a
             href="/#rollzy"
-            onClick={closeMenu}
+            onClick={handleNavClick("rollzy")}
             className={linkClass("rollzy")}
           >
             Rollzy Bunny
