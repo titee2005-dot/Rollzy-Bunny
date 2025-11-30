@@ -1,78 +1,62 @@
 // src/Navbar.jsx
-import { useEffect, useState } from "react";
-
-const SECTION_IDS = ["home", "about", "schedule", "highlight", "social", "rollzy"];
+import { useState, useEffect } from "react";
 
 function Navbar() {
-  const [active, setActive] = useState("home");
+  const [open, setOpen] = useState(false);
 
+  // ถ้าหน้าจอกลับไปเป็นจอใหญ่ ให้ปิดเมนูมือถือ
   useEffect(() => {
-    // ถ้าเปลี่ยน hash จากลิงก์ เช่น /#about ให้ active ตาม hash
-    const handleHashChange = () => {
-      const hash = window.location.hash.replace("#", "");
-      if (SECTION_IDS.includes(hash)) {
-        setActive(hash);
+    const onResize = () => {
+      if (window.innerWidth > 720 && open) {
+        setOpen(false);
       }
     };
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, [open]);
 
-    window.addEventListener("hashchange", handleHashChange);
-    handleHashChange(); // เช็กครั้งแรกตอนโหลด
-
-    // ใช้ IntersectionObserver ตาม section ที่อยู่กลางหน้าจอ
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const id = entry.target.id;
-            if (SECTION_IDS.includes(id)) {
-              setActive(id);
-            }
-          }
-        });
-      },
-      {
-        root: null,
-        // ขอบเขตให้ส่วนที่อยู่แถวกลางจอถือว่า "active"
-        rootMargin: "-45% 0px -45% 0px",
-        threshold: 0,
-      }
-    );
-
-    SECTION_IDS.forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    });
-
-    return () => {
-      window.removeEventListener("hashchange", handleHashChange);
-      observer.disconnect();
-    };
-  }, []);
-
-  const linkClass = (id) =>
-    "nav-link" + (active === id ? " nav-link--active" : "");
+  const toggleMenu = () => setOpen(!open);
+  const closeMenu = () => setOpen(false);
 
   return (
     <header className="nav-wrapper">
       <nav className="nav">
-        <div className="nav-logo">Rose&apos;s Garden</div>
-        <div className="nav-links">
-          <a href="/#home" className={linkClass("home")}>
+        {/* โลโก้ + ปุ่ม 3 ขีด */}
+        <div className="nav-main">
+          <div className="nav-logo">Rose&apos;s Garden</div>
+
+          <button
+            type="button"
+            className={`nav-toggle ${open ? "nav-toggle--open" : ""}`}
+            onClick={toggleMenu}
+            aria-label="Toggle navigation"
+          >
+            <span className="nav-toggle-lines">
+              <span className="nav-toggle-line" />
+              <span className="nav-toggle-line" />
+              <span className="nav-toggle-line" />
+            </span>
+          </button>
+        </div>
+
+        {/* ลิสต์เมนู */}
+        <div className={`nav-links ${open ? "nav-links--open" : ""}`}>
+          <a href="/#home" onClick={closeMenu}>
             Home
           </a>
-          <a href="/#about" className={linkClass("about")}>
+          <a href="/#about" onClick={closeMenu}>
             About Rose
           </a>
-          <a href="/#schedule" className={linkClass("schedule")}>
+          <a href="/#schedule" onClick={closeMenu}>
             Schedule
           </a>
-          <a href="/#highlight" className={linkClass("highlight")}>
+          <a href="/#discography" onClick={closeMenu}>
             Highlight
           </a>
-          <a href="/#social" className={linkClass("social")}>
+          <a href="/#social" onClick={closeMenu}>
             Social Media
           </a>
-          <a href="/#rollzy" className={linkClass("rollzy")}>
+          <a href="/#rollzy" onClick={closeMenu}>
             Rollzy Bunny
           </a>
         </div>

@@ -1,8 +1,13 @@
 // src/AllSchedulePage.jsx
+import { useEffect } from "react";
 import Navbar from "./Navbar.jsx";
 import Eventslist from "./Eventslist.jsx";
 
 function AllSchedulePage() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="app-root">
       <Navbar />

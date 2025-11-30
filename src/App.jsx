@@ -1,7 +1,7 @@
-import './App.css';
+import "./App.css";
 import Navbar from "./Navbar.jsx";
 import EventsSection from "./EventsSection.jsx";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 /* ตัวช่วยห่อแต่ละ section ให้พื้นหลังเต็มจอ แต่เนื้อหาอยู่กลาง */
 function PageSection({ id, tone, children }) {
@@ -485,11 +485,15 @@ function Footer() {
   );
 }
 
+
 function App() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="app-root">
       <Navbar />
-      
       {/* HERO วิดีโอเต็มจอ */}
       <Hero />
 

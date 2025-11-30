@@ -48,16 +48,16 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  padding-top: 50px;  /* เพิ่มบรรทัดนี้ */
+  padding-top: 70px;   /* ระยะเผื่อความสูง navbar */
 }
 
 /* NAVBAR */
 .nav-wrapper {
-  position: fixed;           /* เปลี่ยนจาก sticky -> fixed */
+  position: fixed;        /* เดิมเป็น sticky ให้เปลี่ยนเป็น fixed */
   top: 0;
   left: 0;
   right: 0;
-  z-index: 100;              /* ดันให้อยู่เหนือ content อื่น */
+  z-index: 100;
   background: rgba(253, 251, 255, 0.95);
   border-bottom: 1px solid rgba(197, 116, 255, 0.15);
   backdrop-filter: blur(12px);
@@ -70,6 +70,9 @@ body {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .nav-logo {
@@ -125,6 +128,91 @@ body {
   color: var(--text-main);
   border-color: rgba(197, 116, 255, 0.5);
 }
+
+/* ===== Mobile Hamburger Navbar ===== */
+
+.nav-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ปุ่ม 3 ขีด */
+.nav-toggle {
+  display: none; /* เดี๋ยวให้แสดงในจอเล็ก */
+  border-radius: 999px;
+  border: 1px solid rgba(132, 107, 196, 0.4);
+  background: rgba(255, 255, 255, 0.96);
+  padding: 6px 8px;
+  cursor: pointer;
+}
+
+.nav-toggle-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.nav-toggle-line {
+  width: 14px;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--text-main);
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+/* ตอนเปิดเมนู แปลงเป็นกากบาท */
+.nav-toggle--open .nav-toggle-line:nth-child(1) {
+  transform: translateY(5px) rotate(45deg);
+}
+.nav-toggle--open .nav-toggle-line:nth-child(2) {
+  opacity: 0;
+}
+.nav-toggle--open .nav-toggle-line:nth-child(3) {
+  transform: translateY(-5px) rotate(-45deg);
+}
+
+/* จอเล็ก: โชว์ปุ่ม 3 ขีด + ซ่อนเมนูแนวนอน */
+@media (max-width: 720px) {
+  .nav-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nav-links {
+    display: none;
+    padding-bottom: 0;
+  }
+
+  .nav-links.nav-links--open {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 56px;
+    left: 0;
+    right: 0;
+    padding: 12px 16px 24px;
+    background: rgba(249, 244, 255, 0.98);
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 30px rgba(97, 64, 175, 0.18);
+    gap: 8px;
+    z-index: 90;
+  }
+}
+
+/* จอใหญ่: ให้เมนูแนวนอนแสดงปกติ */
+@media (min-width: 721px) {
+  .nav-links {
+    display: flex;
+  }
+
+  .nav-toggle {
+    display: none;
+  }
+}
+
+
 
 /* PAGE SECTIONS – พื้นหลังเต็มจอแน่นอน */
 
