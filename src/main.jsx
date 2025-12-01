@@ -4,7 +4,8 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import App from "./App.jsx";
 import AllSchedulePage from "./AllSchedulePage.jsx";
-import "./index.css";   // หรือ App.css แล้วแต่โปรเจกต์
+import AllGalleryPage from "./AllGalleryPage.jsx";   // ← เพิ่มบรรทัดนี้
+import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -12,6 +13,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/all-schedule" element={<AllSchedulePage />} />
+        <Route path="/gallery" element={<AllGalleryPage />} /> {/* ใหม่ */}
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

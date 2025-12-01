@@ -62,9 +62,9 @@ function AboutSection() {
 
         {/* Chip */}
         <div className="about-chip-row">
-          <span className="about-chip">BNK48 6th Generation</span>
           <span className="about-chip">Nickname · Rose</span>
           <span className="about-chip">Panisara Buranapha</span>
+          <span className="about-chip">BNK48 6th Generation</span>
         </div>
 
         {/* เนื้อหาปกติ */}
@@ -322,6 +322,52 @@ function SocialSection() {
   );
 }
 
+function GallerySection() {
+  const items = [
+    { id: 1, src: "/gallery-big.jpg", big: true }, // รูปใหญ่ 4x4
+    { id: 2, src: "/gallery-2.jpg" },
+    { id: 3, src: "/gallery-3.jpg" },
+    { id: 4, src: "/gallery-4.jpg" },
+    { id: 5, src: "/gallery-5.jpg" },
+    { id: 6, src: "/gallery-6.jpg" },
+    { id: 7, src: "/gallery-extra.jpg", mobileOnly: true }, // รูปเฉพาะมือถือ
+  ];
+
+  return (
+    <section id="gallery" className="page-section page-section--tone1">
+      <div className="page-section-inner">
+        <div className="gallery-header">
+          <div className="section-header">
+            <h2>Gallery</h2>
+            <p>รวมโมเมนต์น่ารัก ๆ ของน้อง</p>
+          </div>
+          <a href="/gallery" className="gallery-all-btn">
+            All
+          </a>
+        </div>
+
+        <div className="gallery-home-grid">
+          {items.map((item) => (
+            <div
+              key={item.id}
+              className={
+                "gallery-home-cell" +
+                (item.big ? " gallery-home-cell--big" : "") +
+                (item.mobileOnly ? " gallery-home-cell--mobile" : "")
+              }
+            >
+              <img src={item.src} alt="" />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+
+/*Rollzy Bunny*/
+
 function RollzyBunnySection() {
   const [open, setOpen] = useState(false);
 
@@ -509,11 +555,15 @@ function App() {
         <DiscographySection />
       </PageSection>
 
-      <PageSection id="social" tone="purple">
+            <PageSection id="social" tone="purple">
         <SocialSection />
       </PageSection>
 
-      <PageSection id="rollzy" tone="light">
+      <PageSection id="gallery" tone="light">
+        <GallerySection />
+      </PageSection>
+
+      <PageSection id="rollzy" tone="purple">
         <RollzyBunnySection />
       </PageSection>
 

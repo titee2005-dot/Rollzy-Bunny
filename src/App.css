@@ -48,7 +48,7 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  padding-top: 70px;   /* ระยะเผื่อความสูง navbar */
+  padding-top: 50px;   /* ระยะเผื่อความสูง navbar */
 }
 
 /* NAVBAR */
@@ -1544,9 +1544,407 @@ body {
   }
 }
 
-/* FANS NEWS */
+/* ===== GALLERY SECTION (หน้าแรก) ===== */
 
-/* ===== Rollzy Bunny Section (การ์ดหลัก) ===== */
+
+
+#gallery .gallery-section-inner {
+  min-height: calc(100vh - 80px); /* ให้รู้สึกเต็มจอหลังหัก navbar */
+  display: flex;
+  flex-direction: column;
+}
+
+.gallery-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.gallery-all-btn {
+  align-self: flex-start;
+  padding: 7px 16px;
+  border-radius: 999px;
+  border: 1px solid #d1c6ff;
+  background: #ffffff;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #6b50c5;
+  text-decoration: none;
+  cursor: pointer;
+  transition: 0.15s ease;
+}
+
+.gallery-all-btn:hover {
+  background: #f5f1ff;
+  border-color: #b9a8ff;
+}
+
+/* grid รูป preview ในหน้าแรก */
+.gallery-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));  /* มือถือ 2 คอลัมน์ */
+  gap: 10px;
+}
+
+.gallery-item {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #ffffff;
+  box-shadow: 0 6px 16px rgba(140, 120, 200, 0.16);
+}
+
+/* ทำให้รูปเป็นสี่เหลี่ยมผืนผ้าแนวนอน คล้าย napheao */
+.gallery-thumb {
+  width: 100%;
+  padding-top: 70%;      /* ประมาณ 3:2 ใกล้เคียงขนาดในลิงก์ */
+  position: relative;
+}
+
+.gallery-thumb img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+.gallery-tag {
+  position: absolute;
+  left: 8px;
+  bottom: 8px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  background: rgba(0,0,0,0.55);
+  color: #fff;
+}
+
+/* Desktop – ดูแน่นแต่ยังหายใจได้ */
+@media (min-width: 768px) {
+  .gallery-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr)); /* เดสก์ท็อป 3 คอลัมน์ */
+    gap: 14px;
+  }
+}
+
+/* ===== GALLERY PAGE (หน้า /gallery) ===== */
+
+.gallery-page-header h1 {
+  margin: 0 0 4px;
+}
+
+.gallery-page-header p {
+  margin: 0 0 14px;
+  font-size: 0.9rem;
+  color: var(--text-soft);
+}
+
+/* Tabs */
+/* Tabs – liquid glass style แบบ iPhone */
+
+.gallery-tabs {
+  width: 100%;
+  margin-bottom: 20px;
+
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 8px;
+
+  padding: 6px;
+  border-radius: 999px;
+
+  /* liquid glass background */
+  background: linear-gradient(135deg, #f6ecff, #fdf2ff);
+  box-shadow: 0 14px 30px rgba(170, 140, 255, 0.35);
+
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+
+  border: 1px solid rgba(255, 255, 255, 0.9);
+}
+
+/* ปุ่มแต่ละแท็บ */
+/* ===== GALLERY TABS – iOS Segmented Control Style ===== */
+
+.gallery-tabs {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr); 
+  width: 100%;
+  padding: 10px;
+  gap: 8px;
+
+  background: rgba(255,255,255,0.6);
+  border-radius: 40px;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+  border: none;
+}
+
+/* ปุ่มแท็บปกติ */
+.gallery-tab {
+  text-align: center;
+  padding: 10px 0;
+  border-radius: 30px;
+  font-size: 0.9rem;
+  font-weight: 500;
+
+  background: rgba(255,255,255,0.3);
+  color: #8a83a5;  /* สีตัวอักษรใหม่ */
+  cursor: pointer;
+  transition: 0.25s ease;
+  border: none; /* ไม่มีเส้นดำ */
+}
+
+/* Hover → liquid glass */
+.gallery-tab:hover {
+  background: rgba(255,255,255,0.55);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+
+  box-shadow: 0 4px 12px rgba(150,140,255,0.15);
+  transform: translateY(-1px);
+}
+
+/* แท็บที่เลือก */
+.gallery-tab--active {
+  border: none !important;            /* เอากรอบดำออก 100% */
+  outline: none !important;
+  
+  background: linear-gradient(
+  135deg,
+  rgba(255, 255, 255, 0.5),
+  rgba(240, 225, 255, 0.35),
+  rgba(255, 220, 240, 0.3)
+);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+
+  color: #5b4acb;                      /* สีตัวอักษรใหม่ ให้เข้ากับ glass */
+  font-weight: 600;
+
+  box-shadow:
+    0 8px 24px rgba(150, 130, 255, 0.25),
+    inset 0 0 12px rgba(255, 255, 255, 0.45); /* เงาด้านในแบบ iOS glass */
+
+  border-radius: 30px;
+  transition: 0.25s ease;
+}
+
+/* Grid หน้า /gallery */
+.gallery-page-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr)); /* ตั้งไว้ตอนนี้ */
+  gap: 12px;
+  margin-top: 20px;   /* เพิ่มบรรทัดนี้ */
+}
+
+
+@media (max-width: 720px) {
+
+  .gallery-tabs {
+    grid-template-columns: repeat(3, 1fr);   /* 3 ต่อแถว อ่านง่ายขึ้น */
+    padding: 6px;
+    gap: 6px;
+  }
+
+  .gallery-tab {
+    font-size: 0.75rem;          /* ลดขนาดฟอนต์เพื่อไม่ให้ล้น */
+    padding: 8px 4px;            /* ลด padding ให้พอดีมือถือ */
+    line-height: 1.1rem;
+    border-radius: 20px;         /* capsule ไม่ใหญ่เกิน */
+    white-space: nowrap;         /* กันแตกบรรทัด */
+    overflow: hidden;
+    text-overflow: ellipsis;     /* ถ้าคำยาวมาก จะตัดแบบ ... */
+  }
+
+  @media (max-width: 768px) {
+  .gallery-tabs {
+    display: flex !important;
+    overflow-x: auto;
+    white-space: nowrap;
+    gap: 10px;
+    padding: 10px 6px;
+
+    border-radius: 40px;
+    background: rgba(255,255,255,0.6);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    scrollbar-width: none; /* ซ่อนสกอลล์ใน iOS/Firefox */
+  }
+
+  .gallery-tabs::-webkit-scrollbar {
+    display: none; /* ซ่อน scrollbar Android/Chrome */
+  }
+
+  .gallery-tab {
+    flex: 0 0 auto !important;  /* ขนาดคงที่ ไม่ยืดเต็มบรรทัด */
+    padding: 10px 18px;
+  }
+}
+
+  /* ACTIVE TAB (liquid glass compact) */
+  .gallery-tab--active {
+    background: rgba(255,255,255,0.45);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #5d4acb;
+    border-radius: 22px; 
+    box-shadow:
+      0 4px 12px rgba(160,140,255,0.25),
+      inset 0 0 8px rgba(255,255,255,0.4);
+  }
+}
+
+.gallery-card {
+  background: #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 5px 16px rgba(140, 120, 200, 0.16);
+}
+
+.gallery-card-thumb {
+  width: 100%;
+  padding-top: 70%;   /* ใช้ค่าเดียวกับ .gallery-thumb */
+  position: relative;
+}
+
+.gallery-card-thumb img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gallery-card-caption {
+  padding: 8px 10px;
+  font-size: 0.8rem;
+  color: var(--text-soft);
+}
+
+/* desktop */
+@media (min-width: 768px) {
+  .gallery-page-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+  }
+}
+
+/* หัวข้อ + ปุ่ม All */
+.gallery-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.gallery-all-btn {
+  align-self: flex-start;
+  padding: 7px 16px;
+  border-radius: 999px;
+  border: 1px solid #d1c6ff;
+  background: #ffffff;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #6b50c5;
+  text-decoration: none;
+  cursor: pointer;
+  transition: 0.15s ease;
+}
+
+.gallery-all-btn:hover {
+  background: #f5f1ff;
+  border-color: #b9a8ff;
+}
+
+/* ===== GRID 9*9 (3 แถว แถวละ 3 รูป) ===== */
+
+.gallery-home-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.gallery-home-cell {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #fff;
+  aspect-ratio: 4 / 3;
+}
+
+.gallery-home-cell img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* ===== รูปใหญ่ 4*4 (กินพื้นที่ 2 แถว 2 คอลัมน์) ===== */
+
+/* แถว 1–2, คอลัมน์ 1–2 → รวมกันเป็นภาพใหญ่ */
+.gallery-home-cell--big {
+  grid-column: span 2;
+  grid-row: span 2;
+  aspect-ratio: 8 / 6 !important;   /* หรือ 4/3 ก็ได้ */
+}
+
+/* มือถือ: ให้ซ้อนกันลงมาเฉย ๆ ไม่ต้องเล่น layout ซับซ้อน */
+@media (max-width: 720px) {
+  .gallery-home-grid {
+    grid-template-columns: repeat(2, 1fr);  /* 2 คอลัมน์ */
+    grid-template-rows: auto;
+  }
+
+  .gallery-home-cell {
+    aspect-ratio: 4 / 3;
+  }
+
+  .gallery-home-cell--big {
+    grid-column: 1 / span 2;  /* ใช้คอลัมน์ 1–2 */
+    grid-row: 1;              /* อยู่แถวที่ 1 */
+    aspect-ratio: 16 / 9;
+  }
+}
+
+/* cell ที่ให้โชว์เฉพาะมือถือ */
+.gallery-home-cell--mobile {
+  display: none;   /* ซ่อนบน desktop */
+}
+
+/* มือถือ: ให้รูป mobile-only โผล่ด้วย */
+@media (max-width: 720px) {
+  .gallery-home-cell--mobile {
+    display: block;
+  }
+}
+
+.gallery-page.page-section--tone2 {
+  /* พื้นหลังโทนขาวพาสเทล */
+  background: radial-gradient(
+    circle at top,
+    #fff9ff 0%,
+    #f9f6ff 40%,
+    #ffffff 100%
+  );
+}
+
+.page-section.page-section--tone2 {
+  align-items: flex-start;   /* ไม่ต้องจัดกลางแนวตั้งแล้ว */
+  overflow-y: auto;          /* เปิดการเลื่อนแนวตั้ง */
+}
 
 /* ===== Rollzy Bunny – layout ด้านนอก ===== */
 

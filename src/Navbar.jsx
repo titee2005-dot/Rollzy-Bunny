@@ -1,7 +1,7 @@
 // src/Navbar.jsx
 import { useState, useEffect } from "react";
 
-const SECTION_IDS = ["home", "about", "schedule", "highlight", "social", "rollzy"];
+const SECTION_IDS = ["home", "about", "schedule", "highlight", "social", "gallery", "rollzy"];
 const HEADER_OFFSET = 80; // ถ้ากดแล้วรู้สึกเลย/เตี้ยไป ปรับเลขนี้ได้
 
 function Navbar() {
@@ -133,6 +133,13 @@ function Navbar() {
             className={linkClass("social")}
           >
             Social Media
+          </a>
+          <a
+            href="/#rollzy"
+            onClick={handleNavClick("rollzy")}
+            className={linkClass("rollzy")}
+          >
+            Gallery
           </a>
           <a
             href="/#rollzy"
