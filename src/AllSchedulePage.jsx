@@ -2,7 +2,6 @@
 import { useEffect } from "react";
 import Navbar from "./Navbar.jsx";
 import Eventslist from "./Eventslist.jsx";
-import "./App.css";
 
 function AllSchedulePage() {
   useEffect(() => {
