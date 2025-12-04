@@ -294,6 +294,12 @@ body {
   }
 }
 
+@media (min-width: 1024px) {
+  .gallery-page .page-section-inner {
+    max-width: 1320px;  /* ถ้าอยากใหญ่กว่านี้ลอง 1360 หรือ 1400 ก็ได้ */
+  }
+}
+
 /* SECTION HEADER */
 
 .section-header {
@@ -1628,7 +1634,7 @@ body {
 @media (min-width: 768px) {
   .gallery-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr)); /* เดสก์ท็อป 3 คอลัมน์ */
-    gap: 14px;
+    gap: 4px;
   }
 }
 
@@ -1737,14 +1743,104 @@ body {
   transition: 0.25s ease;
 }
 
-/* Grid หน้า /gallery */
+/* ขยายภาพ */
+
+/* ========== ALL GALLERY PAGE ========== */
+
+
 .gallery-page-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr)); /* ตั้งไว้ตอนนี้ */
-  gap: 12px;
-  margin-top: 20px;   /* เพิ่มบรรทัดนี้ */
+  grid-template-columns: repeat(4, 1fr); /* ⭐ บังคับ 4 รูปทุกแถว */
+  gap: 36px;                                /* ลดช่องว่าง */
+  width: 100%;
 }
 
+.gallery-card {
+  border-radius: 18px;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+.gallery-card-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* กล่องรูป + ทำ overlay ได้ */
+.gallery-card-thumb {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;         /* ขนาดคล้ายตัวอย่าง */
+  overflow: hidden;
+  border-radius: 18px;
+}
+
+.gallery-card-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+/* ชั้นมืด + ตัวหนังสือ */
+.gallery-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.6),
+    rgba(0, 0, 0, 0.1),
+    transparent
+  );
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  display: flex;
+  align-items: flex-end;
+  padding: 14px;
+  box-sizing: border-box;
+}
+
+.gallery-card-text {
+  color: #fff;
+}
+
+.gallery-card-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.gallery-card-credit {
+  font-size: 0.8rem;
+  opacity: 0.9;
+}
+
+/* เอฟเฟกต์ตอน hover */
+.gallery-card-link:hover .gallery-card-overlay {
+  opacity: 1;
+}
+
+.gallery-card-link:hover img {
+  transform: scale(1.05);
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .gallery-page-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 720px) {
+  .gallery-page-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+}
+
+/* */
 
 @media (max-width: 720px) {
 
@@ -1805,40 +1901,14 @@ body {
   }
 }
 
-.gallery-card {
-  background: #ffffff;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 5px 16px rgba(140, 120, 200, 0.16);
-}
-
-.gallery-card-thumb {
-  width: 100%;
-  padding-top: 70%;   /* ใช้ค่าเดียวกับ .gallery-thumb */
-  position: relative;
-}
-
-.gallery-card-thumb img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
 .gallery-card-caption {
   padding: 8px 10px;
   font-size: 0.8rem;
   color: var(--text-soft);
 }
 
-/* desktop */
-@media (min-width: 768px) {
-  .gallery-page-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 18px;
-  }
-}
+/* Desktop: bigger gallery cards */
+
 
 /* หัวข้อ + ปุ่ม All */
 .gallery-header {

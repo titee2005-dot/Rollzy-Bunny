@@ -6,7 +6,7 @@ function EventsSection() {
       place: "MCC HALL 3F, The Mall Bangkae",
       desc: "จิงโจ้",
       image: "/event1.jpg",
-      link: "https://www.facebook.com/share/p/1ABrNvjBWq/" // ← ลิงก์ของ event 1
+      link: "https://www.facebook.com/share/p/1RJ93hmiUz/" // ← ลิงก์ของ event 1
     },
     {
       title: "Handshake Event",

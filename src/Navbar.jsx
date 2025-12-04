@@ -135,9 +135,9 @@ function Navbar() {
             Social Media
           </a>
           <a
-            href="/#rollzy"
-            onClick={handleNavClick("rollzy")}
-            className={linkClass("rollzy")}
+            href="/#gallery"
+            onClick={handleNavClick("gallery")}
+            className={linkClass("gallery")}
           >
             Gallery
           </a>
