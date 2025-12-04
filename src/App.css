@@ -1560,16 +1560,32 @@ body {
   flex-direction: column;
 }
 
+  #gallery.page-section {
+    padding-bottom: 8px;   /* จากเดิม 36px จะเตี้ยลงเยอะ */
+  }
+
+
 .gallery-header {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;   /* จาก space-between → flex-start */
   align-items: flex-end;
   gap: 8px;
   margin-bottom: 14px;
 }
 
+/* wrapper สำหรับปุ่ม All ใต้รูป */
+.gallery-all-wrapper {
+ margin-top: 18px;    /* ระยะจาก grid ลงมาหาปุ่ม */
+  margin-bottom: 8px;  /* ระยะห่างจากขอบล่าง section */
+  display: flex;
+  justify-content: center;
+}
+
+/* ปุ่ม All เอง */
 .gallery-all-btn {
-  align-self: flex-start;
+  /* ไม่ต้อง align-self แล้ว ให้คอมเมนต์หรือเอาบรรทัดนี้ออก */
+  /* align-self: flex-start; */
+
   padding: 7px 16px;
   border-radius: 999px;
   border: 1px solid #d1c6ff;
@@ -1586,6 +1602,8 @@ body {
   background: #f5f1ff;
   border-color: #b9a8ff;
 }
+
+
 
 /* grid รูป preview ในหน้าแรก */
 .gallery-grid {
@@ -1987,7 +2005,14 @@ body {
     grid-row: 1;              /* อยู่แถวที่ 1 */
     aspect-ratio: 16 / 9;
   }
+
+  /* 🔻 ซ่อน 2 ช่องสุดท้ายใน grid เฉพาะมือถือ */
+  .gallery-home-grid .gallery-home-cell:nth-last-child(-n + 2) {
+    display: none;
+  }
 }
+
+
 
 /* cell ที่ให้โชว์เฉพาะมือถือ */
 .gallery-home-cell--mobile {
@@ -2014,6 +2039,32 @@ body {
 .page-section.page-section--tone2 {
   align-items: flex-start;   /* ไม่ต้องจัดกลางแนวตั้งแล้ว */
   overflow-y: auto;          /* เปิดการเลื่อนแนวตั้ง */
+}
+
+@media (max-width: 720px) {
+  .gallery-page-grid > div:last-child,
+  .gallery-page-grid > div:nth-last-child(2) {
+    display: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .gallery-grid .gallery-item:nth-last-child(-n + 2) {
+    display: none !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .gallery-page .page-section-inner {
+    max-width: 1120px;  /* ให้เท่ากับหน้า All Schedule */
+  }
+}
+
+@media (max-width: 720px) {
+  .gallery-page .page-section-inner {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
 }
 
 /* ===== Rollzy Bunny – layout ด้านนอก ===== */
@@ -2118,35 +2169,117 @@ text-align: left;     /* เหมือนตอนข้อความ */
 
 /* ฝั่งขวา: รูป preview */
 
-.rollzy-preview-card {
-  width: 100%;
-  max-width: 520px;
-  border-radius: 26px;
-  overflow: hidden;
-  box-shadow: 0 20px 40px rgba(40, 40, 60, 0.25);
-  background: #000;
-  padding: 8px;              /* เพิ่ม padding นิดนึงให้มีขอบใน */
-}
-
-/* กริด 2x2 */
 .rollzy-preview-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 8px;
+  grid-template-columns: repeat(2, 1fr);   /* 2 คอลัมน์ */
+  gap: 14px;                                   /* ไม่มีช่องว่าง → รูปติดกัน */
+  width: 100%;
+  max-width: 900px;                         /* ปรับตามต้องการ */
+  margin: 0 auto;
+}
+
+.rollzy-preview-card {
+  background: #fff;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* รูปแต่ละใบ */
-.rollzy-preview-grid img {
+.rollzy-preview-card img {
   width: 100%;
-  aspect-ratio: 4 / 3;       /* อยากเป็นสี่เหลี่ยมจัตุรัสใช้ 1 / 1 */
-  object-fit: cover;
-  border-radius: 16px;
+  height: auto;          /* 🔹 ให้สูงปรับตามภาพจริง */
+  object-fit: contain;   /* 🔹 รูปไม่โดนตัดแน่นอน */
   display: block;
 }
 
 .rollzy-preview-card img {
   width: 100%;
   display: block;
+}
+
+.rollzy-actions-row {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* รูปเวอร์ชันมือถือ ปกติซ่อน (ให้เดสก์ท็อปใช้รูปด้านล่าง) */
+.rollzy-mobile-preview {
+  display: none;
+}
+
+@media (max-width: 720px) {
+  /* layout ใหญ่ยังเป็น column เหมือนเดิม */
+  .rollzy-layout {
+    flex-direction: column;
+  }
+
+  /* แถวปุ่ม + รูป: เอามาอยู่บรรทัดเดียวกัน */
+  .rollzy-actions-row {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  /* ฝั่งปุ่มอยู่ซ้าย กินพื้นที่หลัก */
+  .rollzy-actions {
+    flex: 1;
+  }
+
+  /* รูปมือถืออยู่ขวา */
+  .rollzy-mobile-preview {
+    display: block;
+    flex: 0 0 auto;
+  }
+
+  .rollzy-mobile-preview .rollzy-preview-card {
+    max-width: 120px;          /* ปรับให้ใหญ่/เล็กได้ เช่น 100–140px */
+    padding: 0;
+    box-shadow: none;
+    background: transparent;
+    border-radius: 16px;
+  }
+
+  .rollzy-mobile-preview .rollzy-preview-grid {
+    display: block;            /* มีรูปเดียว */
+  }
+
+  .rollzy-mobile-preview .rollzy-preview-grid img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: auto;
+    object-fit: contain;       /* รูปไม่โดนตัด */
+    border-radius: 16px;
+  }
+
+  /* มือถือ: ซ่อนรูปใหญ่ด้านล่าง ไม่ให้ซ้ำ */
+  .rollzy-right {
+    display: none;
+  }
+}
+
+@media (max-width: 720px) {
+
+  .rollzy-mobile-preview {
+    margin-top: -52px;   /* ขยับรูปขึ้น 12px ปรับค่าได้ เช่น -15px -18px */
+  }
+
+}
+
+@media (max-width: 720px) {
+
+  .rollzy-mobile-preview .rollzy-preview-card {
+    max-width: 145px;   /* จาก 120 → 150 หรือจะ 160 ก็ได้ */
+  }
+
+  .rollzy-mobile-preview .rollzy-preview-grid img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
 }
 
 

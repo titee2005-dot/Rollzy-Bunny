@@ -341,9 +341,6 @@ function GallerySection() {
             <h2>Gallery</h2>
             <p>รวมโมเมนต์น่ารัก ๆ ของน้อง</p>
           </div>
-          <a href="/gallery" className="gallery-all-btn">
-            All
-          </a>
         </div>
 
         <div className="gallery-home-grid">
@@ -359,6 +356,11 @@ function GallerySection() {
               <img src={item.src} alt="" />
             </div>
           ))}
+        </div>
+         <div className="gallery-all-wrapper">
+          <a href="/gallery" className="gallery-all-btn">
+            All
+          </a>
         </div>
       </div>
     </section>
@@ -384,23 +386,34 @@ function RollzyBunnySection() {
             Coming Soon
           </p>
 
-          <div className="rollzy-actions">
-            <a
-              href="https://line.me/ti/g2/Unlc6VfjqNXos90q-mWUW80tatHddPT-11-3Gg?utm_source=invitation&utm_medium=link_copy&utm_campaign=default"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rollzy-btn rollzy-btn--primary"
-            >
-              เข้าร่วม OpenChat
-            </a>
+        <div className="rollzy-actions-row">
+            <div className="rollzy-actions">
+              <a
+                href="https://line.me/ti/g2/Unlc6VfjqNXos90q-mWUW80tatHddPT-11-3Gg?utm_source=invitation&utm_medium=link_copy&utm_campaign=default"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rollzy-btn rollzy-btn--primary"
+              >
+                เข้าร่วม OpenChat
+              </a>
 
-            <button
-              type="button"
-              className="rollzy-btn rollzy-btn--ghost"
-              onClick={() => setOpen(true)}
-            >
-              ช่องทางแฟนด้อมทั้งหมด
-            </button>
+              <button
+                type="button"
+                className="rollzy-btn rollzy-btn--ghost"
+                onClick={() => setOpen(true)}
+              >
+                ช่องทางแฟนด้อมทั้งหมด
+              </button>
+            </div>
+
+            {/* รูปเล็กสำหรับมือถือ อยู่ขวาของปุ่ม */}
+            <div className="rollzy-mobile-preview">
+              <div className="rollzy-preview-card">
+                <div className="rollzy-preview-grid">
+                  <img src="/sns.jpeg" alt="Rollzy Bunny SNS" />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -408,10 +421,8 @@ function RollzyBunnySection() {
         <div className="rollzy-right">
   <div className="rollzy-preview-card">
     <div className="rollzy-preview-grid">
-      <img src="/rollzy-1.png" alt="Rollzy photo 1" />
-      <img src="/rollzy-2.png" alt="Rollzy photo 2" />
-      <img src="/rollzy-3.png" alt="Rollzy photo 3" />
-      <img src="/rollzy-4.png" alt="Rollzy photo 4" />
+      <img src="/sns.jpeg" alt="Rollzy photo 1" />
+      <img src="/sns3.jpeg" alt="Rollzy photo 2" />
     </div>
   </div>
 </div>
