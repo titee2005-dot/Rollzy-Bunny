@@ -1,12 +1,15 @@
 // src/Navbar.jsx
 import { useState, useEffect } from "react";
 
+
 const SECTION_IDS = ["home", "about", "schedule", "highlight", "social", "gallery", "rollzy"];
 const HEADER_OFFSET = 80; // ถ้ากดแล้วรู้สึกเลย/เตี้ยไป ปรับเลขนี้ได้
 
 function Navbar() {
   const [open, setOpen] = useState(false);
   const [activeId, setActiveId] = useState("home");
+
+  const isHome = window.location.pathname === "/";   // ← เพิ่มบรรทัดนี้
 
   const toggleMenu = () => setOpen((o) => !o);
   const closeMenu = () => setOpen(false);
@@ -27,10 +30,17 @@ function Navbar() {
   };
 
   const handleNavClick = (id) => (e) => {
-    e.preventDefault();       // กันไม่ให้เบราว์เซอร์เลื่อนเอง (ซึ่งไม่เผื่อ navbar)
-    scrollToSection(id);
+  if (!isHome) {
+    // ถ้าไม่ใช่หน้า Home → ปล่อยให้เบราว์เซอร์ไปตาม href ปกติ
     closeMenu();
-  };
+    return;
+  }
+
+  // ถ้าอยู่หน้า Home → ใช้ smooth scroll แบบเดิม
+  e.preventDefault();
+  scrollToSection(id);
+  closeMenu();
+};
 
   // ให้ navbar รู้ว่าเรากำลังอยู่ section ไหน (สำหรับ highlight)
   useEffect(() => {

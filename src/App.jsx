@@ -523,8 +523,6 @@ function Footer() {
   return (
     <footer className="footer">
       <p>
-        Fan-made site
-        <br />
         Original Content & Artist © by Independent Artist Management (iAM).
       </p>
     </footer>
