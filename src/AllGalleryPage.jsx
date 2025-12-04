@@ -1,6 +1,7 @@
 // src/AllGalleryPage.jsx
 import { useEffect, useState } from "react";
 import Navbar from "./Navbar.jsx";
+import "./App.css";
 
 const GALLERY_TABS = [
   { id: "all", label: "All" },

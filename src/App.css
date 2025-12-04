@@ -284,7 +284,7 @@ body {
 .page-section-inner {
   max-width: 360px;
   margin: 0 auto;
-  padding: 0 14px;
+  padding: 0 20px;
 }
 
 @media (min-width: 768px) {
@@ -2067,6 +2067,14 @@ body {
   }
 }
 
+/*ปรับขนาด All Schedule กับ All Gallery*/
+@media (max-width: 720px) {
+  .gallery-page .page-section-inner,
+  .all-schedule-page .page-section-inner {
+    padding-left: 20px;
+    padding-right: 20px;   /* เดิม .page-section-inner ใช้ 14px */
+  }
+}
 /* ===== Rollzy Bunny – layout ด้านนอก ===== */
 
 .title-image {
