@@ -2791,7 +2791,7 @@ text-align: left;     /* เหมือนตอนข้อความ */
   max-width: 640px;
   border-radius: 28px;
   padding: 22px 20px 18px;
-  background: radial-gradient(circle at top, rgba(255, 255, 255, 0.98), rgba(240, 230, 255, 0.96));
+  background: linear-gradient(180deg, #FEFBFB, #FDF4F7, #FBF0F4);
   box-shadow: 0 18px 40px rgba(20, 0, 60, 0.35);
   text-align: center;
 }
@@ -2881,10 +2881,12 @@ text-align: left;     /* เหมือนตอนข้อความ */
 
 .rollzy-channel--fb {
   background: linear-gradient(90deg, #e9f1ff, #d4e3ff);
+    border: #A07C89 !important;
 }
 
 .rollzy-channel--fb:hover {
   background: linear-gradient(90deg, #1877f2, #4c9aff);
+    border: #A07C89 !important;
 }
 
 .rollzy-channel--fb::after {
@@ -2918,9 +2920,11 @@ text-align: left;     /* เหมือนตอนข้อความ */
 
 .rollzy-channel--ig {
   background: linear-gradient(90deg, #ffe6ee, #ffe7f8);
+    border: none !important;
 }
 .rollzy-channel--ig {
   background: linear-gradient(90deg, #ffe8ef, #f3d9ff);
+    border: none !important;
 }
 .rollzy-channel--ig:hover {
   background: linear-gradient(90deg, #f58529, #dd2a7b, #8134af, #515bd4);
@@ -2958,9 +2962,11 @@ text-align: left;     /* เหมือนตอนข้อความ */
 
 .rollzy-channel--x {
   background: linear-gradient(90deg, #f5f5f5, #e5e5e5);
+    border: none !important;
 }
 .rollzy-channel--x:hover {
   background: linear-gradient(90deg, #000000, #2f2f2f);
+    border: none !important;
 }
 .rollzy-channel--x::after {
   content: "";
@@ -2990,9 +2996,11 @@ text-align: left;     /* เหมือนตอนข้อความ */
 
 .rollzy-channel--line {
   background: linear-gradient(90deg, #e3fcec, #d0f7e0);
+    border: none !important;
 }
 .rollzy-channel--line:hover {
   background: linear-gradient(90deg, #06c755, #49da8b);
+    border: none !important;
 }
 .rollzy-channel--line::after {
   content: "";
@@ -3029,7 +3037,7 @@ text-align: left;     /* เหมือนตอนข้อความ */
   padding: 7px 18px;
   border-radius: 999px;
   border: none;
-  background: #f1ecff;
+  background: #faeef3e2;
   color: #555;
   font-size: 0.9rem;
   font-weight: 500;
@@ -3037,7 +3045,7 @@ text-align: left;     /* เหมือนตอนข้อความ */
 }
 
 .rollzy-modal-close:hover {
-  background: #e1d6ff;
+  background: #F8E9EF;
 }
 
 @media (min-width: 768px) {

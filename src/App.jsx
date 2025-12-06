@@ -464,7 +464,7 @@ function RollzyBunnySection() {
             className="rollzy-modal"
             onClick={(e) => e.stopPropagation()}
           >
-            <h3 className="rollzy-modal-title">ช่องทางติดตามข่าวสารจากแฟนด้อม</h3>
+            <h3 className="rollzy-modal-title">ช่องทางติดตามแฟนด้อม</h3>
             <p className="rollzy-modal-text">
               สามารถติดตามแฟนด้อมได้จากด้านล่างนี้
             </p>
