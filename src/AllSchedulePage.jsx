@@ -19,6 +19,7 @@ function AllSchedulePage() {
       </main>
       {/* Footer แบบเดียวกับหน้า Home */}
       <footer className="footer">
+        <p2>-`♡´- Fansite Project made by RollzyBunny</p2>
         <p>
           Original Content & Artist © by Independent Artist Management (iAM).
         </p>

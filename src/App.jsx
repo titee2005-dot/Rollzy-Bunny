@@ -3,11 +3,14 @@ import Navbar from "./Navbar.jsx";
 import EventsSection from "./EventsSection.jsx";
 import { useState, useEffect } from "react";
 
+
 /* ตัวช่วยห่อแต่ละ section ให้พื้นหลังเต็มจอ แต่เนื้อหาอยู่กลาง */
 function PageSection({ id, tone, children }) {
   return (
     <section id={id} className={`page-section page-section--${tone}`}>
-      <div className="page-section-inner">{children}</div>
+      <div className="page-section-inner section-reveal">
+        {children}
+      </div>
     </section>
   );
 }
@@ -204,7 +207,7 @@ function SocialSection() {
         <div className="section-header social-header">
           <h2>SOCIAL MEDIA</h2>
           <p>
-            รวม Social Media 💜
+            รวม Social Media 
           </p>
         </div>
 
@@ -460,7 +463,7 @@ function RollzyBunnySection() {
             className="rollzy-modal"
             onClick={(e) => e.stopPropagation()}
           >
-            <h3 className="rollzy-modal-title">ช่องทางติดตามข่าวสาร</h3>
+            <h3 className="rollzy-modal-title">ช่องทางติดตามข่าวสารจากแฟนด้อม</h3>
             <p className="rollzy-modal-text">
               สามารถติดตามแฟนด้อมได้จากด้านล่างนี้
             </p>
@@ -554,24 +557,52 @@ function RollzyBunnySection() {
 
 function Footer() {
   return (
-    <footer className="footer">
-      <p>
-        Original Content & Artist © by Independent Artist Management (iAM).
-      </p>
-    </footer>
+    <>
+    {/*  <footer className="footer-top">
+        <p>Fansite Project made by RollzyBunny</p>
+      </footer> */}
+
+      <footer className="footer">
+        <p2>-`♡´- Fansite Project made by RollzyBunny</p2>
+        <p>Original Content & Artist © by Independent Artist Management (iAM).</p>
+      </footer>
+    </>
   );
 }
 
-
 function App() {
+  // เลื่อนขึ้นบนสุดตอนเข้าเพจ
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
+  // เอฟเฟกต์เลื่อนแล้วค่อยโผล่
+  useEffect(() => {
+  const elements = document.querySelectorAll(".section-reveal");
+
+  const observer = new IntersectionObserver(
+    (entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          // ใส่คลาส visible → เล่นเอฟเฟกต์ครั้งเดียว
+          entry.target.classList.add("visible");
+
+          // เลิกสังเกต element นี้เพื่อไม่ให้เล่นซ้ำ
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.2 }
+  );
+
+  elements.forEach((el) => observer.observe(el));
+
+  return () => observer.disconnect();
+}, []);
+
   return (
     <div className="app-root">
       <Navbar />
-      {/* HERO วิดีโอเต็มจอ */}
       <Hero />
 
       <PageSection id="about" tone="light">
@@ -586,7 +617,7 @@ function App() {
         <DiscographySection />
       </PageSection>
 
-            <PageSection id="social" tone="purple">
+      <PageSection id="social" tone="purple">
         <SocialSection />
       </PageSection>
 

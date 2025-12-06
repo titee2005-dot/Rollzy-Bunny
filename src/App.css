@@ -947,6 +947,7 @@ body {
     font-size: 0.9rem !important;   /* ข้อความใต้หัวข้อเล็กลง */
     line-height: 1.3;
     font-family: "LINE Seed Sans TH", sans-serif;
+    margin-top: 15px;
   }
 }
 
@@ -2747,6 +2748,26 @@ text-align: left;     /* เหมือนตอนข้อความ */
   }
 }
 
+@media (max-width: 720px) {
+  .rollzy-actions-row {
+    align-items: flex-start;   /* อย่าบีบให้อยู่ตรงกลาง → อนุญาตให้ข้อความขยายเอง */
+  }
+
+  .rollzy-text-block {
+    white-space: normal;       /* ให้ตัดบรรทัดปกติ */
+    overflow-wrap: break-word; /* กันไม่ให้เบียดไปทับรูป */
+    max-width: 40%;            /* บีบกรอบข้อความเล็กลงเพื่อบังคับ wrap */
+  }
+}
+@media (max-width: 720px) {
+  .rollzy-subtitle {
+    display: block;            /* ให้คุมพื้นที่ของตัวเอง */
+    white-space: normal;       /* ให้ตัดบรรทัด */
+    overflow-wrap: break-word; /* กันคำยาวเกิน */
+    max-width: 56%;            /* บังคับให้เหลือพื้นที่ แล้วข้อความจะขึ้นบรรทัดใหม่ */
+    line-height: 1.90;         /* ให้บรรทัดดูสวย */
+  }
+}
 /* ===== Popup / Modal (ใช้ของเดิม + เพิ่มโลโก้) ===== */
 
 .rollzy-modal-backdrop {
@@ -3072,11 +3093,26 @@ text-align: left;     /* เหมือนตอนข้อความ */
   color: #fff !important;
 }
 
+/*Footer-top*/
+/*.footer-top p {
+  text-align: center;
+  padding: 6px 12px 4px;     
+  font-size: 0.65rem !important;      
+  color: #695A5B;
+  background: #EEE4E1;
+  opacity: 0.8;              /* ให้ดูบางกว่าเล็กน้อย */
+ /* border-top: 1px solid rgba(0,0,0,0.05);
+} 
+
+.footer-top p {
+  margin: 0;
+}
+*/
 /* FOOTER */
 
 .footer {
   text-align: center;
-  padding: 14px 12px 18px;
+  padding: 16px 16px 6px;
   font-size: 0.78rem;
   color: #ffffff;
   background: #E6BEAE;
@@ -3092,7 +3128,8 @@ text-align: left;     /* เหมือนตอนข้อความ */
 @media (max-width: 720px) {
   .footer p {
     font-size: 12px !important;      /* ← ขนาดฟ้อนในมือถือ */
-    padding: 16px 0 24px;   /* ← ระยะห่างกำลังดี */
+    padding: 4px 4px 6px;   /* ← ระยะห่างกำลังดี */
+    line-height: 0.5;
   }
 }
 
@@ -3370,3 +3407,18 @@ text-align: left;     /* เหมือนตอนข้อความ */
   color: #7645d9;
   font-weight: 600;
 }
+
+/* เริ่มต้น: ซ่อน + ลดความชัด + ขยับลงเล็กน้อย */
+.section-reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: 
+    opacity 0.9s ease-out,
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.section-reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
