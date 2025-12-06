@@ -176,11 +176,9 @@ function AllGalleryPage() {
       </main>
 
       <footer className="footer">
-        <p2>-`♡´- Fansite Project made by RollzyBunny</p2>
-        <p>
-          Original Content & Artist © by Independent Artist Management (iAM).
-        </p>
-      </footer>
+  <p className="footer-line1">-`♡´- Fansite Project made by RollzyBunny</p>
+  <p className="footer-line2">Original Content & Artist © by Independent Artist Management (iAM).</p>
+</footer>
     </div>
   );
 }

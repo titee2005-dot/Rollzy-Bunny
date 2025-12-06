@@ -3123,8 +3123,8 @@ text-align: left;     /* เหมือนตอนข้อความ */
 
 .footer {
   text-align: center;
-  padding: 24px 24px 24px;   /* บน 10px ล่าง 10px = กลางเป๊ะขึ้น */
-  font-size: 0.78rem;
+  padding: 20px 20px 20px !important;   /* บน 10px ล่าง 10px = กลางเป๊ะขึ้น */
+ /* font-size: 0.78rem;*/
   color: #ffffff;
   background: #E6BEAE;
   border-top: 1px solid rgba(197, 116, 255, 0.22);
@@ -3133,19 +3133,33 @@ text-align: left;     /* เหมือนตอนข้อความ */
 
 .footer p {
   margin: 0;
-  font-size: 14px !important;
-  line-height: 2.55;
+ /* font-size: 13.5px; */
+  line-height: 2.25;
   color: #ffffff /* หรือสีที่ต้องการ */
 }
 
-@media (max-width: 720px) {
-  .footer p {
-    font-size: 12px !important;      /* ← ขนาดฟ้อนในมือถือ */
-    padding: 4px 4px 6px;   /* ← ระยะห่างกำลังดี */
-    line-height: 0.5;
-  }
+.footer-line1 {
+  font-size: 13.5px!important;      /* เล็กลง */
+  opacity: 0.85;        /* ทำให้นุ่มกว่า */
+  margin: 0;
 }
 
+/* บรรทัดสองใหญ่กว่าชัดเจน */
+.footer-line2 {
+  font-size: 14px!important;      /* ใหญ่ขึ้นนิดนึง */
+  font-weight: 500;     /* ดูเน้นขึ้น */
+  margin: 0;
+}
+
+@media (max-width: 720px) {
+  .footer-line1 {
+    font-size: 10px !important;;     /* เล็กลงอีกนิดในมือถือ */
+  }
+
+  .footer-line2 {
+    font-size: 11.5px !important;;     /* เล็กลงตาม แต่ยังใหญ่กว่าบรรทัดแรก */
+  }
+}
 
 
 /* ------------------------- */
@@ -3437,3 +3451,11 @@ text-align: left;     /* เหมือนตอนข้อความ */
   transform: translateY(0);
 }
 
+@media (max-width: 720px) {
+  .rollzy-modal-backdrop {
+    background: transparent !important;      /* เอาสีเทาออก */
+    backdrop-filter: none !important;        /* ไม่ぼลอพื้นหลัง */
+    -webkit-backdrop-filter: none !important;
+    padding: 0 16px;                         /* กันกล่องชนขอบนิดหน่อย */
+  }
+}
