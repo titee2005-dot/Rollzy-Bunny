@@ -33,7 +33,7 @@ function EventsSection() {
         <div className="events-header">
           <div className="section-header">
             <h2>ROSE UPCOMING EVENTS</h2>
-            <p>เลื่อนดูงานที่กำลังจะมาถึงของโรสแล้ววางแพลนไปเจอกันนน</p>
+            <p>★ งานที่กำลังจะมาถึงของโรส ไปเจอน้องกันนน～</p>
           </div>
 
           {/* ปุ่มไปหน้ารวมกิจกรรมทั้งหมด */}
