@@ -1,6 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Lobster&family=Mitr:wght@200;300;400;500;600;700&family=Yeseva+One&display=swap');
+h2 {
+  font-family: "Bebas Neue","Yeseva One", "Poppins", "Inter", sans-serif;
+
+  font-size: 82px;   /* ← เพิ่มตรงนี้ */
+  letter-spacing: 0.05em;
+}
+
+p {
+  font-family: "Kanit","Yeseva One", "Poppins", "Inter", sans-serif;
+
+  font-size: 82px;   /* ← เพิ่มตรงนี้ */
+  letter-spacing: 0.01em;
+}
+
 :root {
-  --bg-purple-1: #fff9fc;   /* ม่วงอ่อน */
-  --bg-purple-2: #ffffff;   /* ม่วงอ่อนอีกเฉด */
+  --bg-purple-1: #ffffff;   /* ม่วงอ่อน */
+  --bg-purple-2: #fff9fc;   /* ม่วงอ่อนอีกเฉด */
   --bg-page: #f7f1ff;
   --bg-card: #ffffff;
   --bg-soft: #f1e9ff;
@@ -666,7 +681,7 @@ body {
   aspect-ratio: 3 / 4;     /* แนวตั้งเหมือนเดิม */
   border-radius: 24px;
   padding: 4px;
-  background: radial-gradient(circle at top, #E0D9CF, #AF9F8C);
+  background: none;
   box-shadow: 0 14px 34px rgba(255, 255, 255, 0.4);
   overflow: hidden;
 }
@@ -692,11 +707,61 @@ body {
 
 .about-header h2 {
   font-size: 1.3rem;
+  margin-bottom: 10px;
 }
 
 .about-header p {
-  font-size: 0.9rem;
+  font-size: 1.1rem;
   color: var(--text-soft);
+}
+
+.about-more p {
+  color: #6A4FF7;   /* เปลี่ยนเป็นสีที่ต้องการ */
+}
+
+@media (max-width: 768px) {
+
+  .about-header {
+    margin-bottom: 10px !important;   /* เพิ่มขึ้นจากเดิมที่แทบไม่ขยับ */
+  }
+  /* ↓↓↓ ลดขนาดฟ้อนเนื้อหาใน About ↓↓↓ */
+  .about-body p,
+  .about-list li {
+    font-size: 0.85rem !important;    /* เดิมประมาณ 1rem → ลดลงพอดีอ่านง่าย */
+    line-height: 1.75;
+    font-family: "Kanit","Yeseva One", "Poppins", "Inter", sans-serif
+  }
+
+  /* ↓↓↓ เพิ่มขนาดหัวข้อ About เฉพาะมือถือ ↓↓↓ */
+  .about-header h2 {    
+  font-size: 20px; /* เพิ่มหรือลดได้ */
+  letter-spacing: 0.04em;
+  font-weight: 500;
+  font-family: "Mitr", sans-serif;
+  margin-bottom: 15px !important;    /* กัน margin ของ h2 ให้ชัดเจนขึ้น */
+  line-height: 1.2;
+  }
+
+  /* ถ้าชื่อ Rose อยู่ใน tag อื่นให้ขยายด้วย */
+  .about-name-main {
+    font-size: 1.9rem !important;     /* ทำให้โดดเด่นขึ้น */
+  }
+
+  /* 2) เพิ่มระยะห่างระหว่าง "6th Gen" กับเนื้อหา */
+  .about-chip-row {
+    margin-bottom: 17px !important;   /* เพิ่มช่องว่างก่อนเนื้อหา */
+  }
+
+  /* 3) ลดพื้นที่ว่างด้านล่างก่อนปุ่ม อ่านทั้งหมด/ซ่อน */
+  .about-body > .about-more-btn {
+    margin-top: 10px !important;   /* ขยับขึ้นจริงแน่นอน */
+  }
+
+  /* ลดช่องว่างส่วนท้ายของ body */
+  .about-body {
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+  }
 }
 
 /* ชิปเล็ก ๆ แนวแฟนไซต์ */
@@ -709,16 +774,31 @@ body {
 
 .about-chip {
   font-size: 0.78rem;
-  padding: 6px 10px;
+  padding: 6px 16px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.95);
+  background: linear-gradient(
+    135deg,
+    #ffe6f3 0%,   /* ชมพูพาสเทลอ่อนมาก */
+    #e8f3ff 100%  /* ฟ้าพาสเทลอ่อน */
+  );
   border: 1px solid var(--border-soft);
-  color: var(--text-soft);
+  color: #E18AAA;
+  font-weight: 700 !important;
+  font-family: "Kanit","Yeseva One", "Poppins", "Inter", sans-serif
+}
+
+.about-more > p {
+  color: #CA9CAC !important;   /* ใส่ !important กันโดน override */
+  font-size: 1rem;             /* เพื่อไม่ให้ติด 82px จาก global */
+  letter-spacing: 0;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  font-weight: 500 !important;
 }
 
 /* เนื้อหาอ่านง่าย ไม่เป็นทางการเกิน */
 .about-body p {
-  font-size: 0.9rem;
+  font-size: 1.0rem;
   color: var(--text-soft);
   margin: 0 0 8px;
 }
@@ -763,14 +843,28 @@ body {
   }
 
   .about-header h2 {
-    font-size: 1.7rem;
+  font-family: "Mitr", sans-serif;
+  font-size: 30px; /* เพิ่มหรือลดได้ */
+  letter-spacing: 0.04em;
+  font-weight: 500;
   }
 
   .about-header p,
-  .about-body p,
+  .about-body p {
+  line-height: 2.0;   /* เพิ่มหรือ ลดได้ เช่น 1.4 / 1.8 */
+}
   .about-list {
     font-size: 0.95rem;
   }
+}
+
+
+.about-list {
+  margin-bottom: 12px !important;
+}
+
+.about-more-btn {
+  margin-top: 8px  !important;
 }
 
 @media (min-width: 1024px) {
@@ -830,6 +924,35 @@ body {
 }
 
 /* ===== Header + ปุ่ม All Schedule มุมขวาบน ===== */
+
+#schedule .section-header h2 {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 52px;       /* ← ปรับได้ตามที่ต้องการ */
+  letter-spacing: 0.05em;
+  font-weight: 400;
+}
+
+#schedule .section-header p {
+    font-size: 19px  !important;   /* ข้อความใต้หัวข้อเล็กลง */
+    line-height: 1.3;
+    font-family: "LINE Seed Sans TH", sans-serif;
+  }
+@media (max-width: 768px) {
+  #schedule .section-header h2 {
+    font-size: 34px !important;   /* ปรับตามต้องการ เช่น 1.2 / 1.6 */
+    line-height: 1.2;
+  }
+
+  #schedule .section-header p {
+    font-size: 0.9rem !important;   /* ข้อความใต้หัวข้อเล็กลง */
+    line-height: 1.3;
+    font-family: "LINE Seed Sans TH", sans-serif;
+  }
+}
+
+.all-schedule-page {
+  background: #fff9fc;
+}
 
 .events-header {
   display: flex;
@@ -1072,9 +1195,37 @@ body {
 
 /* ===== Highlight Section ===== */
 
+#highlight .section-header h2 {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 52px;     /* ← ปรับขนาดตามต้องการ */
+  letter-spacing: 0.05em;
+  font-weight: 400;
+}
+
 .highlight-header p {
-  font-size: 0.9rem;
+  font-size: 18px;
   color: var(--text-soft);
+}
+
+@media (max-width: 768px) {
+  #highlight .section-header h2 {
+    font-size: 34px !important;  /* ปรับตามที่ต้องการ */
+    letter-spacing: 0.02em;
+  }
+}
+
+#highlight .section-header p {
+  font-size: 19px ;
+  font-family: "LINE Seed Sans TH", sans-serif;
+  margin-bottom: 18px; /* เพิ่มระยะห่างก่อนการ์ด YouTube */
+}
+
+@media (max-width: 768px) {
+  #highlight .section-header p {
+  font-size: 0.9rem !important;   /* ข้อความใต้หัวข้อเล็กลง */
+  line-height: 1.3;
+  font-family: "LINE Seed Sans TH", sans-serif;
+}
 }
 
 /* layout การ์ด – มือถือ: เรียงลงมา */
@@ -1088,8 +1239,8 @@ body {
 .highlight-card {
   background: #ffffff;
   border-radius: 18px;
-  border: 1px solid rgba(255, 255, 255, 0.9);
-  box-shadow: 0 8px 18px rgba(140, 120, 200, 0.18);
+  border: 0.4px solid #EEE4E1 !important;
+  box-shadow: none;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -1101,8 +1252,21 @@ body {
 
 .highlight-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 12px 24px rgba(255, 255, 255, 0.24);
-  border-color: rgb(255, 255, 255);
+  box-shadow: 0 2px 12px rgba(255, 132, 214, 0.24);
+  border: 0.4px solid #EEE4E1 !important;
+}
+
+@media (max-width: 768px) {
+
+  /* เพิ่มช่องว่างระหว่างการ์ดใน highlight */
+  #highlight .highlight-grid {
+    gap: 20px !important;   /* ปรับค่าได้ 16 / 20 / 24 */
+  }
+
+  /* หากการ์ดไม่ได้ใช้ gap แต่ใช้ margin แทน → เพิ่มตรงนี้ */
+  #highlight .highlight-card {
+    margin-bottom: 20px !important;
+  }
 }
 
 /* กรอบวิดีโอ 16:9 */
@@ -1154,6 +1318,26 @@ body {
   font-size: 0.82rem;
   color: var(--text-soft);
   margin: 0;
+  line-height: 1.85;  /* ← ระยะห่างระหว่างบรรทัด เพิ่ม/ลดได้ */
+  margin-bottom: 2px;
+   
+}
+
+.highlight-desc .d1 {
+  padding-left: 9px;   /* บรรทัดแรก */
+    color: #463c41
+}
+.highlight-desc .d2 {
+  padding-left: 9px;   /* บรรทัดแรก */
+}
+.highlight-desc .d3 {
+  padding-left: 0px;   /* บรรทัดแรก */
+}
+
+/*Youtube อันสุดท้าย*/
+.credit-strong {
+  font-weight: 700;
+  color: #A06AA8;      /* สีม่วงอ่อนสไตล์เว็บ */
 }
 
 /* ===== Tablet / PC ===== */
@@ -1189,6 +1373,34 @@ body {
 
 /* ===== Social Media Section ===== */
 
+#social .section-header h2 {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 52px;     /* ← ปรับขนาดตามต้องการ */
+  letter-spacing: 0.05em;
+  font-weight: 400;
+}
+
+@media (max-width: 768px) {
+  #social .section-header h2 {
+    font-size: 34px !important;  /* ปรับตามที่ต้องการ */
+    letter-spacing: 0.02em;
+  }
+}
+
+#social .section-header p {
+  font-size: 19px ;
+  font-family: "LINE Seed Sans TH", sans-serif;
+  margin-bottom: 19px; /* เพิ่มระยะห่างก่อนการ์ด YouTube */
+}
+
+@media (max-width: 768px) {
+  #social .section-header p {
+  font-size: 0.9rem !important;   /* ข้อความใต้หัวข้อเล็กลง */
+  line-height: 1.3;
+  font-family: "LINE Seed Sans TH", sans-serif;
+}
+}
+
 .social-header p {
   font-size: 0.9rem;
   color: var(--text-soft);
@@ -1214,7 +1426,8 @@ body {
 .social-card {
   background: #ffffff;
   border-radius: 22px;
-  box-shadow: 0 16px 36px rgba(150, 130, 220, 0.25);
+  box-shadow: none;
+  border: 1px solid #EEE4E1;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -1401,7 +1614,7 @@ body {
   border-radius: 999px;
   text-decoration: none;
   background: #ffffff;
-  box-shadow: 0 10px 22px rgba(160, 130, 225, 0.18);
+  box-shadow: none;
   border: 1px solid rgba(220, 205, 250, 0.9);
   position: relative;
   overflow: hidden;
@@ -1471,7 +1684,7 @@ body {
 
 .social-chip--fb:hover {
   background: linear-gradient(90deg, #1877f2, #4c9aff);
-  box-shadow: 0 10px 24px rgba(150, 120, 220, 0.26);
+  box-shadow: 0 4px 24px rgba(150, 120, 220, 0.26);
 }
 
 /* ลายน้ำ FB ด้านขวา */
@@ -1522,10 +1735,10 @@ body {
 .social-chip--iam:hover {
  background: linear-gradient(
     135deg,
-    #f8d9e8 0%,   /* pink pastel */
-    #e9d9ff 60%   /* lavender pastel */
+    #f3b7d3 0%,   /* pink pastel เข้มขึ้นจาก f8d9e8 */
+    #d4b8ff 60%   /* lavender pastel เข้มขึ้นจาก e9d9ff */
   );
-  box-shadow: 0 10px 24px rgba(200, 120, 255, 0.26);
+  box-shadow: 0 4px 24px rgba(200, 120, 255, 0.26);
 }
 
 /* ลายน้ำ iAM48 ด้านขวา */
@@ -1609,7 +1822,33 @@ body {
 }
 
 /* ===== GALLERY SECTION (หน้าแรก) ===== */
+#gallery .section-header h2 {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 52px;     /* ← ปรับขนาดตามต้องการ */
+  letter-spacing: 0.05em;
+  font-weight: 400;
+}
 
+@media (max-width: 768px) {
+  #gallery .section-header h2 {
+    font-size: 34px !important;  /* ปรับตามที่ต้องการ */
+    letter-spacing: 0.02em;
+  }
+}
+
+#gallery .section-header p {
+  font-size: 19px ;
+  font-family: "LINE Seed Sans TH", sans-serif;
+ 
+}
+
+@media (max-width: 768px) {
+  #gallery .section-header p {
+  font-size: 0.9rem !important;   /* ข้อความใต้หัวข้อเล็กลง */
+  line-height: 1.3;
+  font-family: "LINE Seed Sans TH", sans-serif;
+}
+}
 
 
 #gallery .gallery-section-inner {
@@ -1633,8 +1872,8 @@ body {
 
 /* wrapper สำหรับปุ่ม All ใต้รูป */
 .gallery-all-wrapper {
- margin-top: 18px;    /* ระยะจาก grid ลงมาหาปุ่ม */
-  margin-bottom: 8px;  /* ระยะห่างจากขอบล่าง section */
+ margin-top: 28px;    /* ระยะจาก grid ลงมาหาปุ่ม */
+  margin-bottom: 38px;  /* ระยะห่างจากขอบล่าง section */
   display: flex;
   justify-content: center;
 }
@@ -2133,6 +2372,145 @@ body {
     padding-right: 24px!important;   /* เดิม .page-section-inner ใช้ 14px */
   }
 }
+
+.gallery-page {
+  background: #fff9fc !important;
+}
+
+/*ปรับตำแหน่งรูป*/
+/* ใบใหญ่ใบแรกซ้ายบน */
+.gallery-home-grid .gallery-home-cell:nth-child(1) img {
+  object-position: center 30%;  /* ซ้าย–ขวา 30%, บน–ล่าง 20% */
+  /* ลองปรับเป็น 50% 10%, 40% 0% ตามที่ชอบได้เลย */
+}
+.gallery-home-grid .gallery-home-cell:nth-child(2) img {
+  object-position: center 20%;  /* ซ้าย–ขวา 30%, บน–ล่าง 20% */
+  /* ลองปรับเป็น 50% 10%, 40% 0% ตามที่ชอบได้เลย */
+}
+.gallery-home-grid .gallery-home-cell:nth-child(3) img {
+  object-position: 20% 20%;  /* ซ้าย–ขวา 30%, บน–ล่าง 20% */
+  /* ลองปรับเป็น 50% 10%, 40% 0% ตามที่ชอบได้เลย */
+}
+.gallery-home-grid .gallery-home-cell:nth-child(4) img {
+  object-position: center 25%;  /* ซ้าย–ขวา 30%, บน–ล่าง 20% */
+  /* ลองปรับเป็น 50% 10%, 40% 0% ตามที่ชอบได้เลย */
+}
+.gallery-home-grid .gallery-home-cell:nth-child(5) img {
+  object-position: center 20%;  /* ซ้าย–ขวา 30%, บน–ล่าง 20% */
+  /* ลองปรับเป็น 50% 10%, 40% 0% ตามที่ชอบได้เลย */
+}
+.gallery-home-grid .gallery-home-cell:nth-child(6) img {
+  object-position: center 30%;  /* ซ้าย–ขวา 30%, บน–ล่าง 20% */
+  /* ลองปรับเป็น 50% 10%, 40% 0% ตามที่ชอบได้เลย */
+}
+
+/* ใช้ hover เดียวกับหน้า All Gallery */
+.gallery-thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  border-radius: 8px;
+}
+
+/* wrapper ของภาพ */
+.home-gallery-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+/* ตัวรูป */
+.home-gallery-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .25s ease, box-shadow .25s ease;
+  border-radius: 12px;
+}
+
+/* hover ซูมแบบ All Gallery */
+.home-gallery-wrapper:hover .home-gallery-img {
+  transform: scale(1.04);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+}
+
+/* overlay ข้อความ */
+.home-gallery-overlay {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 14px;
+
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,0.65),
+    rgba(0,0,0,0)
+  );
+
+  color: #fff;
+
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity .25s ease, transform .25s ease;
+}
+
+/* แสดง overlay ตอน hover */
+.home-gallery-wrapper:hover .home-gallery-overlay {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.home-gallery-overlay h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.home-gallery-overlay p {
+  margin: 4px 0 0;
+  font-size: 0.85rem;
+  opacity: 0.9;
+}
+
+/*แก้ระยะห่างหน้า all gallery*/
+
+.gallery-page-header h2 {
+  margin-bottom: 6px !important;   /* เดิมห่างเกิน → ลดลง */
+  font-family: "Bebas Neue", sans-serif;
+}
+
+.gallery-page-header p {
+  margin-top: 0 !important;        /* ป้องกันไม่ให้ p ดันลงไป */
+  margin-bottom: 24px !important;
+}
+
+.gallery-page-header p {
+  font-size: 19px ;
+  font-family: "LINE Seed Sans TH", sans-serif;
+ 
+}
+
+@media (max-width: 768px) {
+  .gallery-page-header p {
+    font-size: 0.8rem !important;
+     font-family: "LINE Seed Sans TH", sans-serif;
+     margin-bottom: 16px !important;
+  }
+}
+@media (max-width: 768px) {
+  .gallery-page-header h2 {
+    font-size: 34px !important;
+    font-family: "Bebas Neue", sans-serif;
+  }
+}
+
 /* ===== Rollzy Bunny – layout ด้านนอก ===== */
 
 .title-image {
@@ -2486,21 +2864,25 @@ text-align: left;     /* เหมือนตอนข้อความ */
 .rollzy-channel--fb::after {
   content: "";
   position: absolute;
-  right: -40px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 120px;
-  height: 120px;
-  background-image: url('/fblogo.png');
+  right: 10px;
+  top: 75%;
+  transform: translateY(-40%);
+  width: 90px;
+  height: 102px;
+  background-image: url('/fblogo3.png');
   background-size: contain;
   background-repeat: no-repeat;
   opacity: 0;
-  transition: opacity 0.35s ease;
+  transition: opacity 0.45s ease, transform 0.45s ease;
+  transform: translate(20px, -40%) rotate(15deg);  /* เริ่ม: อยู่ขวากว่าเดิม */
+
 }
 
 .rollzy-channel--fb:hover::after {
   opacity: 0.25;
+  transform: translate(0, -50%) rotate(10deg);
 }
+
 
 .rollzy-channel--fb:hover .rollzy-channel-logo-fb {
   filter: brightness(0) invert(1);
@@ -2520,20 +2902,24 @@ text-align: left;     /* เหมือนตอนข้อความ */
 .rollzy-channel--ig::after {
   content: "";
   position: absolute;
-  right: -40px;
-  top: 50%;
+  right: 15px;
+  top: 75%;
   transform: translateY(-50%);
-  width: 120px;
-  height: 120px;
+  width: 70px;
+  height: 82px;
   background-image: url('/igicon3.png');
   background-size: contain;
   background-repeat: no-repeat;
   opacity: 0;
-  transition: opacity 0.35s ease;
+  transition: opacity 0.45s ease, transform 0.45s ease;
+  transform: translate(20px, -40%) rotate(15deg);  /* เริ่ม: อยู่ขวากว่าเดิม */
+  
 }
 
 .rollzy-channel--ig:hover::after {
   opacity: 0.25;
+  transform: translate(0, -50%) rotate(10deg);
+  
 }
 .rollzy-channel--ig:hover .rollzy-channel-logo-ig {
   filter: brightness(0) invert(1);
@@ -2553,20 +2939,22 @@ text-align: left;     /* เหมือนตอนข้อความ */
 .rollzy-channel--x::after {
   content: "";
   position: absolute;
-  right: -40px;
-  top: 50%;
+  right: 0px;
+  top: 70%;
   transform: translateY(-50%);
-  width: 120px;
-  height: 120px;
+  width: 85px;
+  height: 100px;
   background-image: url('/xicon.png');
   background-size: contain;
   background-repeat: no-repeat;
   opacity: 0;
-  transition: opacity 0.35s ease;
+  transition: opacity 0.45s ease, transform 0.45s ease;
+  transform: translate(20px, -40%) rotate(20deg);  /* เริ่ม: อยู่ขวากว่าเดิม */
 }
 
 .rollzy-channel--x:hover::after {
   opacity: 0.3;
+  transform: translate(0, -50%) rotate(10deg);
 }
 .rollzy-channel--x:hover .rollzy-channel-logo-x {
   filter: brightness(0) invert(1);
@@ -2583,20 +2971,22 @@ text-align: left;     /* เหมือนตอนข้อความ */
 .rollzy-channel--line::after {
   content: "";
   position: absolute;
-  right: -40px;
-  top: 50%;
+  right: 10px;
+  top: 75%;
   transform: translateY(-50%);
-  width: 120px;
-  height: 120px;
+  width: 65px;
+  height: 82px;
   background-image: url('/opcicon.png');
   background-size: contain;
   background-repeat: no-repeat;
   opacity: 0;
-  transition: opacity 0.35s ease;
+  transition: opacity 0.45s ease, transform 0.45s ease;
+  transform: translate(20px, -40%) rotate(25deg);  /* เริ่ม: อยู่ขวากว่าเดิม */
 }
 
 .rollzy-channel--line:hover::after {
-  opacity: 0.25;
+  opacity: 0.65;
+  transform: translate(0, -50%) rotate(15deg);
 }
 .rollzy-channel--line:hover .rollzy-channel-logo-opc {
   filter: brightness(0) invert(1);
@@ -2691,6 +3081,18 @@ text-align: left;     /* เหมือนตอนข้อความ */
   border-top: 1px solid rgba(197, 116, 255, 0.22);
 }
 
+.footer p {
+  font-size: 14px !important;
+  line-height: 1.4;
+  color: #ffffff /* หรือสีที่ต้องการ */
+}
+
+@media (max-width: 720px) {
+  .footer p {
+    font-size: 12px !important;      /* ← ขนาดฟ้อนในมือถือ */
+    padding: 16px 0 24px;   /* ← ระยะห่างกำลังดี */
+  }
+}
 
 /* ------------------------- */
 /*   DESKTOP RESPONSIVE      */

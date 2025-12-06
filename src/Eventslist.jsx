@@ -3,24 +3,24 @@ function Eventslist() {
     {
       title: "Kangaroo Village Christmas Festival",
       date: "19 – 21 ธันวาคม 2025",
-      place: "MCC HALL 3F, The Mall Bangkae",
-      desc: "จิงโจ้",
+      place: "📍 MCC HALL 3F, The Mall Bangkae",
+     /* desc: "จิงโจ้",*/
       image: "/event1.jpg",
       link: "https://www.facebook.com/share/p/1ABrNvjBWq/",
     },
     {
       title: "Handshake Event",
       date: "27-28 ธันวาคม 2025",
-      place: "MCC HALL 3F, The Mall Bangkapi",
-      desc: "งานจับมือ",
+      place: "📍 MCC HALL 3F, The Mall Bangkapi",
+     /* desc: "งานจับมือ",*/
       image: "/event2.jpg",
       link: "https://www.facebook.com/share/p/17vULEJkk5/",
     },
     {
       title: "War of Goddess",
       date: "1 กุมภาพันธ์ 2026",
-      place: "TBA",
-      desc: "กีฬาสี",
+      place: "📍 TBA",
+      /*desc: "กีฬาสี",*/
       image: "/event3.jpg",
       link: "https://www.facebook.com/share/p/16yQFhDc2G/",
     },
@@ -32,7 +32,7 @@ function Eventslist() {
       <div className="events-header">
         <div className="section-header">
           <h2>ROSE UPCOMING EVENTS</h2>
-          <p>?</p>
+          <p>งานที่กำลังจะมาถึง</p>
         </div>
 
         <a href="/" className="all-schedule-btn">

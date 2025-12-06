@@ -54,39 +54,43 @@ function AboutSection() {
 
         {/* หัวข้อ */}
         <div className="about-header">
-          <h2>รู้จัก Rose ให้มากขึ้น</h2>
+          <h2>Rose - Panisara Buranapha</h2> {/*
           <p>
             มุมเล็ก ๆ สำหรับแฟนคลับที่อยากรู้จัก Rose... 🌟
-          </p>
+          </p> */}
         </div>
 
         {/* Chip */}
         <div className="about-chip-row">
-          <span className="about-chip">Nickname · Rose</span>
-          <span className="about-chip">Panisara Buranapha</span>
           <span className="about-chip">BNK48 6th Generation</span>
+      {/*    <span className="about-chip">Panisara Buranapha</span>
+          <span className="about-chip">Nickname · Rose</span> */}
         </div>
 
         {/* เนื้อหาปกติ */}
         <div className="about-body">
           <p>
-            Rose ... 💕
+            "หนูมีความฝันอยากเป็นศิลปิน อยากเป็นนักร้องมาตั้งแต่เด็กๆ แต่หลังจากได้รู้จัก BNK48 ช่วงคุกกี้เสี่ยงทายก็ทำให้มีความรู้สึกอยากเป็นไอดอลมาตั้งแต่ตอนนั้น ในอีก 10 ปีข้างหน้า หนูอยากเห็นตัวเองที่ยังเป็นไอดอลอยู่ ยังมี Passion ยังไม่หมดไฟ และยังตั้งใจทำตามความฝันต่อไป" - Rose BNK48
+            {/*<br/>
+            ปาณิสรา บูรณาภา 💕*/}
           </p>
 
           {/* ========== เนื้อหาแบบซ่อน ========== */}
           {showMore && (
             <div className="about-more">
               <p>
-                รออัปเดต
+                ข้อมูลทั่วไป
               </p>
-              <p>
+              {/*<p>
                 รออัปเดต
-              </p>
+              </p> */}
               <ul className="about-list">
-                <li>Coming Soon</li>
-                <li>Coming Soon</li>
-                <li>Coming Soon</li>
-                <li>Coming Soon</li>
+                <li>Date of birth : 1 November 2007</li>
+                <li>Height : 167 cm</li>
+                <li>Province : นครปฐม</li>
+                <li>Like : แมว / สุนัข / กระต่าย / อาหารญี่ปุ่น / ปิ้งย่าง / ส้มตำ</li>
+                <li>Blood Group : B</li>
+                <li>Hobby : ดูซีรีส์ / เล่นเกม / ช็อปปิ้ง / แต่งนิยาย</li>
               </ul>
             </div>
           )}
@@ -145,12 +149,15 @@ function DiscographySection() {
               <iframe width="560" height="315" src="https://www.youtube.com/embed/jRVOQHriw2w?si=JrkTROA3HZVPAFqL" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
           </div>
           <div className="highlight-body">
-            <span className="highlight-tag">MV</span>
+            <span className="highlight-tag">Music Video</span>
             <h3 className="highlight-title">
-              【MV full】Doushitemo Kimi ga Suki da – จะยังไงก็รักเธอ / BNK48
+            【MV full】Doushitemo Kimi ga Suki da – จะยังไงก็รักเธอ / BNK48
             </h3>
-            <p className="highlight-desc">
-              Debut Song
+            <p class="highlight-desc"> 
+              <span class="d1">♥ Premiered Oct 11, 2025</span><br />
+              <span class="d2">BNK48 20th Single Coupling Song</span><br />
+              <span class="d2">BNK48 6th Generation Debut Song</span><br />
+              <span class="d3">「Doushitemo Kimi ga Suki da – จะยังไงก็รักเธอ」</span>
             </p>
           </div>
         </article>
@@ -158,32 +165,27 @@ function DiscographySection() {
         {/* การ์ดไฮไลต์อื่น ๆ */}
         <article className="highlight-card">
           <div className="highlight-thumb small">
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/jRVOQHriw2w?si=JrkTROA3HZVPAFqL" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <iframe width="560" height="315" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
           </div>
 
           <div className="highlight-body">
-            <span className="highlight-tag">Then & Now</span>
-            <h3 className="highlight-title">Then & Now</h3>
+            <span className="highlight-tag">About Rose</span>
+            <h3 className="highlight-title">THEN & NOW</h3>
             <p className="highlight-desc">
-              Upcoming
+              Self-Reflection of [ #RoseBNK48 ]
             </p>
           </div>
         </article>
 
         <article className="highlight-card">
           <div className="highlight-thumb small">
-            <iframe
-              src="https://www.youtube.com/embed/abc123XYZ"
-              frameBorder="0"
-              allow="autoplay; encrypted-media"
-              allowFullScreen
-            />
+           <iframe width="560" height="315" src="https://www.youtube.com/embed/HiIjepatb2A?si=cHnXtO9jMIp10wmq" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
           </div>
           <div className="highlight-body">
-            <span className="highlight-tag">TBA</span>
-            <h3 className="highlight-title">Coming Soon</h3>
+            <span className="highlight-tag">Stage Performance</span>
+            <h3 className="highlight-title">MIX- Special Olympic Charity Concert Pink Panther</h3>
             <p className="highlight-desc">
-              Coming Soon
+              [Rose BNK48] Fancam <span className="credit-strong">by Phoenixcz Room</span>
             </p>
           </div>
         </article>
@@ -219,7 +221,7 @@ function SocialSection() {
               <div className="social-banner-left">
                 <span className="social-platform">
                 <img src="/igicon.png" alt="IG" className="social-icon" />
-                <span>Instagram</span>
+                <span>Instagram (กำลังแก้)</span>
                 </span>
           
                 <span className="social-handle">@rose.bnk48office</span>
@@ -323,14 +325,16 @@ function SocialSection() {
 }
 
 function GallerySection() {
+  const [selectedItem, setSelectedItem] = useState(null);
+  
   const items = [
-    { id: 1, src: "/gallery-big.jpg", big: true }, // รูปใหญ่ 4x4
-    { id: 2, src: "/gallery-2.jpg" },
-    { id: 3, src: "/gallery-3.jpg" },
-    { id: 4, src: "/gallery-4.jpg" },
-    { id: 5, src: "/gallery-5.jpg" },
-    { id: 6, src: "/gallery-6.jpg" },
-    { id: 7, src: "/gallery-extra.jpg", mobileOnly: true }, // รูปเฉพาะมือถือ
+    { id: 1, src: "/memepic1.JPG", big: true,label: "Meme", credit: "BNK_Story"  }, // รูปใหญ่ 4x4
+    { id: 2, src: "/hwpic1.JPG", label: "Halloween", credit: "Rollzy_Bunny" },
+    { id: 3, src: "/bdpic1.JPG", label: "Halloween", credit: "Rollzy_Bunny" },
+    { id: 4, src: "/hwpic2.JPG", label: "Halloween", credit: "Rollzy_Bunny" },
+    { id: 5, src: "/hwpic3.JPG", label: "Halloween", credit: "Rollzy_Bunny" },
+    { id: 6, src: "/hwpic4.JPG", label: "Halloween", credit: "Rollzy_Bunny" },
+    { id: 7, src: "/hwpic5.JPG", mobileOnly: true, label: "Halloween", credit: "BNK_Story" }, // รูปเฉพาะมือถือ
   ];
 
   return (
@@ -353,10 +357,28 @@ function GallerySection() {
                 (item.mobileOnly ? " gallery-home-cell--mobile" : "")
               }
             >
-              <img src={item.src} alt="" />
-            </div>
-          ))}
-        </div>
+              <div className="home-gallery-wrapper">
+    <img
+      src={item.src}
+      alt=""
+      className="home-gallery-img"
+      onClick={() => setSelectedItem(item)}
+    />
+
+    {/* overlay ที่จะขึ้นตอน hover */}
+    <div className="home-gallery-overlay">
+      <h3>{item.label || "Coming Soon"}</h3>
+      <p>By {item.credit || "ระบุชื่อเจ้าของภาพ"}</p>
+    </div>
+  </div>
+</div>
+        ))}
+      </div>
+
+      {/* Modal แบบเดียวกับหน้า All Gallery */}
+      {selectedItem && (
+        <GalleryModal item={selectedItem} onClose={() => setSelectedItem(null)} />
+      )}
          <div className="gallery-all-wrapper">
           <a href="/gallery" className="gallery-all-btn">
             All
@@ -380,10 +402,10 @@ function RollzyBunnySection() {
         <div className="rollzy-left">
           <img src="rollzy-title.png" alt="Rollzy Bunny" className="title-image" />
           <p className="rollzy-lead">
-            แฟนด้อม
+            Rose BNK48 Supporters 𐔌՞. .՞𐦯
           </p>
           <p className="rollzy-subtitle">
-            Coming Soon
+            มาร่วมเป็นชาว Rose's Garden ไปด้วยกัน～
           </p>
 
         <div className="rollzy-actions-row">
@@ -521,7 +543,7 @@ function RollzyBunnySection() {
               className="rollzy-modal-close"
               onClick={() => setOpen(false)}
             >
-              ปิดหน้าต่าง
+              <strong>ปิดหน้าต่าง</strong>
             </button>
           </div>
         </div>

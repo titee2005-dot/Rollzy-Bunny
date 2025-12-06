@@ -15,20 +15,20 @@ const GALLERY_ITEMS = [
   {
     id: 1,
     src: "/rose-about.jpg",
-    label: "Coming Soon",
-    category: "stage",
-    credit: "ระบุชื่อเจ้าของภาพ",
+    label: "Debut Stage",
+    category: "event",
+    credit: "Rollzy_Bunny",
     link: "https://ลิงก์เพจเจ้าของภาพ-1"
   },
   {
     id: 2,
     src: "/rose-hero.jpg",
-    label: "Cute meme 2",
-    category: "meme",
-    credit: "ระบุชื่อเจ้าของภาพ",
+    label: "Halloween",
+    category: "event",
+    credit: "Rollzy_Bunny",
     link: "https://ลิงก์เพจเจ้าของภาพ-2"
   },
- {
+ /*{
     id: 3,
     src: "/gallery-2.jpg",
     label: "Cute meme 2",
@@ -75,7 +75,7 @@ const GALLERY_ITEMS = [
     category: "stage",
     credit: "ระบุชื่อเจ้าของภาพ",
     link: "https://ลิงก์เพจเจ้าของภาพ-2"
-  },
+  }, */
 ];
 
 function AllGalleryPage() {
@@ -97,8 +97,8 @@ function AllGalleryPage() {
       <main className="page-section page-section--tone2 gallery-page">
         <div className="page-section-inner">
           <header className="gallery-page-header">
-            <h1>Gallery (Beta)</h1>
-            <p>รวมภาพของ Rose ทั้งภาพงาน, meme, fanart และอื่นๆ 💜</p>
+            <h2>Gallery (Coming Soon)</h2>
+            <p>รวมภาพของโรสทั้งบน Stage, Event, Meme, Fanart และอื่นๆ</p>
           </header>
 
           {/* Tabs */}
@@ -129,7 +129,11 @@ function AllGalleryPage() {
         className="gallery-card-link"
       >
         <div className="gallery-card-thumb">
-          <img src={item.src} alt={item.label} />
+          <img 
+            src={item.src} 
+            alt={item.label}
+            className={`gallery-img img-${item.id}`} 
+         />
           <div className="gallery-card-overlay">
             <div className="gallery-card-text">
               <div className="gallery-card-title">{item.label}</div>
@@ -145,6 +149,12 @@ function AllGalleryPage() {
 </div>
         </div>
       </main>
+      {/* Footer แบบเดียวกับหน้า Home */}
+      <footer className="footer">
+        <p>
+          Original Content & Artist © by Independent Artist Management (iAM).
+        </p>
+      </footer>
     </div>
   );
 }

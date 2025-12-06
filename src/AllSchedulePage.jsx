@@ -13,10 +13,16 @@ function AllSchedulePage() {
       <Navbar />
       <main className="page-section page-section--tone2 all-schedule-page">
         <div className="page-section-inner">
-          <h1 style={{ marginBottom: "16px" }}>All Schedule (Beta)</h1>
+        {/* <h1 style={{ marginBottom: "16px" }}>All Schedule (Beta)</h1> */}
           <Eventslist />
         </div>
       </main>
+      {/* Footer แบบเดียวกับหน้า Home */}
+      <footer className="footer">
+        <p>
+          Original Content & Artist © by Independent Artist Management (iAM).
+        </p>
+      </footer>
     </div>
   );
 }

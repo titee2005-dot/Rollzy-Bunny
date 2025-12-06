@@ -1,26 +1,26 @@
 function EventsSection() {
   const events = [
     {
-      title: "Kangaroo Village Christmas Festival",
+      title: "Kangaroo Village Christmas Festival 2025",
       date: "19 – 21 ธันวาคม 2025",
-      place: "MCC HALL 3F, The Mall Bangkae",
-      desc: "จิงโจ้",
+      place: "📍 MCC HALL 3F, The Mall Bangkae",
+   /* desc: "จิงโจ้",*/
       image: "/event1.jpg",
       link: "https://www.facebook.com/share/p/1RJ93hmiUz/" // ← ลิงก์ของ event 1
     },
     {
-      title: "Handshake Event",
+      title: "Masaka no Confession Handshake Event",
       date: "27-28 ธันวาคม 2025",
-      place: "MCC HALL 3F, The Mall Bangkapi",
-      desc: "งานจับมือ",
+      place: "📍 MCC HALL 3F, The Mall Bangkapi",
+     /* desc: "งานจับมือ",*/
       image: "/event2.jpg",
       link: "https://www.facebook.com/share/p/17vULEJkk5/" // ← ลิงก์ของ event 2
     },
     {
       title: "War of Goddess",
       date: "1 กุมภาพันธ์ 2026",
-      place: "TBA",
-      desc: "กีฬาสี",
+      place: "📍 TBA",
+      /*desc: "กีฬาสี",*/
       image: "/event3.jpg",
       link: "https://www.facebook.com/share/p/16yQFhDc2G/" // ← ลิงก์ของ event 3
     },
