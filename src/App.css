@@ -3104,7 +3104,21 @@ text-align: left;     /* เหมือนตอนข้อความ */
   color: #fff !important;
 }
 
+@media (max-width: 720px) {
+  /* กลุ่มโลโก้ + ข้อความด้านซ้ายใน social-chip (Face / Line) */
+  .rollzy-channel-name-left {
+    align-items: flex-start !important;
+  }
+
+  /* กล่องข้อความ 2 บรรทัด: Rollzy Bunny - Rose... / Supporters */
+  .rollzy-channel-name {
+    align-items: flex-start !important;  /* ชิดซ้าย */
+    text-align: left !important;         /* กันการจัดกึ่งกลางแนวนอน */
+  }
+}
+
 /*Footer-top*/
+
 /*.footer-top p {
   text-align: center;
   padding: 6px 12px 4px;     
