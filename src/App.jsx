@@ -157,7 +157,7 @@ function DiscographySection() {
             【MV full】Doushitemo Kimi ga Suki da – จะยังไงก็รักเธอ / BNK48
             </h3>
             <p class="highlight-desc"> 
-              <span class="d1">♥ Premiered Oct 11, 2025</span><br />
+              <span class="d1"><strong>Premiered Oct 11, 2025</strong></span><br />
               <span class="d2">BNK48 20th Single Coupling Song</span><br />
               <span class="d2">BNK48 6th Generation Debut Song</span><br />
               <span class="d3">「Doushitemo Kimi ga Suki da – จะยังไงก็รักเธอ」</span>
