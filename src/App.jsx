@@ -103,7 +103,7 @@ function AboutSection() {
             className="about-more-btn"
             onClick={() => setShowMore(!showMore)}
           >
-            {showMore ? "ซ่อนเนื้อหา" : "อ่านเพิ่มเติม"}
+            {showMore ? "ซ่อนเนื้อหา" : "ข้อมูลทั่วไป"}
           </button>
         </div>
       </div>
