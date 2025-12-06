@@ -1107,10 +1107,12 @@ body {
 }
 
 .event-date {
+  font-family: "Kanit", sans-serif;
+  font-weight: 500 !important;
   font-size: 0.72rem;
-  color: #9b84d8;
+  color: #9379C2!important;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0em;
 }
 
 .event-title {
