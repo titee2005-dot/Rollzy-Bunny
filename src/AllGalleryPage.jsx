@@ -81,10 +81,32 @@ const GALLERY_ITEMS = [
 function AllGalleryPage() {
   const [activeTab, setActiveTab] = useState("all");
 
+  // เลื่อนขึ้นบนสุดเหมือนเดิม
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
+  // เอฟเฟกต์ reveal ตอนเข้า section
+  useEffect(() => {
+    const elements = document.querySelectorAll(".section-reveal");
+
+    const observer = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target); // เล่นครั้งเดียวพอ
+          }
+        });
+      },
+      { threshold: 0.1 } // ถ้าอยากให้โผล่เร็วขึ้น ลดเป็น 0.1 ก็ได้
+    );
+
+    elements.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
+  // อันนี้ที่หายไป
   const filteredItems =
     activeTab === "all"
       ? GALLERY_ITEMS
@@ -95,7 +117,8 @@ function AllGalleryPage() {
       <Navbar />
 
       <main className="page-section page-section--tone2 gallery-page">
-        <div className="page-section-inner">
+        {/* ใส่ section-reveal ตรง block ที่อยากให้มีเอฟเฟกต์ */}
+        <div className="page-section-inner section-reveal">
           <header className="gallery-page-header">
             <h2>Gallery (Coming Soon)</h2>
             <p>รวมภาพของโรสทั้งบน Stage, Event, Meme, Fanart และอื่นๆ</p>
@@ -120,36 +143,38 @@ function AllGalleryPage() {
 
           {/* Grid */}
           <div className="gallery-page-grid">
-  {filteredItems.map((item) => (
-    <figure key={item.id} className="gallery-card">
-      <a
-        href={item.link}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="gallery-card-link"
-      >
-        <div className="gallery-card-thumb">
-          <img 
-            src={item.src} 
-            alt={item.label}
-            className={`gallery-img img-${item.id}`} 
-         />
-          <div className="gallery-card-overlay">
-            <div className="gallery-card-text">
-              <div className="gallery-card-title">{item.label}</div>
-              {item.credit && (
-                <div className="gallery-card-credit">By {item.credit}</div>
-              )}
-            </div>
+            {filteredItems.map((item) => (
+              <figure key={item.id} className="gallery-card">
+                <a
+                  href={item.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="gallery-card-link"
+                >
+                  <div className="gallery-card-thumb">
+                    <img
+                      src={item.src}
+                      alt={item.label}
+                      className={`gallery-img img-${item.id}`}
+                    />
+                    <div className="gallery-card-overlay">
+                      <div className="gallery-card-text">
+                        <div className="gallery-card-title">{item.label}</div>
+                        {item.credit && (
+                          <div className="gallery-card-credit">
+                            By {item.credit}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </figure>
+            ))}
           </div>
         </div>
-      </a>
-    </figure>
-  ))}
-</div>
-        </div>
       </main>
-      {/* Footer แบบเดียวกับหน้า Home */}
+
       <footer className="footer">
         <p2>-`♡´- Fansite Project made by RollzyBunny</p2>
         <p>

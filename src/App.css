@@ -16,7 +16,7 @@ p {
 :root {
   --bg-purple-1: #ffffff;   /* ม่วงอ่อน */
   --bg-purple-2: #fff9fc;   /* ม่วงอ่อนอีกเฉด */
-  --bg-page: #f7f1ff;
+  --bg-page: #ffffff;
   --bg-card: #ffffff;
   --bg-soft: #f1e9ff;
   --accent: #c574ff;
@@ -2487,6 +2487,7 @@ body {
 .gallery-page-header h2 {
   margin-bottom: 6px !important;   /* เดิมห่างเกิน → ลดลง */
   font-family: "Bebas Neue", sans-serif;
+  margin-top: 0 !important
 }
 
 .gallery-page-header p {
@@ -2497,6 +2498,7 @@ body {
 .gallery-page-header p {
   font-size: 19px ;
   font-family: "LINE Seed Sans TH", sans-serif;
+  
  
 }
 
@@ -2513,6 +2515,7 @@ body {
     font-family: "Bebas Neue", sans-serif;
   }
 }
+
 
 /* ===== Rollzy Bunny – layout ด้านนอก ===== */
 
@@ -3112,16 +3115,18 @@ text-align: left;     /* เหมือนตอนข้อความ */
 
 .footer {
   text-align: center;
-  padding: 16px 16px 6px;
+  padding: 24px 24px 24px;   /* บน 10px ล่าง 10px = กลางเป๊ะขึ้น */
   font-size: 0.78rem;
   color: #ffffff;
   background: #E6BEAE;
   border-top: 1px solid rgba(197, 116, 255, 0.22);
 }
 
+
 .footer p {
+  margin: 0;
   font-size: 14px !important;
-  line-height: 1.4;
+  line-height: 2.55;
   color: #ffffff /* หรือสีที่ต้องการ */
 }
 
@@ -3132,6 +3137,8 @@ text-align: left;     /* เหมือนตอนข้อความ */
     line-height: 0.5;
   }
 }
+
+
 
 /* ------------------------- */
 /*   DESKTOP RESPONSIVE      */
@@ -3414,7 +3421,7 @@ text-align: left;     /* เหมือนตอนข้อความ */
   transform: translateY(40px);
   transition: 
     opacity 0.9s ease-out,
-    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+    transform 1.0s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .section-reveal.visible {

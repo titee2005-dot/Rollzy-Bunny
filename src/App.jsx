@@ -157,7 +157,7 @@ function DiscographySection() {
             【MV full】Doushitemo Kimi ga Suki da – จะยังไงก็รักเธอ / BNK48
             </h3>
             <p class="highlight-desc"> 
-              <span class="d1"><strong>Premiered Oct 11, 2025</strong></span><br />
+              <span class="d2"><strong>Premiered Oct 11, 2025</strong></span><br />
               <span class="d2">BNK48 20th Single Coupling Song</span><br />
               <span class="d2">BNK48 6th Generation Debut Song</span><br />
               <span class="d3">「Doushitemo Kimi ga Suki da – จะยังไงก็รักเธอ」</span>
@@ -331,7 +331,7 @@ function GallerySection() {
   const [selectedItem, setSelectedItem] = useState(null);
   
   const items = [
-    { id: 1, src: "/memepic1.JPG", big: true,label: "Meme", credit: "BNK_Story"  }, // รูปใหญ่ 4x4
+    { id: 1, src: "/memepic1.JPG", big: true,label: "Meme", credit: "BNK_Story"}, // รูปใหญ่ 4x4
     { id: 2, src: "/hwpic1.JPG", label: "Halloween", credit: "Rollzy_Bunny" },
     { id: 3, src: "/bdpic1.JPG", label: "Halloween", credit: "Rollzy_Bunny" },
     { id: 4, src: "/hwpic2.JPG", label: "Halloween", credit: "Rollzy_Bunny" },
@@ -366,6 +366,7 @@ function GallerySection() {
       alt=""
       className="home-gallery-img"
       onClick={() => setSelectedItem(item)}
+      
     />
 
     {/* overlay ที่จะขึ้นตอน hover */}
@@ -592,7 +593,7 @@ function App() {
         }
       });
     },
-    { threshold: 0.05 }
+    { threshold: 0.04 }
   );
 
   elements.forEach((el) => observer.observe(el));
