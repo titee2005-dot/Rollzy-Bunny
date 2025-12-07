@@ -141,7 +141,7 @@ function DiscographySection() {
       <div className="section-header highlight-header">
         <h2>Highlight</h2>
         <p>
-          รวม Highlight ของโรส 💜
+         ♪ รวม Highlight ของโรส ♪
         </p>
       </div>
 
@@ -207,7 +207,7 @@ function SocialSection() {
         <div className="section-header social-header">
           <h2>SOCIAL MEDIA</h2>
           <p>
-            รวม Social Media 
+          ❀ ช่องทางการติดตาม ❀
           </p>
         </div>
 
