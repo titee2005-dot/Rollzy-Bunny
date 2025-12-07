@@ -1,5 +1,12 @@
 {
   "rewrites": [
-    { "source": "/(.*)", "destination": "/" }
+    {
+      "source": "/og-image.jpg",
+      "destination": "/og-image.jpg"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/"
+    }
   ]
 }
