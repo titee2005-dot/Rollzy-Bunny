@@ -14,7 +14,7 @@ function Eventslist() {
       place: "📍 MCC HALL 3F, The Mall Bangkapi",
      /* desc: "งานจับมือ",*/
       image: "/event2.jpg",
-      link: "https://www.facebook.com/share/p/17vULEJkk5/",
+      link: "https://www.facebook.com/share/p/1FhYtAqPCE/",
     },
     {
       title: "War of Goddess",
