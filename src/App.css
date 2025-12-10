@@ -1513,6 +1513,13 @@ body {
   width: 100%;
 }
 
+@media (max-width: 768px) {
+  .ig-scroll-wrapper {
+    max-height: 360px;     /* 👈 ปรับให้เท่าความสูง TikTok บนมือถือ */
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+}
 
 /* แถบด้านบน */
 .social-banner {
