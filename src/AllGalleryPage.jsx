@@ -4,9 +4,9 @@ import Navbar from "./Navbar.jsx";
 
 const GALLERY_TABS = [
   { id: "all", label: "All" },
-  { id: "meme", label: "Meme" },
   { id: "stage", label: "Stage" },
   { id: "event", label: "Event" },
+  { id: "meme", label: "Meme" },
   { id: "fanart", label: "Fanart" },
   { id: "behind", label: "Other" },
 ];
