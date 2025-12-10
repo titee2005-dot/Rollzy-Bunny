@@ -168,7 +168,7 @@ function DiscographySection() {
         {/* การ์ดไฮไลต์อื่น ๆ */}
         <article className="highlight-card">
           <div className="highlight-thumb small">
-            <iframe width="560" height="315" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+           <iframe width="560" height="315" src="https://www.youtube.com/embed/_54MEK1_NUU?si=t5aoIrpzuhV6hhad" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
           </div>
 
           <div className="highlight-body">
