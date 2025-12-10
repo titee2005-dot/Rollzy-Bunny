@@ -2,6 +2,8 @@ import "./App.css";
 import Navbar from "./Navbar.jsx";
 import EventsSection from "./EventsSection.jsx";
 import { useState, useEffect } from "react";
+import FouitaInstagramFeed from "./FouitaInstagramFeed.jsx";
+
 
 
 /* ตัวช่วยห่อแต่ละ section ให้พื้นหลังเต็มจอ แต่เนื้อหาอยู่กลาง */
@@ -224,7 +226,7 @@ function SocialSection() {
               <div className="social-banner-left">
                 <span className="social-platform">
                 <img src="/igicon.png" alt="IG" className="social-icon" />
-                <span>Instagram (กำลังแก้)</span>
+                <span>Instagram</span>
                 </span>
           
                 <span className="social-handle">@rose.bnk48office</span>
@@ -233,15 +235,8 @@ function SocialSection() {
             </a>
 
           <div className="social-embed social-embed--ig">
-  <iframe
-    src="https://e556eb91e82148e19eac24d4dbdc6adf.elf.site"
-    className="insta-widget"
-    scrolling="no"
-    allowTransparency="true"
-    frameBorder="0"
-    style={{ width: "100%", border: 0, overflow: "hidden" }}
-  ></iframe>
-</div>
+              <FouitaInstagramFeed />
+          </div>
           </article>
 
           {/* TikTok */}

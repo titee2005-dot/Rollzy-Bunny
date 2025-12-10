@@ -1488,6 +1488,31 @@ body {
   margin: 0 auto !important;
 }
 
+/* กรอบนอก เอาไว้กำหนดความกว้างให้ใกล้ ๆ TikTok */
+.ig-fouita-outer {
+  height: 360px;        /* ปรับให้เท่ากับความกว้าง TikTok ของหน้าเรา */
+  margin: 0 auto;
+}
+
+/* ย่อ widget ทั้งก้อนลง (0.8 = 80% ลองปรับได้) */
+.ig-fouita-scale {
+  transform: scale(1.0);
+  transform-origin: top center;
+}
+
+.ig-scroll-wrapper {
+  max-height: 420px;      /* ความสูงเท่าที่คุณต้องการให้เหมือน TikTok */
+  overflow-y: auto;       /* <-- เลื่อนลงได้ */
+  overflow-x: hidden;
+  border-radius: 16px;
+  padding-right: 4px;     /* กัน scrollbar ทับขอบ */
+}
+
+/* ป้องกันภาพโดนบีบ */
+#ft-insta-app {
+  width: 100%;
+}
+
 
 /* แถบด้านบน */
 .social-banner {
