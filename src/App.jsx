@@ -559,7 +559,7 @@ function Footer() {
       </footer> */}
 
       <footer className="footer">
-  <p className="footer-line1">-`♡´- Fansite Project made by RollzyBunny (inspiration from Niya - Fan Website)</p>
+  <p className="footer-line1">-`♡´- Fansite Project made by RollzyBunny (inspired by Niya - Fan Website)</p>
   <p className="footer-line2">Original Content & Artist © by Independent Artist Management (iAM).</p>
 </footer>
     </>
