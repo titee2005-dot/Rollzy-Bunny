@@ -13,7 +13,7 @@ function EventsSection() {
       date: "27-29 มีนาคม 2026",
       place: "📍 JJ Hall @JJ Mall, Bangkok",
      /* desc: "จิงโจ้", */
-      image: "/SummerFest.jpg",
+      image: "/event3.jpg",
       link: "https://www.facebook.com/share/p/17EoFap8zr/",
     }, 
    /* {
