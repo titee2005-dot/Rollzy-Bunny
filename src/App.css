@@ -2415,11 +2415,11 @@ body {
 /*ปรับตำแหน่งรูป*/
 /* ใบใหญ่ใบแรกซ้ายบน */
 .gallery-home-grid .gallery-home-cell:nth-child(1) img {
-  object-position: center 30%;  /* ซ้าย–ขวา 30%, บน–ล่าง 20% */
+  object-position: center 25%;  /* ซ้าย–ขวา 30%, บน–ล่าง 20% */
   /* ลองปรับเป็น 50% 10%, 40% 0% ตามที่ชอบได้เลย */
 }
 .gallery-home-grid .gallery-home-cell:nth-child(2) img {
-  object-position: center 20%;  /* ซ้าย–ขวา 30%, บน–ล่าง 20% */
+  object-position: center 10%;  /* ซ้าย–ขวา 30%, บน–ล่าง 20% */
   /* ลองปรับเป็น 50% 10%, 40% 0% ตามที่ชอบได้เลย */
 }
 .gallery-home-grid .gallery-home-cell:nth-child(3) img {
@@ -2431,11 +2431,11 @@ body {
   /* ลองปรับเป็น 50% 10%, 40% 0% ตามที่ชอบได้เลย */
 }
 .gallery-home-grid .gallery-home-cell:nth-child(5) img {
-  object-position: center 20%;  /* ซ้าย–ขวา 30%, บน–ล่าง 20% */
+  object-position: center 8%;  /* ซ้าย–ขวา 30%, บน–ล่าง 20% */
   /* ลองปรับเป็น 50% 10%, 40% 0% ตามที่ชอบได้เลย */
 }
 .gallery-home-grid .gallery-home-cell:nth-child(6) img {
-  object-position: center 30%;  /* ซ้าย–ขวา 30%, บน–ล่าง 20% */
+  object-position: center 10%;  /* ซ้าย–ขวา 30%, บน–ล่าง 20% */
   /* ลองปรับเป็น 50% 10%, 40% 0% ตามที่ชอบได้เลย */
 }
 
@@ -2467,6 +2467,22 @@ body {
   object-fit: cover;
   transition: transform .25s ease, box-shadow .25s ease;
   border-radius: 12px;
+}
+.img-4{
+  object-position:50% 10%;
+}
+.img-3{
+  object-position:50% 30%;
+}
+.img-5{
+  object-position:50% 7%;
+}
+.img-6{
+  object-position:10% 7%;
+}
+.img-7{
+  object-position:30% 1%;
+  transform: scale(1.2);
 }
 
 /* hover ซูมแบบ All Gallery */

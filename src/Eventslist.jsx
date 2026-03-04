@@ -1,30 +1,38 @@
 function Eventslist() {
   const events = [
+    /* {
+      title: "None",
+      date: "TBA",
+      place: "📍TBA",
+     /* desc: "จิงโจ้", */
+     /* image: "/event1.jpg", */
+     /* link: "",*/
+/*    },  */
     {
-      title: "Kangaroo Village Christmas Festival",
-      date: "19 – 21 ธันวาคม 2025",
-      place: "📍 MCC HALL 3F, The Mall Bangkae",
-     /* desc: "จิงโจ้",*/
-      image: "/event1.jpg",
-      link: "https://www.facebook.com/share/p/1ABrNvjBWq/",
-    },
-    {
+      title: "BNK48 & CGM48 Siam-Nippon Summer Fest 2026",
+      date: "27-29 มีนาคม 2026",
+      place: "📍 JJ Hall @JJ Mall, Bangkok",
+     /* desc: "จิงโจ้", */
+      image: "/",
+      link: "https://www.facebook.com/share/p/17EoFap8zr/",
+    }, 
+   /* {
       title: "Handshake Event",
       date: "27-28 ธันวาคม 2025",
       place: "📍 MCC HALL 3F, The Mall Bangkapi",
-     /* desc: "งานจับมือ",*/
+     /* desc: "งานจับมือ", 
       image: "/event2.jpg",
       link: "https://www.facebook.com/share/p/1FhYtAqPCE/",
-    },
+    }, 
     {
       title: "War of Goddess",
       date: "1 กุมภาพันธ์ 2026",
       place: "📍 TBA",
-      /*desc: "กีฬาสี",*/
+      /*desc: "กีฬาสี",
       image: "/event3.jpg",
       link: "https://www.facebook.com/share/p/16yQFhDc2G/",
-    },
-  ];
+    }, */
+  ]; 
 
   // 👇 ตัด page-section / page-section-inner ออก เหลือแค่ content
   return (

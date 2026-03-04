@@ -28,47 +28,47 @@ const GALLERY_ITEMS = [
     credit: "Rollzy_Bunny",
     link: "https://ลิงก์เพจเจ้าของภาพ-2"
   },
- /*{
+ {
     id: 3,
-    src: "/gallery-2.jpg",
-    label: "Cute meme 2",
+    src: "/memepic1.JPG",
+    label: "Meme",
     category: "meme",
-    credit: "ระบุชื่อเจ้าของภาพ",
+    credit: "BNK_Story",
     link: "https://ลิงก์เพจเจ้าของภาพ-2"
   },
    {
     id: 4,
-    src: "/gallery-1.jpg",
-    label: "Coming Soon",
-    category: "stage",
-    credit: "หมีแมกกล้อง",
+    src: "/hachicha1.JPG",
+    label: "Hachicha",
+    category: "event",
+    credit: "RollzyBunny",
     link: "https://ลิงก์เพจเจ้าของภาพ-1"
   },
   {
     id: 5,
-    src: "/gallery-2.jpg",
-    label: "Cute meme 2",
-    category: "meme",
-    credit: "ระบุชื่อเจ้าของภาพ",
+    src: "/hachicha3.JPG",
+    label: "Hachicha",
+    category: "event",
+    credit: "RollzyBunny",
     link: "https://ลิงก์เพจเจ้าของภาพ-2"
   },
  {
     id: 6,
-    src: "/gallery-2.jpg",
-    label: "Cute meme 2",
-    category: "meme",
-    credit: "ระบุชื่อเจ้าของภาพ",
+    src: "/jx1.JPG",
+    label: "JapanExpo",
+    category: "event",
+    credit: "RollzyBunny",
     link: "https://ลิงก์เพจเจ้าของภาพ-2"
   },
   {
     id: 7,
-    src: "/gallery-7.jpg",
-    label: "Event highlight",
+    src: "/press1.JPG",
+    label: "Shock Me Girls Press Conference",
     category: "event",
-    credit: "ระบุชื่อเจ้าของภาพ",
+    credit: "RollzyBunny",
     link: "https://ลิงก์เพจเจ้าของภาพ-2"
   },
-  {
+ /* {
     id: 8,
     src: "/gallery-8.jpg",
     label: "Stage close-up",

@@ -326,12 +326,12 @@ function GallerySection() {
   const [selectedItem, setSelectedItem] = useState(null);
   
   const items = [
-    { id: 1, src: "/memepic1.JPG", big: true,label: "Meme", credit: "BNK_Story"}, // รูปใหญ่ 4x4
-    { id: 2, src: "/hwpic1.JPG", label: "Halloween", credit: "Rollzy_Bunny" },
+    { id: 1, src: "/hachicha2.JPG", big: true,label: "Hachicha", credit: "Rollzy_Bunny"}, // รูปใหญ่ 4x4
+    { id: 2, src: "/jx1.JPG", label: "JapanExpo", credit: "Rollzy_Bunny" },
     { id: 3, src: "/bdpic1.JPG", label: "Halloween", credit: "Rollzy_Bunny" },
     { id: 4, src: "/hwpic2.JPG", label: "Halloween", credit: "Rollzy_Bunny" },
-    { id: 5, src: "/hwpic3.JPG", label: "Halloween", credit: "Rollzy_Bunny" },
-    { id: 6, src: "/hwpic4.JPG", label: "Halloween", credit: "Rollzy_Bunny" },
+    { id: 5, src: "/memepic2.JPG", label: "Meme", credit: "Rollzy_Bunny" },
+    { id: 6, src: "/hachicha1.JPG", label: "Hachicha", credit: "Rollzy_Bunny", },
     { id: 7, src: "/hwpic5.JPG", mobileOnly: true, label: "Halloween", credit: "BNK_Story" }, // รูปเฉพาะมือถือ
   ];
 
