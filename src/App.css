@@ -2481,8 +2481,36 @@ body {
   object-position:10% 7%;
 }
 .img-7{
-  object-position:30% 1%;
-  transform: scale(1.2);
+object-position:10% 5%;
+transform: scale(1.1);
+}
+.img-8{
+  object-position:50% 25%;
+}
+.img-9{
+  object-position:40% 15%;
+}
+.img-10{
+  object-position:10% 10%;
+}
+.img-11{
+  object-position:10% 5%;
+  transform: scale(1.1);
+}
+.img-12{
+  object-position:10% 7%;
+}
+.img-13{
+  object-position:10% 15%;
+}
+.img-14{
+  object-position:10% 50%;
+}
+.img-15{
+  object-position:10% 50%;
+}
+.img-16{
+  object-position:10% 0%;
 }
 
 /* hover ซูมแบบ All Gallery */
@@ -2563,7 +2591,6 @@ body {
     font-family: "Bebas Neue", sans-serif;
   }
 }
-
 
 /* ===== Rollzy Bunny – layout ด้านนอก ===== */
 

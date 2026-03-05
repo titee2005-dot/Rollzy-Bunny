@@ -28,6 +28,30 @@ const GALLERY_ITEMS = [
     credit: "Rollzy_Bunny",
     link: "https://ลิงก์เพจเจ้าของภาพ-2"
   },
+    {
+    id: 8,
+    src: "/hwpic1.JPG",
+    label: "Halloween",
+    category: "event",
+    credit: "Rollzy_Bunny",
+    link: "https://ลิงก์เพจเจ้าของภาพ-2"
+  }, 
+  {
+    id: 9,
+    src: "/hwpic3.JPG",
+    label: "Halloween",
+    category: "event",
+    credit: "Rollzy_Bunny",
+    link: "https://ลิงก์เพจเจ้าของภาพ-2"
+  }, 
+  {
+    id: 10,
+    src: "/hwpic4.JPG",
+    label: "Halloween",
+    category: "event",
+    credit: "BNK_Story",
+    link: "https://ลิงก์เพจเจ้าของภาพ-2"
+  }, 
  {
     id: 3,
     src: "/memepic1.JPG",
@@ -62,20 +86,61 @@ const GALLERY_ITEMS = [
   },
   {
     id: 7,
+    src: "/press2.JPG",
+    label: "Shock Me Girls Press Conference",
+    category: "event",
+    credit: "RollzyBunny",
+    link: "https://ลิงก์เพจเจ้าของภาพ-2"
+  },
+  {
+    id: 11,
     src: "/press1.JPG",
     label: "Shock Me Girls Press Conference",
     category: "event",
     credit: "RollzyBunny",
     link: "https://ลิงก์เพจเจ้าของภาพ-2"
   },
- /* {
-    id: 8,
-    src: "/gallery-8.jpg",
-    label: "Stage close-up",
-    category: "stage",
-    credit: "ระบุชื่อเจ้าของภาพ",
+ {
+    id: 12,
+    src: "/memepic2.JPG",
+    label: "Hachicha",
+    category: "meme",
+    credit: "RollzyBunny",
     link: "https://ลิงก์เพจเจ้าของภาพ-2"
-  }, */
+  },
+   {
+    id: 13,
+    src: "/memepic3.JPG",
+    label: "Busking",
+    category: "meme",
+    credit: "RollzyBunny",
+    link: "https://ลิงก์เพจเจ้าของภาพ-2"
+  },
+   {
+    id: 14,
+    src: "/buskinggroup.JPG",
+    label: "Busking",
+    category: "event",
+    credit: "RollzyBunny",
+    link: "https://ลิงก์เพจเจ้าของภาพ-2"
+  },
+   {
+    id: 15,
+    src: "/busking1.JPG",
+    label: "Busking",
+    category: "event",
+    credit: "RollzyBunny",
+    link: "https://ลิงก์เพจเจ้าของภาพ-2"
+  },
+   {
+    id: 16,
+    src: "/busking2.JPG",
+    label: "Busking",
+    category: "event",
+    credit: "RollzyBunny",
+    link: "https://ลิงก์เพจเจ้าของภาพ-2"
+  },
+  
 ];
 
 function AllGalleryPage() {
