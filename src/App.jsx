@@ -6,6 +6,7 @@ import FouitaInstagramFeed from "./FouitaInstagramFeed.jsx";
 
 
 
+
 /* ตัวช่วยห่อแต่ละ section ให้พื้นหลังเต็มจอ แต่เนื้อหาอยู่กลาง */
 function PageSection({ id, tone, children }) {
   return (

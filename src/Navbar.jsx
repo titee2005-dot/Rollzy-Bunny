@@ -1,5 +1,6 @@
 // src/Navbar.jsx
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 
 const SECTION_IDS = ["home", "about", "schedule", "highlight", "social", "gallery", "rollzy"];
@@ -157,6 +158,13 @@ function Navbar() {
             className={linkClass("rollzy")}
           >
             Rollzy Bunny
+          </a>
+          <a
+            href="/tokens"
+         
+            className={linkClass("token")}
+          >
+            Tokens
           </a>
         </div>
       </nav>

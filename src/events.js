@@ -38,7 +38,7 @@
       title: "BNK48 & CGM48 Siam-Nippon Summer Fest 2026",
       date: "27-29 มีนาคม 2026",
       place: "JJ Hall @JJ Mall, Bangkok",
-      image: "/event-20260327.jpg",
+      image: "/SummerFest.jpg",
       link: "https://www.facebook.com/share/p/1AciNQ6BVq/",
       lastShowDate: new Date(2026, 2, 29, 23, 59, 59),
     },

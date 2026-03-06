@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import App from "./App.jsx";
 import AllSchedulePage from "./AllSchedulePage.jsx";
 import AllGalleryPage from "./AllGalleryPage.jsx";   // ← เพิ่มบรรทัดนี้
+import TokenPage from "./TokenPage.jsx"; // 1. นำเข้า TokenPage
 import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
@@ -14,6 +15,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/" element={<App />} />
         <Route path="/all-schedule" element={<AllSchedulePage />} />
         <Route path="/gallery" element={<AllGalleryPage />} /> {/* ใหม่ */}
+        <Route path="/tokens" element={<TokenPage />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
