@@ -4,8 +4,6 @@ import Navbar from "./Navbar.jsx";
 // 1. Component ล้อหมุนตัวเลข (Odometer)
 function Digit({ targetValue, trigger, digitIndex, forceSpin }) {
   const [offset, setOffset] = useState(0);
-  
-  // หลักหน่วยหยุดก่อน (0.6s) หลักสิบหยุดตาม (0.75s) หลักร้อยหยุดตาม (0.9s)
   const duration = 2.0 + (digitIndex * 0.35); 
   const defaultTransition = `transform ${duration}s cubic-bezier(0.16, 1, 0.3, 1)`;
 
@@ -18,20 +16,11 @@ function Digit({ targetValue, trigger, digitIndex, forceSpin }) {
       setOffset(targetValue);
       return;
     }
-
     setOffset((prev) => {
       const currentDigit = prev % 10;
-      
-      // ✅ ถ้าเลขเดิมเป๊ะ และไม่ได้ถูกบังคับให้หมุนตามหลักอื่น ให้หยุดนิ่ง!
-      if (currentDigit === targetValue && !forceSpin) {
-        return prev;
-      }
-
+      if (currentDigit === targetValue && !forceSpin) return prev;
       let steps = targetValue - currentDigit;
-      
-      // ถ้าเป้าหมายคือเลขเดิม แต่ถูกบังคับให้หมุน (forceSpin) มันจะบวก 10 เพื่อหมุนครบรอบพอดี
       if (steps <= 0) steps += 10;
-      
       return prev + steps;
     });
   }, [trigger, targetValue, forceSpin]);
@@ -41,7 +30,6 @@ function Digit({ targetValue, trigger, digitIndex, forceSpin }) {
       const timer = setTimeout(() => {
         setTransition("none");           
         setOffset(offset % 10);          
-        
         setTimeout(() => {
           setTransition(defaultTransition);
         }, 50);
@@ -85,13 +73,11 @@ function Digit({ targetValue, trigger, digitIndex, forceSpin }) {
   );
 }
 
-// 2. Component หั่นตัวเลขเป็นหลักๆ พร้อมระบบเช็กระยะทาง
+// 2. Component หั่นตัวเลขเป็นหลักๆ
 function NumberTicker({ value }) {
   const stringValue = value.toLocaleString(); 
   const chars = stringValue.split("");
   const length = chars.length;
-
-  // จำค่ายอดรวมก่อนหน้าเอาไว้ เพื่อหาว่าเพิ่มขึ้นมาเท่าไหร่
   const prevValueRef = useRef(value);
   const diff = Math.abs(value - prevValueRef.current);
 
@@ -122,17 +108,14 @@ function NumberTicker({ value }) {
         </span>
       );
     } else {
-      // ✅ กฎเหล็ก: ถ้าผลต่างของยอดรวม มีค่า >= ค่าประจำหลักของตัวเอง แปลว่าหลักนั้นต้องโดนลากให้หมุนด้วย!
-      // เช่น 175 -> 185 (ผลต่าง = 10) / หลักหน่วยมีค่าแค่ 1 (10 >= 1) หลักหน่วยเลยโดนบังคับหมุน
       const forceSpin = diff >= Math.pow(10, currentDigitIndex);
-
       elements.unshift(
         <Digit 
           key={`digit-${stableKey}`} 
           targetValue={parseInt(char)} 
           trigger={value} 
           digitIndex={currentDigitIndex} 
-          forceSpin={forceSpin} // ส่งคำสั่งบังคับหมุนไปให้ลูก
+          forceSpin={forceSpin} 
         />
       );
       currentDigitIndex++;
@@ -169,7 +152,7 @@ function TokenPage() {
     };
 
     fetchData();
-    const interval = setInterval(fetchData, 1000);
+    const interval = setInterval(fetchData, 5000);
     return () => clearInterval(interval);
   }, []);
 
@@ -177,27 +160,47 @@ function TokenPage() {
     <div className="app-root">
       <Navbar />
       
-      <main className="page-section page-section--tone2">
-        <div className="page-section-inner" style={{ textAlign: "center", padding: "60px 20px" }}>
+      <main className="page-section" style={{ 
+        background: "radial-gradient(circle at top, #ffffff 0%, #faf5ff 50%, #fff0f8 100%)",
+        minHeight: "calc(100vh - 120px)", 
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center"
+      }}>
+        <div className="page-section-inner" style={{ textAlign: "center", padding: "40px 20px" }}>
           
-          <div className="section-header">
-            <h2>Total Tokens</h2>
-            <p>ยอดรวม Tokens จากโปรเจกต์ทั้งหมด</p>
+          {/* 🎨 ย้ายภาพเหรียญ/โลโก้มาไว้ตรงนี้ เหนือคำว่า TOTAL TOKENS */}
+          <div className="section-header" style={{ marginBottom: "24px", display: "flex", flexDirection: "column", alignItems: "center" }}>
+            <img 
+              src="/bnktoken.png" 
+              alt="Rose Icon" 
+              style={{
+                height: "56px", /* ปรับให้ใหญ่ขึ้นนิดนึงเพื่อให้รับกับหัวข้อ */
+                width: "auto",
+                marginBottom: "16px",
+                filter: "drop-shadow(0 4px 8px rgba(130, 90, 180, 0.2))"
+              }}
+            />
+            <h2 style={{ fontSize: "56px", margin: "0 0 8px 0" }}>TOTAL TOKENS</h2>
+            <p style={{ fontSize: "18px", color: "#8a7b9e" }}>ยอดรวม Tokens จากโปรเจกต์ทั้งหมด</p>
           </div>
 
           <div style={{
-            background: "#ffffff",
-            borderRadius: "24px",
-            padding: "40px",
-            maxWidth: "450px",
-            margin: "30px auto",
-            boxShadow: "0 12px 26px rgba(150, 125, 215, 0.2)",
-            border: "1px solid rgba(197, 116, 255, 0.22)",
+            position: "relative",
+            background: "linear-gradient(180deg, #ffffff 0%, #fdfcff 100%)", 
+            borderRadius: "32px",
+            padding: "40px 20px 32px", /* เพิ่ม padding ด้านบนให้กลับมาสมดุลเพราะเอารูปออกไปแล้ว */
+            width: "100%",
+            maxWidth: "400px", 
+            margin: "0 auto",
+            boxShadow: "0 24px 50px rgba(180, 140, 255, 0.15), 0 0 0 1px rgba(197, 116, 255, 0.1), inset 0 2px 0 rgba(255,255,255,0.9)",
             display: "flex",
-            justifyContent: "center",
+            flexDirection: "column",
+            alignItems: "center",
             overflow: "hidden" 
           }}>
             
+            {/* โชว์เฉพาะตัวเลขวิ่งเน้นๆ ในการ์ดสีขาว */}
             {totalTokens === 0 ? (
                <div style={{ height: "82px", display: "flex", alignItems: "center" }}>
                  <span style={{ 
@@ -207,12 +210,43 @@ function TokenPage() {
                     background: "linear-gradient(135deg, var(--accent), var(--accent-mint))",
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",
-                    opacity: 0.3 
+                    opacity: 0.2 
                  }}>0</span>
                </div>
             ) : (
                <NumberTicker value={totalTokens} />
             )}
+
+            <div style={{
+              marginTop: "24px", 
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "6px",
+              padding: "5px 12px", 
+              background: "#f4f0ff",
+              borderRadius: "999px",
+              border: "1px solid #eadeff"
+            }}>
+              <style>
+                {`
+                  @keyframes pulse-dot {
+                    0% { transform: scale(0.8); opacity: 0.5; }
+                    50% { transform: scale(1.2); opacity: 1; }
+                    100% { transform: scale(0.8); opacity: 0.5; }
+                  }
+                `}
+              </style>
+              <div style={{
+                width: "7px",
+                height: "7px",
+                backgroundColor: "#22c55e", 
+                borderRadius: "50%",
+                animation: "pulse-dot 2s infinite ease-in-out"
+              }} />
+              <span style={{ fontSize: "12px", fontWeight: "600", color: "#6b50c5", letterSpacing: "0.02em" }}>
+                LIVE UPDATE
+              </span>
+            </div>
 
           </div>
         </div>
