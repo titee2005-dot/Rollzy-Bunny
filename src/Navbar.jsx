@@ -1,21 +1,23 @@
 // src/Navbar.jsx
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-
+import { Link, useLocation } from "react-router-dom"; // 👈 เพิ่ม useLocation
 
 const SECTION_IDS = ["home", "about", "schedule", "highlight", "social", "gallery", "rollzy"];
-const HEADER_OFFSET = 80; // ถ้ากดแล้วรู้สึกเลย/เตี้ยไป ปรับเลขนี้ได้
+const HEADER_OFFSET = 80;
 
 function Navbar() {
-  const [open, setOpen] = useState(false);
-  const [activeId, setActiveId] = useState("home");
+  const location = useLocation(); // 👈 ดึงข้อมูล path ปัจจุบันจาก React Router
+  const isHome = location.pathname === "/";
+  const isToken = location.pathname === "/tokens"; // 👈 เพิ่มตัวเช็กว่าอยู่หน้า tokens ไหม
 
-  const isHome = window.location.pathname === "/";   // ← เพิ่มบรรทัดนี้
+  const [open, setOpen] = useState(false);
+  
+  // 👈 ปรับค่าเริ่มต้น: ถ้าเข้าหน้า /tokens ให้ highlight "token" ทันที ถ้าไม่ใช่ค่อยไป "home"
+  const [activeId, setActiveId] = useState(isToken ? "token" : "home");
 
   const toggleMenu = () => setOpen((o) => !o);
   const closeMenu = () => setOpen(false);
 
-  // เลื่อนไป section แบบเผื่อความสูง navbar
   const scrollToSection = (id) => {
     const el = document.getElementById(id);
     if (!el) return;
@@ -31,20 +33,26 @@ function Navbar() {
   };
 
   const handleNavClick = (id) => (e) => {
-  if (!isHome) {
-    // ถ้าไม่ใช่หน้า Home → ปล่อยให้เบราว์เซอร์ไปตาม href ปกติ
+    if (!isHome) {
+      closeMenu();
+      return;
+    }
+
+    e.preventDefault();
+    scrollToSection(id);
     closeMenu();
-    return;
-  }
+  };
 
-  // ถ้าอยู่หน้า Home → ใช้ smooth scroll แบบเดิม
-  e.preventDefault();
-  scrollToSection(id);
-  closeMenu();
-};
-
-  // ให้ navbar รู้ว่าเรากำลังอยู่ section ไหน (สำหรับ highlight)
   useEffect(() => {
+    // 👈 อัปเดตค่า activeId เสมอเมื่อ URL เปลี่ยนแปลง (สำคัญมากถ้าใช้ React Router แบบไม่โหลดหน้าใหม่)
+    if (location.pathname === "/tokens") {
+      setActiveId("token");
+      return; // 👈 ถ้าอยู่หน้า tokens ให้ออกจาก useEffect เลย ไม่ต้องรัน Observer ดัก scroll
+    }
+
+    // ถ้าไม่ได้อยู่หน้า Home ก็ไม่ต้องดักจับ Scroll
+    if (!isHome) return; 
+
     const observer = new IntersectionObserver(
       (entries) => {
         let mostVisible = null;
@@ -62,8 +70,8 @@ function Navbar() {
       },
       {
         root: null,
-        threshold: 0.4,                       // ต้องเห็น 40% ของ section ถึงจะนับว่า active
-        rootMargin: `-${HEADER_OFFSET}px 0px 0px 0px`, // ตัดส่วนที่โดน navbar บังออก
+        threshold: 0.4,
+        rootMargin: `-${HEADER_OFFSET}px 0px 0px 0px`,
       }
     );
 
@@ -73,7 +81,7 @@ function Navbar() {
     });
 
     return () => observer.disconnect();
-  }, []);
+  }, [location.pathname, isHome]); // 👈 เพิ่ม dependency ให้ useEffect ทำงานใหม่เมื่อเปลี่ยน URL
 
   const linkClass = (id) =>
     activeId === id ? "nav-link--active" : "";
@@ -81,25 +89,14 @@ function Navbar() {
   return (
     <header className="nav-wrapper">
       <nav className="nav">
+        {/* ... (ส่วนโลโก้และปุ่ม toggle เหมือนเดิมไม่เปลี่ยนแปลง) ... */}
         <div className="nav-main">
-          {/* โลโก้ + ชื่อ */}
           <div className="nav-logo">
-            {/* เอาไฟล์โลโก้ไปวางไว้ที่ public/rosegarden-logo.png หรือชื่ออื่นแล้วแก้ src ให้ตรง */}
-            <img
-              src="/logo.png"
-              alt="Rose's Garden Logo"
-              className="nav-logo-img"
-            />
+            <img src="/logo.png" alt="Rose's Garden Logo" className="nav-logo-img" />
             <span>ROSE&apos;S GARDEN</span>
           </div>
 
-          {/* ปุ่ม 3 ขีด */}
-          <button
-            type="button"
-            className="nav-toggle"
-            onClick={toggleMenu}
-            aria-label="Toggle navigation"
-          >
+          <button type="button" className="nav-toggle" onClick={toggleMenu} aria-label="Toggle navigation">
             <span className="nav-toggle-lines">
               <span className="nav-toggle-line" />
               <span className="nav-toggle-line" />
@@ -108,64 +105,19 @@ function Navbar() {
           </button>
         </div>
 
-        {/* ลิงก์เมนู */}
         <div className={`nav-links ${open ? "nav-links--open" : ""}`}>
-          <a
-            href="/#home"
-            onClick={handleNavClick("home")}
-            className={linkClass("home")}
-          >
-            Home
-          </a>
-          <a
-            href="/#about"
-            onClick={handleNavClick("about")}
-            className={linkClass("about")}
-          >
-            About Rose
-          </a>
-          <a
-            href="/#schedule"
-            onClick={handleNavClick("schedule")}
-            className={linkClass("schedule")}
-          >
-            Schedule
-          </a>
-          <a
-            href="/#highlight"         /* สำคัญ: id จริงของ section นี้คือ highlight */
-            onClick={handleNavClick("highlight")}
-            className={linkClass("highlight")}
-          >
-            Highlight
-          </a>
-          <a
-            href="/#social"
-            onClick={handleNavClick("social")}
-            className={linkClass("social")}
-          >
-            Social Media
-          </a>
-          <a
-            href="/#gallery"
-            onClick={handleNavClick("gallery")}
-            className={linkClass("gallery")}
-          >
-            Gallery
-          </a>
-          <a
-            href="/#rollzy"
-            onClick={handleNavClick("rollzy")}
-            className={linkClass("rollzy")}
-          >
-            Rollzy Bunny
-          </a>
-          <a
-            href="/tokens"
-         
-            className={linkClass("token")}
-          >
+          <a href="/#home" onClick={handleNavClick("home")} className={linkClass("home")}>Home</a>
+          <a href="/#about" onClick={handleNavClick("about")} className={linkClass("about")}>About Rose</a>
+          <a href="/#schedule" onClick={handleNavClick("schedule")} className={linkClass("schedule")}>Schedule</a>
+          <a href="/#highlight" onClick={handleNavClick("highlight")} className={linkClass("highlight")}>Highlight</a>
+          <a href="/#social" onClick={handleNavClick("social")} className={linkClass("social")}>Social Media</a>
+          <a href="/#gallery" onClick={handleNavClick("gallery")} className={linkClass("gallery")}>Gallery</a>
+          <a href="/#rollzy" onClick={handleNavClick("rollzy")} className={linkClass("rollzy")}>Rollzy Bunny</a>
+          
+          {/* ลิงก์ไปหน้า Tokens */}
+          <Link to="/tokens" onClick={closeMenu} className={linkClass("token")}>
             Tokens
-          </a>
+          </Link>
         </div>
       </nav>
     </header>
