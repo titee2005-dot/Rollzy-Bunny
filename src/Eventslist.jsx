@@ -1,38 +1,13 @@
+import { events } from "./events";
 function Eventslist() {
-  const events = [
-    /* {
-      title: "None",
-      date: "TBA",
-      place: "📍TBA",
-     /* desc: "จิงโจ้", */
-     /* image: "/event1.jpg", */
-     /* link: "",*/
-/*    },  */
-    {
-      title: "BNK48 & CGM48 Siam-Nippon Summer Fest 2026",
-      date: "27-29 มีนาคม 2026",
-      place: "📍 JJ Hall @JJ Mall, Bangkok",
-     /* desc: "จิงโจ้", */
-      image: "/SummerFest.jpg",
-      link: "https://www.facebook.com/share/p/17EoFap8zr/",
-    }, 
-   /* {
-      title: "Handshake Event",
-      date: "27-28 ธันวาคม 2025",
-      place: "📍 MCC HALL 3F, The Mall Bangkapi",
-     /* desc: "งานจับมือ", 
-      image: "/event2.jpg",
-      link: "https://www.facebook.com/share/p/1FhYtAqPCE/",
-    }, 
-    {
-      title: "War of Goddess",
-      date: "1 กุมภาพันธ์ 2026",
-      place: "📍 TBA",
-      /*desc: "กีฬาสี",
-      image: "/event3.jpg",
-      link: "https://www.facebook.com/share/p/16yQFhDc2G/",
-    }, */
-  ]; 
+  let activeEvents = events.filter(e => e.lastShowDate > new Date());
+  if(activeEvents == null || activeEvents.length == 0) {
+    activeEvents = [{
+       title: "None",
+       date: "TBA",
+       place: "📍TBA",
+    }];
+  }
 
   // 👇 ตัด page-section / page-section-inner ออก เหลือแค่ content
   return (
@@ -49,7 +24,7 @@ function Eventslist() {
       </div>
 
       <div className="card-row">
-        {events.map((ev, index) => (
+        {activeEvents.map((ev, index) => (
           <a
             key={index}
             href={ev.link}
