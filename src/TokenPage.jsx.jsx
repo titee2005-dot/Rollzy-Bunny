@@ -4,7 +4,9 @@ import Navbar from "./Navbar.jsx";
 // 1. Component ล้อหมุนตัวเลข (Odometer)
 function Digit({ targetValue, trigger, digitIndex, forceSpin }) {
   const [offset, setOffset] = useState(0);
-  const duration = 2.0 + (digitIndex * 0.35); 
+  
+  // ⏳ ความเร็วเดิมที่คุณตั้งไว้
+  const duration = 2.0 + (digitIndex * 3.5); 
   const defaultTransition = `transform ${duration}s cubic-bezier(0.16, 1, 0.3, 1)`;
 
   const [transition, setTransition] = useState(defaultTransition);
@@ -132,6 +134,12 @@ function NumberTicker({ value }) {
 // 3. หน้า TokenPage หลัก
 function TokenPage() {
   const [totalTokens, setTotalTokens] = useState(0);
+  const [projects, setProjects] = useState([]); 
+  
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResult, setSearchResult] = useState(null);
+  const [isSearching, setIsSearching] = useState(false);
+  const [hasSearched, setHasSearched] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -140,13 +148,18 @@ function TokenPage() {
       fetch("https://opensheet.elk.sh/1LdYwevfbc_sFhD8BKaBEEoYdTWLApQ5apSD9WIJRFz4/Sheet1")
         .then(res => res.json())
         .then(data => {
-          const grandTotal = data.reduce((sum, row) => {
-            if (row.Number !== "Total Tokens") {
-              return sum + Number(row.Tokens || 0);
+          let grandTotal = 0;
+          let projectList = [];
+
+          data.forEach(row => {
+            if (row.Number && row.Number !== "Total Tokens") {
+              grandTotal += Number(row.Tokens || 0);
+              projectList.push(row); 
             }
-            return sum;
-          }, 0);
+          });
+
           setTotalTokens(grandTotal);
+          setProjects(projectList);
         })
         .catch(error => console.error("Error fetching tokens:", error));
     };
@@ -156,26 +169,74 @@ function TokenPage() {
     return () => clearInterval(interval);
   }, []);
 
+  const handleSearch = async () => {
+    if (!searchQuery.trim()) return; 
+    
+    setIsSearching(true);
+    setHasSearched(true);
+    setSearchResult(null);
+
+    try {
+      const res = await fetch("https://opensheet.elk.sh/1LdYwevfbc_sFhD8BKaBEEoYdTWLApQ5apSD9WIJRFz4/Status");
+      const data = await res.json();
+
+      const found = data.find(row => 
+        row.Wallet && row.Wallet.toString().toLowerCase() === searchQuery.trim().toLowerCase()
+      );
+
+      if (found) {
+        setSearchResult(found);
+      } else {
+        setSearchResult({ error: "ไม่พบข้อมูล Wallet นี้ในระบบ โปรดตรวจสอบความถูกต้อง" });
+      }
+    } catch (error) {
+      console.error("Search Error:", error);
+      setSearchResult({ error: "เกิดข้อผิดพลาดในการดึงข้อมูล โปรดลองอีกครั้ง" });
+    } finally {
+      setIsSearching(false);
+    }
+  };
+
   return (
     <div className="app-root">
       <Navbar />
       
-      <main className="page-section" style={{ 
+      <style>
+        {`
+          @keyframes pulse-dot {
+            0% { transform: scale(0.8); opacity: 0.5; }
+            50% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(0.8); opacity: 0.5; }
+          }
+          .project-card {
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+          }
+          .project-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 32px rgba(180, 140, 255, 0.18);
+          }
+        `}
+      </style>
+
+      {/* ==============================================
+          SECTION 1: TOTAL TOKENS
+          ============================================== */}
+      <section className="page-section" style={{ 
         background: "radial-gradient(circle at top, #ffffff 0%, #faf5ff 50%, #fff0f8 100%)",
-        minHeight: "calc(100vh - 120px)", 
+        padding: "60px 0 20px",
+        minHeight: "calc(100vh - 80px)", /* 👈 เพิ่มบรรทัดนี้: บังคับให้สูงเต็มจอ ดันเนื้อหาอื่นลงไป */
         display: "flex",
         flexDirection: "column",
         justifyContent: "center"
       }}>
-        <div className="page-section-inner" style={{ textAlign: "center", padding: "40px 20px" }}>
+        <div className="page-section-inner" style={{ textAlign: "center", padding: "0 20px" }}>
           
-          {/* 🎨 ย้ายภาพเหรียญ/โลโก้มาไว้ตรงนี้ เหนือคำว่า TOTAL TOKENS */}
           <div className="section-header" style={{ marginBottom: "24px", display: "flex", flexDirection: "column", alignItems: "center" }}>
             <img 
               src="/bnktoken.png" 
-              alt="Rose Icon" 
+              alt="BNK Token" 
               style={{
-                height: "56px", /* ปรับให้ใหญ่ขึ้นนิดนึงเพื่อให้รับกับหัวข้อ */
+                height: "56px", 
                 width: "auto",
                 marginBottom: "16px",
                 filter: "drop-shadow(0 4px 8px rgba(130, 90, 180, 0.2))"
@@ -189,18 +250,16 @@ function TokenPage() {
             position: "relative",
             background: "linear-gradient(180deg, #ffffff 0%, #fdfcff 100%)", 
             borderRadius: "32px",
-            padding: "40px 20px 32px", /* เพิ่ม padding ด้านบนให้กลับมาสมดุลเพราะเอารูปออกไปแล้ว */
+            padding: "40px 20px 32px", 
             width: "100%",
             maxWidth: "400px", 
             margin: "0 auto",
             boxShadow: "0 24px 50px rgba(180, 140, 255, 0.15), 0 0 0 1px rgba(197, 116, 255, 0.1), inset 0 2px 0 rgba(255,255,255,0.9)",
             display: "flex",
             flexDirection: "column",
-            alignItems: "center",
-            overflow: "hidden" 
+            alignItems: "center"
           }}>
             
-            {/* โชว์เฉพาะตัวเลขวิ่งเน้นๆ ในการ์ดสีขาว */}
             {totalTokens === 0 ? (
                <div style={{ height: "82px", display: "flex", alignItems: "center" }}>
                  <span style={{ 
@@ -227,15 +286,6 @@ function TokenPage() {
               borderRadius: "999px",
               border: "1px solid #eadeff"
             }}>
-              <style>
-                {`
-                  @keyframes pulse-dot {
-                    0% { transform: scale(0.8); opacity: 0.5; }
-                    50% { transform: scale(1.2); opacity: 1; }
-                    100% { transform: scale(0.8); opacity: 0.5; }
-                  }
-                `}
-              </style>
               <div style={{
                 width: "7px",
                 height: "7px",
@@ -247,10 +297,165 @@ function TokenPage() {
                 LIVE UPDATE
               </span>
             </div>
-
           </div>
         </div>
-      </main>
+      </section>
+
+      {/* ==============================================
+          SECTION 2: PROJECT BREAKDOWN
+          ============================================== */}
+      <section className="page-section" style={{ padding: "40px 0" }}>
+        <div className="page-section-inner" style={{ textAlign: "center", padding: "0 20px" }}>
+          
+          <div className="section-header" style={{ marginBottom: "32px" }}>
+            <h2 style={{ fontSize: "32px", color: "#2c2537", fontFamily: '"Bebas Neue", sans-serif', letterSpacing: "0.05em", margin: "0 0 4px 0" }}>
+              TOKENS BY PROJECT
+            </h2>
+            <p style={{ fontSize: "15px", color: "#8a7b9e" }}>รายละเอียดจากแต่ละโปรเจกต์ย่อย</p>
+          </div>
+
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+            gap: "20px",
+            maxWidth: "900px",
+            margin: "0 auto"
+          }}>
+            {projects.map((proj, index) => (
+              <div key={index} className="project-card" style={{
+                background: "#ffffff",
+                borderRadius: "24px",
+                padding: "24px 20px",
+                border: "1px solid rgba(197, 116, 255, 0.18)",
+                boxShadow: "0 8px 24px rgba(180, 140, 255, 0.08)",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center"
+              }}>
+                <div style={{ fontSize: "24px", marginBottom: "8px", filter: "drop-shadow(0 2px 4px rgba(255,182,232,0.4))" }}>🌸</div>
+                
+                <h4 style={{ margin: "0 0 12px 0", fontSize: "15px", color: "#6b50c5", fontWeight: "600", fontFamily: '"Mitr", sans-serif' }}>
+                  {proj.Number}
+                </h4>
+                
+                <div style={{
+                  fontSize: "36px",
+                  fontFamily: '"Bebas Neue", sans-serif',
+                  background: "linear-gradient(135deg, var(--accent), var(--accent-mint))",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  fontWeight: "bold",
+                  lineHeight: "1"
+                }}>
+                  {Number(proj.Tokens || 0).toLocaleString()}
+                </div>
+                <div style={{ fontSize: "12px", color: "#a093b5", marginTop: "6px", fontWeight: "500", letterSpacing: "0.05em" }}>
+                  TOKENS
+                </div>
+              </div>
+            ))}
+          </div>
+
+        </div>
+      </section>
+
+      {/* ==============================================
+          SECTION 3: SEARCH STATUS
+          ============================================== */}
+      <section className="page-section page-section--tone2" id="check-status" style={{ padding: "50px 0 70px" }}>
+        <div className="page-section-inner" style={{ textAlign: "center", padding: "0 20px" }}>
+          
+          <div className="section-header" style={{ marginBottom: "24px" }}>
+            <h2 style={{ fontSize: "36px", fontFamily: '"Bebas Neue", sans-serif' }}>CHECK STATUS</h2>
+            <p>ตรวจสอบสถานะการโอนบัตรของคุณ</p>
+          </div>
+
+          <div style={{
+            maxWidth: "500px",
+            margin: "0 auto",
+            background: "#ffffff",
+            padding: "36px 24px",
+            borderRadius: "24px",
+            border: "1px solid rgba(197, 116, 255, 0.22)",
+            boxShadow: "0 12px 26px rgba(150, 125, 215, 0.12)"
+          }}>
+            <h3 style={{ fontSize: "18px", color: "#4a3c68", margin: "0 0 20px 0", fontFamily: '"Mitr", sans-serif' }}>
+              ระบุเลข Wallet
+            </h3>
+            
+            <div style={{ display: "flex", gap: "8px", justifyContent: "center", flexWrap: "wrap" }}>
+              <input
+                type="text"
+                placeholder="0x1234abcd..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+                style={{
+                  flex: "1",
+                  minWidth: "220px",
+                  padding: "14px 20px",
+                  borderRadius: "999px",
+                  border: "1px solid #d8b4fe",
+                  outline: "none",
+                  fontSize: "15px",
+                  color: "#333",
+                  backgroundColor: "#fcfaff",
+                  boxShadow: "inset 0 2px 4px rgba(0,0,0,0.02)"
+                }}
+              />
+              <button
+                onClick={handleSearch}
+                disabled={isSearching}
+                style={{
+                  padding: "14px 28px",
+                  borderRadius: "999px",
+                  background: "linear-gradient(135deg, var(--accent), var(--accent-mint))",
+                  color: "#fff",
+                  border: "none",
+                  fontSize: "15px",
+                  fontWeight: "bold",
+                  cursor: isSearching ? "wait" : "pointer",
+                  opacity: isSearching ? 0.7 : 1,
+                  boxShadow: "0 4px 12px rgba(197, 116, 255, 0.3)",
+                  transition: "transform 0.1s"
+                }}
+              >
+                {isSearching ? "กำลังค้นหา..." : "ค้นหา"}
+              </button>
+            </div>
+
+            {hasSearched && (
+              <div style={{ marginTop: "24px", animation: "heroFadeInUp 0.4s ease-out forwards" }}>
+                {searchResult?.error ? (
+                  <div style={{ padding: "18px", background: "#fff1f2", color: "#be123c", borderRadius: "16px", border: "1px solid #fecdd3", fontSize: "14.5px" }}>
+                    ❌ {searchResult.error}
+                  </div>
+                ) : searchResult ? (
+                  <div style={{ padding: "20px", background: "#fcf9ff", color: "#4a044e", borderRadius: "16px", border: "1px solid #eadeff", textAlign: "left" }}>
+                    <p style={{ margin: "0 0 12px", fontSize: "15px", color: "#9333ea", fontWeight: "600" }}>✅ พบข้อมูลของคุณในระบบ</p>
+                    <p style={{ margin: "0 0 10px", fontSize: "14px", color: "#6b7280", wordBreak: "break-all" }}>
+                      <strong>Wallet:</strong> <span style={{ color: "#374151" }}>{searchResult.Wallet}</span>
+                    </p>
+                    <div style={{ display: "flex", alignItems: "center", gap: "8px", marginTop: "12px", paddingTop: "12px", borderTop: "1px dashed #eadeff" }}>
+                      <span style={{ fontSize: "15px", fontWeight: "bold" }}>สถานะ:</span>
+                      <span style={{ 
+                        background: searchResult.Status === "กำลังดำเนินการ" ? "#fef08a" : "#bbf7d0", 
+                        color: searchResult.Status === "กำลังดำเนินการ" ? "#854d0e" : "#166534",
+                        padding: "6px 14px", 
+                        borderRadius: "999px", 
+                        fontSize: "14px", 
+                        fontWeight: "bold" 
+                      }}>
+                        {searchResult.Status}
+                      </span>
+                    </div>
+                  </div>
+                ) : null}
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
 
       <footer className="footer">
         <p className="footer-line1">-`♡´- Fansite Project made by RollzyBunny</p>
