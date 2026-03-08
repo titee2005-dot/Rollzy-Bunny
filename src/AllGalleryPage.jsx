@@ -185,7 +185,7 @@ function AllGalleryPage() {
         {/* ใส่ section-reveal ตรง block ที่อยากให้มีเอฟเฟกต์ */}
         <div className="page-section-inner section-reveal">
           <header className="gallery-page-header">
-            <h2>Gallery (Coming Soon)</h2>
+            <h2>Gallery</h2>
             <p>รวมภาพของโรสทั้งบน Stage, Event, Meme, Fanart และอื่นๆ</p>
           </header>
 

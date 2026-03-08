@@ -12,7 +12,37 @@ p {
   font-size: 82px;   /* ← เพิ่มตรงนี้ */
   letter-spacing: 0.01em;
 }
+/* App.css - เพิ่มไว้บนสุด */
 
+/* App.css - เพิ่มไว้บนสุด */
+
+@font-face {
+  font-family: 'MyOpunMai';
+  src: url('./assets/Fonts/OpunMai-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'MyOpunMai';
+  src: url('./assets/Fonts/OpunMai-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'MyOpunMai';
+  src: url('./assets/Fonts/OpunMai-Bold.ttf') format('truetype');
+  font-weight: 600; /* ทำให้ตรงกับ fontWeight: "600" ในโค้ดของคุณ */
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'MyOpunMai';
+  src: url('./assets/Fonts/OpunMai-Black.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
 :root {
   --bg-purple-1: #ffffff;   /* ม่วงอ่อน */
   --bg-purple-2: #fff9fc;   /* ม่วงอ่อนอีกเฉด */

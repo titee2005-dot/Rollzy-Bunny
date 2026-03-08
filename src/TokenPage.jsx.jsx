@@ -1,14 +1,34 @@
 import { useEffect, useState, useRef } from "react";
 import Navbar from "./Navbar.jsx"; 
 
-// 1. Component ล้อหมุนตัวเลข (Odometer)
+const PROJECT_CONFIG = {
+  "SummerFest": "/SummerFest.jpg", 
+  "ชื่อโปรเจกต์ที่ 1": "/icon1.png",
+  "ชื่อโปรเจกต์ที่ 2": "/icon2.png",
+  "default": "/rose-icon.png" // รูปสำรองถ้าหาชื่อไม่เจอ
+};
+
+// ==========================================
+// ฟังก์ชันเสริม: แปลงลิงก์รูปให้แสดงผลได้ 100%
+// ==========================================
+const getDirectImageLink = (url) => {
+  if (!url) return "";
+  
+  const driveMatch = url.match(/\/d\/([a-zA-Z0-9_-]+)/) || url.match(/id=([a-zA-Z0-9_-]+)/);
+  if (driveMatch && driveMatch[1]) {
+    return `https://drive.google.com/uc?export=view&id=${driveMatch[1]}`;
+  }
+  
+  return url; 
+};
+
+// ==========================================
+// 1. Component ล้อหมุนตัวเลข (Odometer) - สี Gradient แบบหน้าหลัก
+// ==========================================
 function Digit({ targetValue, trigger, digitIndex, forceSpin }) {
   const [offset, setOffset] = useState(0);
-  
-  // ⏳ ความเร็วเดิมที่คุณตั้งไว้
-  const duration = 2.0 + (digitIndex * 3.5); 
+  const duration = 1.0 + (digitIndex * 2.5); 
   const defaultTransition = `transform ${duration}s cubic-bezier(0.16, 1, 0.3, 1)`;
-
   const [transition, setTransition] = useState(defaultTransition);
   const isFirstRender = useRef(true);
 
@@ -43,30 +63,10 @@ function Digit({ targetValue, trigger, digitIndex, forceSpin }) {
   const digitsArray = Array.from({ length: 50 }, (_, i) => i % 10);
 
   return (
-    <div style={{
-      display: "inline-block",
-      height: "82px",
-      width: "46px",
-      overflow: "hidden",
-      textAlign: "center",
-      margin: "0 1px"
-    }}>
-      <div style={{
-        display: "block",
-        transition: transition,
-        transform: `translateY(-${offset * 82}px)`, 
-      }}>
+    <div style={{ display: "inline-block", height: "82px", width: "46px", overflow: "hidden", textAlign: "center", margin: "0 1px" }}>
+      <div style={{ display: "block", transition: transition, transform: `translateY(-${offset * 82}px)` }}>
         {digitsArray.map((d, i) => (
-          <div key={i} style={{
-            height: "82px",
-            lineHeight: "82px",
-            fontFamily: '"Bebas Neue", sans-serif',
-            fontSize: "82px",
-            fontWeight: "bold",
-            background: "linear-gradient(135deg, var(--accent), var(--accent-mint))",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent"
-          }}>
+          <div key={i} style={{ height: "82px", lineHeight: "82px", fontFamily: '"Bebas Neue", sans-serif', fontSize: "82px", fontWeight: "bold", background: "linear-gradient(135deg, var(--accent), var(--accent-mint))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
             {d}
           </div>
         ))}
@@ -75,7 +75,9 @@ function Digit({ targetValue, trigger, digitIndex, forceSpin }) {
   );
 }
 
+// ==========================================
 // 2. Component หั่นตัวเลขเป็นหลักๆ
+// ==========================================
 function NumberTicker({ value }) {
   const stringValue = value.toLocaleString(); 
   const chars = stringValue.split("");
@@ -96,29 +98,12 @@ function NumberTicker({ value }) {
 
     if (char === ",") {
       elements.unshift(
-        <span key={`comma-${stableKey}`} style={{
-          fontSize: "82px",
-          fontFamily: '"Bebas Neue", sans-serif',
-          fontWeight: "bold",
-          lineHeight: "65px",
-          background: "linear-gradient(135deg, var(--accent), var(--accent-mint))",
-          WebkitBackgroundClip: "text",
-          WebkitTextFillColor: "transparent",
-          margin: "0 2px"
-        }}>
-          ,
-        </span>
+        <span key={`comma-${stableKey}`} style={{ fontSize: "82px", fontFamily: '"Bebas Neue", sans-serif', fontWeight: "bold", lineHeight: "65px", background: "linear-gradient(135deg, var(--accent), var(--accent-mint))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", margin: "0 2px" }}>,</span>
       );
     } else {
       const forceSpin = diff >= Math.pow(10, currentDigitIndex);
       elements.unshift(
-        <Digit 
-          key={`digit-${stableKey}`} 
-          targetValue={parseInt(char)} 
-          trigger={value} 
-          digitIndex={currentDigitIndex} 
-          forceSpin={forceSpin} 
-        />
+        <Digit key={`digit-${stableKey}`} targetValue={parseInt(char)} trigger={value} digitIndex={currentDigitIndex} forceSpin={forceSpin} />
       );
       currentDigitIndex++;
     }
@@ -131,42 +116,18 @@ function NumberTicker({ value }) {
   );
 }
 
-// 3. หน้า TokenPage หลัก
-function TokenPage() {
-  const [totalTokens, setTotalTokens] = useState(0);
-  const [projects, setProjects] = useState([]); 
-  
+// ============================================================================
+// 🌟 3. Component หน้าเช็คสถานะแยก (ปรับปรุงเฉพาะ 2 จุดตามสั่ง)
+// ============================================================================
+function ProjectStatusView({ project, onBack }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResult, setSearchResult] = useState(null);
   const [isSearching, setIsSearching] = useState(false);
   const [hasSearched, setHasSearched] = useState(false);
+  const [showProof, setShowProof] = useState(false);
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-
-    const fetchData = () => {
-      fetch("https://opensheet.elk.sh/1LdYwevfbc_sFhD8BKaBEEoYdTWLApQ5apSD9WIJRFz4/Sheet1")
-        .then(res => res.json())
-        .then(data => {
-          let grandTotal = 0;
-          let projectList = [];
-
-          data.forEach(row => {
-            if (row.Number && row.Number !== "Total Tokens") {
-              grandTotal += Number(row.Tokens || 0);
-              projectList.push(row); 
-            }
-          });
-
-          setTotalTokens(grandTotal);
-          setProjects(projectList);
-        })
-        .catch(error => console.error("Error fetching tokens:", error));
-    };
-
-    fetchData();
-    const interval = setInterval(fetchData, 5000);
-    return () => clearInterval(interval);
+  useEffect(() => { 
+    window.scrollTo(0, 0); 
   }, []);
 
   const handleSearch = async () => {
@@ -175,284 +136,402 @@ function TokenPage() {
     setIsSearching(true);
     setHasSearched(true);
     setSearchResult(null);
+    setShowProof(false); 
 
     try {
-      const res = await fetch("https://opensheet.elk.sh/1LdYwevfbc_sFhD8BKaBEEoYdTWLApQ5apSD9WIJRFz4/Status");
+      let sheetApiUrl = "https://opensheet.elk.sh/1pLkCTv-nlDK2t4zQmzLV50NX7bd87JHEOFSgK7E6L8w/StatusWeb"; 
+      const projectName = project.Project ? project.Project.toString().trim() : "";
+
+      if (projectName === "ชื่อโปรเจกต์ที่ 1") {
+        sheetApiUrl = "https://opensheet.elk.sh/ลิงก์ชีตโปรเจกต์ที่1/แท็บStatus";
+      } else if (projectName === "ชื่อโปรเจกต์ที่ 2") {
+        sheetApiUrl = "https://opensheet.elk.sh/ลิงก์ชีตโปรเจกต์ที่2/แท็บStatus";
+      }
+
+      const res = await fetch(sheetApiUrl);
       const data = await res.json();
 
-      const found = data.find(row => 
-        row.Wallet && row.Wallet.toString().toLowerCase() === searchQuery.trim().toLowerCase()
-      );
+      const foundRows = data.filter(row => {
+        return Object.values(row).some(val => 
+          val !== null && 
+          val !== undefined && 
+          val.toString().trim() === searchQuery.trim()
+        );
+      });
 
-      if (found) {
-        setSearchResult(found);
+      if (foundRows.length > 0) {
+        // ดึงชื่อ Wallet ID จากแถวแรกมาโชว์เป็นหัวข้อหลัก
+        const walletKey = Object.keys(foundRows[0]).find(k => k.toLowerCase().includes("wallet") || k.includes("iam"));
+        const finalWallet = walletKey ? foundRows[0][walletKey] : searchQuery.trim();
+
+        // 2. Map ข้อมูลทุกแถวที่เจอ ให้ออกมาเป็นก้อน Array สินค้า
+        const itemsList = foundRows.map(row => {
+          // ค้นหาคอลัมน์ชื่อสินค้า/รายการ
+          const itemKey = Object.keys(row).find(k => k.includes("รายการ") || k.includes("สินค้า") || k.includes("โปรเจกต์"));
+          // ค้นหาคอลัมน์สถานะ
+          const statusKey = Object.keys(row).find(k => k.includes("สถานะ"));
+          // ค้นหาคอลัมน์รูปภาพ/หลักฐาน
+          const proofKey = Object.keys(row).find(k => k.includes("หลักฐาน") || k.includes("สลิป") || k.toLowerCase().includes("slip") || k.includes("รูป"));
+
+          return {
+            Name: itemKey && row[itemKey] ? row[itemKey].toString().trim() : "ไม่ระบุชื่อรายการ",
+            Status: statusKey && row[statusKey] ? row[statusKey].toString().trim() : "ไม่ระบุสถานะ",
+            Proof: (proofKey && row[proofKey] && row[proofKey].toString().trim() !== "") ? row[proofKey].toString().trim() : null
+          };
+        });
+
+        // 3. บันทึกผลลัพธ์เป็น Array (มีตัวแปร Items เพิ่มเข้ามา)
+        setSearchResult({ Wallet: finalWallet, Items: itemsList });
       } else {
         setSearchResult({ error: "ไม่พบข้อมูล Wallet นี้ในระบบ โปรดตรวจสอบความถูกต้อง" });
       }
     } catch (error) {
       console.error("Search Error:", error);
-      setSearchResult({ error: "เกิดข้อผิดพลาดในการดึงข้อมูล โปรดลองอีกครั้ง" });
+      setSearchResult({ error: "เกิดข้อผิดพลาดในการดึงข้อมูล โปรดลองอีกครั้งในภายหลัง" });
     } finally {
       setIsSearching(false);
     }
   };
 
+  const getStatusStyle = (status) => {
+    if (!status) return { bg: "#f1f5f9", text: "#64748b", border: "#e2e8f0" }; 
+    const s = status.toString().trim();
+    
+    // ❗ คืนสไตล์สถานะ "กำลังดำเนินการ" เป็นส้ม/เหลืองเดิม (ไม่มี Glow และตัวหนา)
+    if (s === "อยู่ระหว่างดำเนินการ" || s === "กำลังดำเนินการ") {
+      return { bg: "linear-gradient(135deg, #fffbeb, #fef3c7)", text: "#d97706", border: "#fde68a", shadow: "0 4px 12px rgba(245, 158, 11, 0.15)", Weight: "500"}; 
+    }
+    
+    if (s === "ยังไม่โอน") return { bg: "#fef2f2", text: "#ef4444", border: "#fecaca" }; 
+    if (s === "โอนบัตรแล้ว") return { bg: "linear-gradient(135deg, #f0fdf4, #dcfce7)", text: "#16a34a", border: "#bbf7d0",shadow: "0 4px 12px rgba(34, 197, 94, 0.15)", weight: "500" }; 
+    
+    return { bg: "#f8fafc", text: "#334155", border: "#e2e8f0" }; 
+  };
+
   return (
-    <div className="app-root">
+    <div className="app-root" style={{ animation: "heroFadeInUp 0.4s ease-out forwards", backgroundColor: "#fcfaff" }}>
       <Navbar />
       
       <style>
         {`
-          @keyframes pulse-dot {
-            0% { transform: scale(0.8); opacity: 0.5; }
-            50% { transform: scale(1.2); opacity: 1; }
-            100% { transform: scale(0.8); opacity: 0.5; }
+          button { outline: none !important; -webkit-tap-highlight-color: transparent !important; }
+          
+          /* ❗ คืนสไตล์ปุ่ม Back กลับเป็นเหมือนต้นฉบับเป๊ะๆ */
+          .back-button-original {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px 10px 16px;
+            background: transparent;
+            color: #8a7b9e;
+            font-size: 15px;
+            font-weight: 600;
+            font-family: "Mitr", sans-serif;
+            border: 1px solid transparent;
+            border-radius: 999px;
+            cursor: pointer;
+            transition: all 0.3s ease;
           }
-          .project-card {
-            transition: transform 0.25s ease, box-shadow 0.25s ease;
+          .back-button-original:hover {
+            background: #ffffff;
+            color: #6b50c5;
+            border-color: #eadeff;
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.08);
+            transform: translateX(-4px);
           }
-          .project-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 16px 32px rgba(180, 140, 255, 0.18);
+          .back-button-original svg {
+            transition: transform 0.3s ease;
+          }
+          .back-button-original:hover svg {
+            transform: translateX(-4px);
+          }
+
+          .proof-toggle-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 14px 32px;
+            background: #ffffff;
+            color: #6b50c5;
+            border: 1.5px solid #eadeff;
+            border-radius: 16px;
+            font-family: "Mitr", sans-serif;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 12px rgba(107, 80, 197, 0.06);
+          }
+          .proof-toggle-btn:hover {
+            transform: translateY(-3px);
+            border-color: #b48cff;
+            box-shadow: 0 8px 20px rgba(107, 80, 197, 0.12);
+          }
+          .proof-toggle-btn.active {
+            background: #f8f6ff;
+            color: #5b40b5;
+            border-color: #c7b3ff;
+            transform: translateY(1px);
+            box-shadow: inset 0 2px 5px rgba(107, 80, 197, 0.1);
+          }
+          .proof-toggle-btn svg {
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+          }
+          .proof-toggle-btn:hover svg {
+            transform: scale(1.2) rotate(10deg);
+          }
+          .image-reveal-container {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+          }
+          .image-reveal-container.visible {
+            max-height: 1000px;
+            opacity: 1;
+            margin-top: 24px;
           }
         `}
       </style>
 
-      {/* ==============================================
-          SECTION 1: TOTAL TOKENS
-          ============================================== */}
-      <section className="page-section" style={{ 
-        background: "radial-gradient(circle at top, #ffffff 0%, #faf5ff 50%, #fff0f8 100%)",
-        padding: "60px 0 20px",
-        minHeight: "calc(100vh - 80px)", /* 👈 เพิ่มบรรทัดนี้: บังคับให้สูงเต็มจอ ดันเนื้อหาอื่นลงไป */
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center"
-      }}>
-        <div className="page-section-inner" style={{ textAlign: "center", padding: "0 20px" }}>
-          
-          <div className="section-header" style={{ marginBottom: "24px", display: "flex", flexDirection: "column", alignItems: "center" }}>
-            <img 
-              src="/bnktoken.png" 
-              alt="BNK Token" 
-              style={{
-                height: "56px", 
-                width: "auto",
-                marginBottom: "16px",
-                filter: "drop-shadow(0 4px 8px rgba(130, 90, 180, 0.2))"
-              }}
-            />
-            <h2 style={{ fontSize: "56px", margin: "0 0 8px 0" }}>TOTAL TOKENS</h2>
-            <p style={{ fontSize: "18px", color: "#8a7b9e" }}>ยอดรวม Tokens จากโปรเจกต์ทั้งหมด</p>
-          </div>
-
-          <div style={{
-            position: "relative",
-            background: "linear-gradient(180deg, #ffffff 0%, #fdfcff 100%)", 
-            borderRadius: "32px",
-            padding: "40px 20px 32px", 
-            width: "100%",
-            maxWidth: "400px", 
-            margin: "0 auto",
-            boxShadow: "0 24px 50px rgba(180, 140, 255, 0.15), 0 0 0 1px rgba(197, 116, 255, 0.1), inset 0 2px 0 rgba(255,255,255,0.9)",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center"
-          }}>
-            
-            {totalTokens === 0 ? (
-               <div style={{ height: "82px", display: "flex", alignItems: "center" }}>
-                 <span style={{ 
-                    fontSize: "82px", 
-                    fontFamily: '"Bebas Neue", sans-serif', 
-                    fontWeight: "bold", 
-                    background: "linear-gradient(135deg, var(--accent), var(--accent-mint))",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    opacity: 0.2 
-                 }}>0</span>
-               </div>
-            ) : (
-               <NumberTicker value={totalTokens} />
-            )}
-
-            <div style={{
-              marginTop: "24px", 
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "6px",
-              padding: "5px 12px", 
-              background: "#f4f0ff",
-              borderRadius: "999px",
-              border: "1px solid #eadeff"
-            }}>
-              <div style={{
-                width: "7px",
-                height: "7px",
-                backgroundColor: "#22c55e", 
-                borderRadius: "50%",
-                animation: "pulse-dot 2s infinite ease-in-out"
-              }} />
-              <span style={{ fontSize: "12px", fontWeight: "600", color: "#6b50c5", letterSpacing: "0.02em" }}>
-                LIVE UPDATE
-              </span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ==============================================
-          SECTION 2: PROJECT BREAKDOWN
-          ============================================== */}
-      <section className="page-section" style={{ padding: "40px 0" }}>
-        <div className="page-section-inner" style={{ textAlign: "center", padding: "0 20px" }}>
-          
-          <div className="section-header" style={{ marginBottom: "32px" }}>
-            <h2 style={{ fontSize: "32px", color: "#2c2537", fontFamily: '"Bebas Neue", sans-serif', letterSpacing: "0.05em", margin: "0 0 4px 0" }}>
-              TOKENS BY PROJECT
-            </h2>
-            <p style={{ fontSize: "15px", color: "#8a7b9e" }}>รายละเอียดจากแต่ละโปรเจกต์ย่อย</p>
-          </div>
-
-          <div style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-            gap: "20px",
-            maxWidth: "900px",
-            margin: "0 auto"
-          }}>
-            {projects.map((proj, index) => (
-              <div key={index} className="project-card" style={{
-                background: "#ffffff",
-                borderRadius: "24px",
-                padding: "24px 20px",
-                border: "1px solid rgba(197, 116, 255, 0.18)",
-                boxShadow: "0 8px 24px rgba(180, 140, 255, 0.08)",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center"
-              }}>
-                <div style={{ fontSize: "24px", marginBottom: "8px", filter: "drop-shadow(0 2px 4px rgba(255,182,232,0.4))" }}>🌸</div>
-                
-                <h4 style={{ margin: "0 0 12px 0", fontSize: "15px", color: "#6b50c5", fontWeight: "600", fontFamily: '"Mitr", sans-serif' }}>
-                  {proj.Number}
-                </h4>
-                
-                <div style={{
-                  fontSize: "36px",
-                  fontFamily: '"Bebas Neue", sans-serif',
-                  background: "linear-gradient(135deg, var(--accent), var(--accent-mint))",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  fontWeight: "bold",
-                  lineHeight: "1"
-                }}>
-                  {Number(proj.Tokens || 0).toLocaleString()}
+      <section className="page-section" style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", minHeight: "calc(100vh - 70px)", padding: "40px 20px" }}>
+        <div className="page-section-inner" style={{ textAlign: "center", width: "100%" }}>
+          <div style={{ maxWidth: "520px", margin: "0 auto" }}>
+            <div className="section-header" style={{ marginBottom: "40px", display: "flex", flexDirection: "column", alignItems: "center", gap: "20px" }}>
+              <h2 style={{ fontSize: "42px", fontFamily: '"Bebas Neue", sans-serif', margin: "0", color: "#0f172a", letterSpacing: "0.04em" }}>CHECK STATUS</h2>
+              <div style={{ display: "inline-flex", alignItems: "center", gap: "12px", padding: "8px 24px 8px 10px", backgroundColor: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "999px", boxShadow: "0 2px 10px rgba(0, 0, 0, 0.02)" }}>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "36px", height: "36px", backgroundColor: "#f8fafc", borderRadius: "50%", border: "1px solid #f1f5f9" }}>
+               <img 
+  src={PROJECT_CONFIG[project.Project] || PROJECT_CONFIG.default} 
+  alt="Project Icon" 
+  style={{ height: "20px", width: "auto", display: "block" }} // ปรับความสูงให้พอดีกับวงกลม 36px
+/>
                 </div>
-                <div style={{ fontSize: "12px", color: "#a093b5", marginTop: "6px", fontWeight: "500", letterSpacing: "0.05em" }}>
-                  TOKENS
+                <div style={{ display: "flex", alignItems: "baseline", gap: "6px" }}>
+                  <span style={{ color: "#64748b", fontSize: "14px", fontWeight: "500", fontFamily: '"Mitr", sans-serif' }}>โปรเจกต์ :</span>
+                  <span style={{ color: "#0f172a", fontWeight: "600", fontSize: "16px", fontFamily: '"Mitr", sans-serif' }}>{project.Project || "ไม่ทราบชื่อโปรเจกต์"}</span>
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
 
-        </div>
-      </section>
+            <div style={{ background: "#ffffff", padding: "40px 32px", borderRadius: "24px", border: "1px solid #e2e8f0", boxShadow: "0 10px 30px rgba(0, 0, 0, 0.03)" }}>
+              <h3 style={{ fontSize: "16px", color: "#475569", margin: "0 0 20px 0", fontFamily: '"Mitr", sans-serif', fontWeight: "500" }}>ระบุเลข Wallet ID ของคุณ</h3>
+              <div style={{ display: "flex", gap: "12px", justifyContent: "center", flexWrap: "wrap" }}>
+                <input type="text" placeholder="0x1234abcd..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && handleSearch()} style={{ flex: "1", minWidth: "220px", padding: "16px 20px", borderRadius: "12px", border: "1px solid #e2e8f0", outline: "none", fontSize: "15px", fontFamily: '"Mitr", sans-serif', color: "#0f172a", backgroundColor: "#f8fafc", transition: "all 0.2s ease" }} />
+                <button onClick={handleSearch} disabled={isSearching} style={{ padding: "16px 32px", borderRadius: "12px", backgroundColor: "#0f172a", color: "#ffffff", border: "none", fontSize: "15px", fontWeight: "500", fontFamily: '"Mitr", sans-serif', cursor: isSearching ? "wait" : "pointer", opacity: isSearching ? 0.7 : 1 }}>{isSearching ? "กำลังค้นหา..." : "ค้นหาข้อมูล"}</button>
+              </div>
 
-      {/* ==============================================
-          SECTION 3: SEARCH STATUS
-          ============================================== */}
-      <section className="page-section page-section--tone2" id="check-status" style={{ padding: "50px 0 70px" }}>
-        <div className="page-section-inner" style={{ textAlign: "center", padding: "0 20px" }}>
-          
-          <div className="section-header" style={{ marginBottom: "24px" }}>
-            <h2 style={{ fontSize: "36px", fontFamily: '"Bebas Neue", sans-serif' }}>CHECK STATUS</h2>
-            <p>ตรวจสอบสถานะการโอนบัตรของคุณ</p>
-          </div>
+              {hasSearched && (
+                <div style={{ marginTop: "32px", animation: "heroFadeInUp 0.4s ease-out forwards" }}>
+                  {searchResult?.error ? (
+                    <div style={{ padding: "18px", background: "#fef2f2", color: "#dc2626", borderRadius: "16px", border: "1px solid #fecaca", fontSize: "14.5px", display: "flex", alignItems: "center", justifyContent: "center", gap: "10px", boxShadow: "0 4px 12px rgba(220, 38, 38, 0.05)", fontFamily: '"Mitr", sans-serif' }}>
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+                      {searchResult.error}
+                    </div>
+                  ) : searchResult ? (
+                    <div style={{ padding: "32px", background: "#ffffff", borderRadius: "20px", border: "1px solid #e2e8f0", textAlign: "left", boxShadow: "0 4px 20px rgba(0,0,0,0.02)" }}>
+                      
+                      {/* หัวข้อ Wallet ID */}
+                      <div style={{ marginBottom: "28px" }}>
+                        <div style={{ fontSize: "14px", color: "#927bb3", fontWeight: "500", marginBottom: "6px", fontFamily: '"Mitr", sans-serif', letterSpacing: "0.01em" }}> Wallet ID </div>
+                        <div style={{ background: "#f8f9fa", padding: "12px 16px", borderRadius: "10px", display: "flex", alignItems: "center", border: "1px solid #f1f5f9" }}>
+                          <span style={{ color: "#7c7b7e", fontWeight: "500", fontSize: "14px", fontFamily: '"Inter", "Mitr", sans-serif', wordBreak: "break-all", letterSpacing: "0.03em" }}> {searchResult.Wallet} </span>
+                        </div>
+                      </div>
 
-          <div style={{
-            maxWidth: "500px",
-            margin: "0 auto",
-            background: "#ffffff",
-            padding: "36px 24px",
-            borderRadius: "24px",
-            border: "1px solid rgba(197, 116, 255, 0.22)",
-            boxShadow: "0 12px 26px rgba(150, 125, 215, 0.12)"
-          }}>
-            <h3 style={{ fontSize: "18px", color: "#4a3c68", margin: "0 0 20px 0", fontFamily: '"Mitr", sans-serif' }}>
-              ระบุเลข Wallet
-            </h3>
-            
-            <div style={{ display: "flex", gap: "8px", justifyContent: "center", flexWrap: "wrap" }}>
-              <input
-                type="text"
-                placeholder="0x1234abcd..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-                style={{
-                  flex: "1",
-                  minWidth: "220px",
-                  padding: "14px 20px",
-                  borderRadius: "999px",
-                  border: "1px solid #d8b4fe",
-                  outline: "none",
-                  fontSize: "15px",
-                  color: "#333",
-                  backgroundColor: "#fcfaff",
-                  boxShadow: "inset 0 2px 4px rgba(0,0,0,0.02)"
-                }}
-              />
-              <button
-                onClick={handleSearch}
-                disabled={isSearching}
-                style={{
-                  padding: "14px 28px",
-                  borderRadius: "999px",
-                  background: "linear-gradient(135deg, var(--accent), var(--accent-mint))",
-                  color: "#fff",
-                  border: "none",
-                  fontSize: "15px",
-                  fontWeight: "bold",
-                  cursor: isSearching ? "wait" : "pointer",
-                  opacity: isSearching ? 0.7 : 1,
-                  boxShadow: "0 4px 12px rgba(197, 116, 255, 0.3)",
-                  transition: "transform 0.1s"
-                }}
-              >
-                {isSearching ? "กำลังค้นหา..." : "ค้นหา"}
+                      {/* รายการสั่งซื้อ (ลูปตามจำนวนที่หาเจอ) */}
+                      <div style={{ fontSize: "15px", fontWeight: "600", color: "#475569", fontFamily: '"Mitr", sans-serif', marginBottom: "12px" }}>รายการของคุณ ({searchResult.Items.length} รายการ)</div>
+                      
+                      <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                        {searchResult.Items.map((item, index) => (
+                          <div key={index} style={{
+                            background: "#ffffff",
+                            border: "1px solid #f1f5f9",
+                            borderRadius: "14px",
+                            padding: "16px",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "space-between",
+                            flexWrap: "wrap", // เผื่อหน้าจอมือถือเล็ก จะได้ปัดตกบรรทัด
+                            gap: "12px",
+                            boxShadow: "0 2px 8px rgba(0,0,0,0.01)"
+                          }}>
+                            {/* หมายเลข + ชื่อรายการ */}
+                            <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                              <div style={{ background: "#f8f6ff", color: "#3f1c80", width: "26px", height: "26px", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "13px", fontWeight: "600", fontFamily: '"Inter", sans-serif' }}>
+                                {index + 1}
+                              </div>
+                              <span style={{ fontSize: "15px", color: "#2c2537", fontWeight: "500", fontFamily: '"Mitr", sans-serif' }}>
+                                {item.Name}
+                              </span>
+                            </div>
+
+                            {/* กรุ๊ปสถานะ + ปุ่มดูหลักฐาน */}
+                            {/* ➡️ ฝั่งขวา: ป้ายสถานะ (ที่กลายเป็นปุ่มกดเมื่อโอนบัตรแล้ว) */}
+<div style={{ display: "flex", alignItems: "center" }}>
+  {item.Status === "โอนบัตรแล้ว" && item.Proof ? (
+    /* 🔗 ถ้าสถานะคือ 'โอนบัตรแล้ว' ให้ครอบด้วยลิงก์หลักฐาน */
+    <a 
+      href={getDirectImageLink(item.Proof)} 
+      target="_blank" 
+      rel="noreferrer" 
+      style={{ textDecoration: "none", cursor: "pointer" }}
+    >
+      <div style={{ 
+        background: getStatusStyle(item.Status).bg, 
+        color: getStatusStyle(item.Status).text, 
+        border: `2px solid ${getStatusStyle(item.Status).border}`, // เน้นขอบให้รู้ว่ากดได้
+        padding: "6px 18px", 
+        borderRadius: "999px", 
+        fontSize: "13px", 
+        fontWeight: "500", 
+        fontFamily: '"Mitr", sans-serif',
+        display: "flex",
+        alignItems: "center",
+        gap: "6px",
+        boxShadow: "0 4px 12px rgba(22, 163, 74, 0.12)" // เพิ่มเงาจางๆ ให้ดูเหมือนปุ่ม
+      }}>
+        {item.Status} 
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+      </div>
+    </a>
+  ) : (
+    /* 🔒 ถ้าสถานะอื่นๆ ให้แสดงเป็นป้ายปกติที่กดไม่ได้ */
+    <div style={{ 
+      background: getStatusStyle(item.Status).bg, 
+      color: getStatusStyle(item.Status).text, 
+      border: `1px solid ${getStatusStyle(item.Status).border}`,
+      padding: "6px 18px", 
+      borderRadius: "999px", 
+      fontSize: "13px", 
+      fontWeight: "500", // เอาตัวหนาออกตามที่ต้องการ
+      fontFamily: '"Mitr", sans-serif'
+    }}>
+      {item.Status}
+    </div>
+  )}
+</div>
+                            
+                          </div>
+                        ))}
+                      </div>
+
+                    </div>
+                  ) : null}
+                </div>
+              )}
+            </div>
+
+            <div style={{ display: "flex", justifyContent: "center", marginTop: "24px" }}>
+              {/* ❗ คืนร่างปุ่มกลับหน้ารวมโปรเจกต์เดิมเป๊ะๆ */}
+              <button onClick={onBack} className="back-button-original">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+                กลับหน้ารวมโปรเจกต์
               </button>
             </div>
+          </div>
+        </div>
+      </section>
 
-            {hasSearched && (
-              <div style={{ marginTop: "24px", animation: "heroFadeInUp 0.4s ease-out forwards" }}>
-                {searchResult?.error ? (
-                  <div style={{ padding: "18px", background: "#fff1f2", color: "#be123c", borderRadius: "16px", border: "1px solid #fecdd3", fontSize: "14.5px" }}>
-                    ❌ {searchResult.error}
+      <footer className="footer">
+        <p className="footer-line1">-`♡´- Fansite Project made by RollzyBunny</p>
+        <p className="footer-line2">Original Content & Artist © by Independent Artist Management (iAM).</p>
+      </footer>
+    </div>
+  );
+}
+
+
+// ============================================================================
+// 4. COMPONENT: TokenPage (หน้ารวมโปรเจกต์หลัก) - ห้ามแก้เด็ดขาดคงเดิม 100%
+// ============================================================================
+function TokenPage() {
+  const [totalTokens, setTotalTokens] = useState(0);
+  const [projects, setProjects] = useState([]); 
+  const [selectedProject, setSelectedProject] = useState(null); 
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    const fetchData = () => {
+      fetch("https://opensheet.elk.sh/1LdYwevfbc_sFhD8BKaBEEoYdTWLApQ5apSD9WIJRFz4/Sheet1")
+        .then(res => res.json())
+        .then(data => {
+          let grandTotal = 0; let projectList = [];
+          data.forEach(row => {
+            if (row.Number !== "Total Tokens" && row.Project !== "Total Tokens") {
+              if (row.Tokens !== undefined || row.Project) {
+                grandTotal += Number(row.Tokens || 0);
+                projectList.push(row); 
+              }
+            }
+          });
+          setTotalTokens(grandTotal);
+          setProjects(projectList);
+        }).catch(error => console.error(error));
+    };
+    fetchData();
+    const interval = setInterval(fetchData, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+  if (selectedProject) return <ProjectStatusView project={selectedProject} onBack={() => setSelectedProject(null)} />;
+
+  return (
+    <div className="app-root">
+      <Navbar />
+      <style>{`
+        @keyframes pulse-dot { 0% { transform: scale(0.8); opacity: 0.5; } 50% { transform: scale(1.2); opacity: 1; } 100% { transform: scale(0.8); opacity: 0.5; } }
+        .project-card { transition: transform 0.25s ease, box-shadow 0.25s ease; cursor: pointer; }
+        .project-card:hover { transform: translateY(-8px); box-shadow: 0 10px 28px rgba(180, 140, 255, 0.15), 0 0 0 2px rgba(197, 116, 255, 0.4); }
+      `}</style>
+
+      <section className="page-section" style={{ background: "radial-gradient(circle at center, #ffffff 0%, #faf5ff 40%, #fff0f8 100%)", minHeight: "calc(100vh - 70px)", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", padding: "40px 20px" }}>
+        <div className="page-section-inner" style={{ textAlign: "center", width: "100%" }}>
+          <div className="section-header" style={{ marginBottom: "24px", display: "flex", flexDirection: "column", alignItems: "center" }}>
+            <img src="/bnktoken.png" alt="BNK Token" style={{ height: "56px", width: "auto", marginBottom: "16px", filter: "drop-shadow(0 4px 8px rgba(130, 90, 180, 0.2))" }} />
+            <h2 style={{ fontSize: "56px", margin: "0 0 8px 0", fontFamily: '"Bebas Neue", sans-serif' }}>TOTAL TOKENS</h2>
+            <p style={{ fontSize: "18px", color: "#8a7b9e", fontFamily: '"Mitr", sans-serif' }}>ยอดรวม Tokens จากโปรเจกต์ทั้งหมด</p>
+          </div>
+          <div style={{ position: "relative", background: "linear-gradient(180deg, #ffffff 0%, #fdfcff 100%)", borderRadius: "32px", padding: "40px 20px 32px", width: "100%", maxWidth: "400px", margin: "0 auto", boxShadow: "0 24px 50px rgba(180, 140, 255, 0.15)", display: "flex", flexDirection: "column", alignItems: "center" }}>
+            <NumberTicker value={totalTokens} />
+            <div style={{ marginTop: "24px", display: "inline-flex", alignItems: "center", gap: "6px", padding: "5px 12px", background: "#f4f0ff", borderRadius: "999px", border: "1px solid #eadeff" }}>
+              <div style={{ width: "7px", height: "7px", backgroundColor: "#22c55e", borderRadius: "50%", animation: "pulse-dot 2s infinite" }} />
+              <span style={{ fontSize: "12px", fontWeight: "600", color: "#6b50c5", fontFamily: '"Mitr", sans-serif' }}>LIVE UPDATE</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="page-section" style={{ padding: "80px 20px" }}>
+        <div className="page-section-inner" style={{ textAlign: "center", width: "100%" }}>
+          <h2 style={{ fontSize: "56px", color: "#2c2537", fontFamily: '"Bebas Neue", sans-serif', marginBottom: "40px" }}>TOKENS BY PROJECT</h2>
+          <p style={{ fontSize: "18px", color: "#8a7b9e", fontFamily: '"Mitr", sans-serif', marginBottom: "40px" }}>รายละเอียดจากแต่ละโปรเจกต์ย่อย (กำลังพัฒนา)</p>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))", gap: "24px", maxWidth: "800px", margin: "0 auto" }}>
+            {projects.map((proj, index) => {
+              const isMerch = proj.Project && proj.Project.toLowerCase().includes("merch");
+              const hintText = isMerch ? "สถานะการจัดส่ง" : "สถานะการโอนบัตร";
+              return (
+                <div key={index} className="project-card" onClick={() => setSelectedProject(proj)} style={{ background: "#ffffff", borderRadius: "28px", padding: "32px 24px", border: "1px solid rgba(197, 116, 255, 0.18)", boxShadow: "0 10px 28px rgba(180, 140, 255, 0.08)", display: "flex", flexDirection: "column", alignItems: "center" }}>
+                 <img 
+  src={PROJECT_CONFIG[proj.Project] || PROJECT_CONFIG.default} 
+  alt="Project Icon" 
+  style={{ height: "48px", width: "auto", display: "block", marginBottom: "14px" }} 
+/>
+                    <h4 style={{ margin: "0 0 14px 0", /* คุมระยะห่างระหว่างชื่อกับตัวเลข */ fontSize: "18px", color: "#6b50c5", fontWeight: "600",  fontFamily: '"Mitr", sans-serif', textAlign: "center" }}>{proj.Project || "Unknown Project"} </h4>
+                  {/* จุดสำคัญ: เพิ่ม lineHeight: "1" เพื่อบีบพื้นที่ตัวเลขให้แคบลงเท่าโค้ดเก่า */}
+                    <div style={{fontSize: "48px", fontFamily: '"Bebas Neue", sans-serif', background: "linear-gradient(135deg, var(--accent), var(--accent-mint))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", fontWeight: "bold", lineHeight: "1"  /* <--- ใส่ตัวนี้เพื่อลดระยะห่างบน-ล่างของตัวเลข */}}> {Number(proj.Tokens || 0).toLocaleString()}</div>
+                    <div style={{fontSize: "14px", color: "#a093b5", marginTop: "6px", /* ระยะห่างระหว่างตัวเลขกับคำว่า */ TOKENSfontWeight: "500", letterSpacing: "0.05em", fontFamily: '"Mitr", sans-serif' }}> TOKENS </div>
+                    <div style={{ marginTop: "24px", padding: "8px 20px 8px 10px", borderRadius: "999px", background: "linear-gradient(to right, #fcfaff, #fff5f9)", border: "2px solid #f3e8ff", display: "flex", alignItems: "center", gap: "10px", color: "#927bb3", fontSize: "14px", fontFamily: '"Mitr", sans-serif', fontWeight: "500" }}>
+                    <div style={{ display: "flex", alignItems: "center", justifyContent: "center", background: "#ffffff", borderRadius: "50%", width: "28px", height: "28px", boxShadow: "0 2px 6px rgba(180, 140, 255, 0.1)" }}>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#b48cff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    </div>คลิกเพื่อตรวจสอบ{hintText}
                   </div>
-                ) : searchResult ? (
-                  <div style={{ padding: "20px", background: "#fcf9ff", color: "#4a044e", borderRadius: "16px", border: "1px solid #eadeff", textAlign: "left" }}>
-                    <p style={{ margin: "0 0 12px", fontSize: "15px", color: "#9333ea", fontWeight: "600" }}>✅ พบข้อมูลของคุณในระบบ</p>
-                    <p style={{ margin: "0 0 10px", fontSize: "14px", color: "#6b7280", wordBreak: "break-all" }}>
-                      <strong>Wallet:</strong> <span style={{ color: "#374151" }}>{searchResult.Wallet}</span>
-                    </p>
-                    <div style={{ display: "flex", alignItems: "center", gap: "8px", marginTop: "12px", paddingTop: "12px", borderTop: "1px dashed #eadeff" }}>
-                      <span style={{ fontSize: "15px", fontWeight: "bold" }}>สถานะ:</span>
-                      <span style={{ 
-                        background: searchResult.Status === "กำลังดำเนินการ" ? "#fef08a" : "#bbf7d0", 
-                        color: searchResult.Status === "กำลังดำเนินการ" ? "#854d0e" : "#166534",
-                        padding: "6px 14px", 
-                        borderRadius: "999px", 
-                        fontSize: "14px", 
-                        fontWeight: "bold" 
-                      }}>
-                        {searchResult.Status}
-                      </span>
-                    </div>
-                  </div>
-                ) : null}
-              </div>
-            )}
+                </div>
+              )
+            })}
           </div>
         </div>
       </section>
