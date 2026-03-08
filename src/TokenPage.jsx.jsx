@@ -316,7 +316,7 @@ function ProjectStatusView({ project, onBack }) {
             </div>
 
             <div style={{ background: "#ffffff", padding: "40px 32px", borderRadius: "24px", border: "1px solid #e2e8f0", boxShadow: "0 10px 30px rgba(0, 0, 0, 0.03)" }}>
-              <h3 style={{ fontSize: "16px", color: "#475569", margin: "0 0 20px 0", fontFamily: '"Mitr", sans-serif', fontWeight: "500" }}>ระบุเลข Wallet ID ของคุณ</h3>
+              <h3 style={{ fontSize: "16px", color: "#475569", margin: "0 0 20px 0", fontFamily: '"Mitr", sans-serif', fontWeight: "500" }}>ระบุเลข IAM Wallet Code ของคุณ</h3>
               <div style={{ display: "flex", gap: "12px", justifyContent: "center", flexWrap: "wrap" }}>
                 <input type="text" placeholder="0x1234abcd..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && handleSearch()} style={{ flex: "1", minWidth: "220px", padding: "16px 20px", borderRadius: "12px", border: "1px solid #e2e8f0", outline: "none", fontSize: "15px", fontFamily: '"Mitr", sans-serif', color: "#0f172a", backgroundColor: "#f8fafc", transition: "all 0.2s ease" }} />
                 <button onClick={handleSearch} disabled={isSearching} style={{ padding: "16px 32px", borderRadius: "12px", backgroundColor: "#0f172a", color: "#ffffff", border: "none", fontSize: "15px", fontWeight: "500", fontFamily: '"Mitr", sans-serif', cursor: isSearching ? "wait" : "pointer", opacity: isSearching ? 0.7 : 1 }}>{isSearching ? "กำลังค้นหา..." : "ค้นหาข้อมูล"}</button>
