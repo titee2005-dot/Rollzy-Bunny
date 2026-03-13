@@ -3287,16 +3287,26 @@ text-align: left;     /* เหมือนตอนข้อความ */
 
 @media (min-width: 768px) {
   .nav {
-    max-width: 1120px;
+    /* 1. ขยายความกว้างสูงสุดให้กว้างขึ้น เพื่อให้ Logo และ Menu แยกห่างจากกัน */
+    max-width: 1400px; 
+    
+    /* 2. บังคับให้ Logo (nav-main) อยู่ซ้ายสุด และ Menu (nav-links) อยู่ขวาสุด */
+    display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    
+    /* 3. เพิ่มระยะห่างจากขอบจอเล็กน้อยไม่ให้ชิดเกินไป */
+    padding: 12px 40px; 
+    margin: 0 auto;
   }
 
   .nav-links {
+    /* เพิ่มช่องว่างระหว่างตัวหนังสือเมนูแต่ละอันให้ดูโปร่งขึ้น */
+    gap: 15px; 
     overflow-x: visible;
   }
-
+  
   .page-section-inner {
     max-width: 1120px;
     padding: 0 28px;
