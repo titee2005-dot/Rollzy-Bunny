@@ -2,10 +2,30 @@ import { useEffect, useState, useRef } from "react";
 import Navbar from "./Navbar.jsx"; 
 
 const PROJECT_CONFIG = {
-  "SummerFest": "/SummerFest.jpg", 
-  "ชื่อโปรเจกต์ที่ 1": "/icon1.png",
-  "ชื่อโปรเจกต์ที่ 2": "/icon2.png",
-  "default": "/rose-icon.png" // รูปสำรองถ้าหาชื่อไม่เจอ
+  "SummerFest": {
+    icon: "/SummerFest.jpg", 
+    apiUrl: "https://opensheet.elk.sh/1pLkCTv-nlDK2t4zQmzLV50NX7bd87JHEOFSgK7E6L8w/StatusWeb", 
+    searchLabel: "ระบุเลข IAM Wallet Code ของคุณ",
+    placeholder: "0x1234abcd...",
+    resultTitle: "Wallet ID",
+    keyHint: ["wallet", "iam"] 
+  },
+  "Merch (Coming Soon)": { 
+    icon: "/Merch.png", 
+    apiUrl: "https://opensheet.elk.sh/1EmBLs1QoFC3nxamRZy4Op6gyOr4OAhyDHGB-o3a4rjA/StatusWeb", 
+    searchLabel: "ระบุชื่อ-นามสกุล หรือ อีเมลของคุณ",
+    placeholder: "เช่น โรซี่ บันนี่ หรือ rollzy@gmail.com",
+    resultTitle: "ข้อมูลผู้จอง",
+    keyHint: ["ชื่อ", "name", "order", "ออร์เดอร์"] 
+  },
+  "default": { 
+    icon: "/rose-icon.png", 
+    apiUrl: "https://opensheet.elk.sh/1pLkCTv-nlDK2t4zQmzLV50NX7bd87JHEOFSgK7E6L8w/StatusWeb",
+    searchLabel: "ค้นหาข้อมูลของคุณ",
+    placeholder: "กรอกข้อมูลเพื่อค้นหา...",
+    resultTitle: "ผลการค้นหา",
+    keyHint: ["wallet", "ชื่อ", "id"]
+  }
 };
 
 // ==========================================
@@ -125,6 +145,7 @@ function ProjectStatusView({ project, onBack }) {
   const [isSearching, setIsSearching] = useState(false);
   const [hasSearched, setHasSearched] = useState(false);
   const [showProof, setShowProof] = useState(false);
+  const [expandedTracking, setExpandedTracking] = useState({});
 
   useEffect(() => { 
     window.scrollTo(0, 0); 
@@ -136,19 +157,14 @@ function ProjectStatusView({ project, onBack }) {
     setIsSearching(true);
     setHasSearched(true);
     setSearchResult(null);
-    setShowProof(false); 
+    setShowProof(false);
+    setExpandedTracking({}); 
 
     try {
-      let sheetApiUrl = "https://opensheet.elk.sh/1pLkCTv-nlDK2t4zQmzLV50NX7bd87JHEOFSgK7E6L8w/StatusWeb"; 
-      const projectName = project.Project ? project.Project.toString().trim() : "";
+    const projName = project.Project ? project.Project.toString().trim() : "";
+      const settings = PROJECT_CONFIG[projName] || PROJECT_CONFIG.default;
 
-      if (projectName === "ชื่อโปรเจกต์ที่ 1") {
-        sheetApiUrl = "https://opensheet.elk.sh/ลิงก์ชีตโปรเจกต์ที่1/แท็บStatus";
-      } else if (projectName === "ชื่อโปรเจกต์ที่ 2") {
-        sheetApiUrl = "https://opensheet.elk.sh/ลิงก์ชีตโปรเจกต์ที่2/แท็บStatus";
-      }
-
-      const res = await fetch(sheetApiUrl);
+      const res = await fetch(settings.apiUrl);
       const data = await res.json();
 
       const foundRows = data.filter(row => {
@@ -160,18 +176,15 @@ function ProjectStatusView({ project, onBack }) {
       });
 
       if (foundRows.length > 0) {
-        // ดึงชื่อ Wallet ID จากแถวแรกมาโชว์เป็นหัวข้อหลัก
-        const walletKey = Object.keys(foundRows[0]).find(k => k.toLowerCase().includes("wallet") || k.includes("iam"));
-        const finalWallet = walletKey ? foundRows[0][walletKey] : searchQuery.trim();
+        const mainKey = Object.keys(foundRows[0]).find(k => 
+          settings.keyHint.some(hint => k.toLowerCase().includes(hint.toLowerCase()))
+        );
+        const finalMainText = mainKey ? foundRows[0][mainKey] : searchQuery.trim();
 
-        // 2. Map ข้อมูลทุกแถวที่เจอ ให้ออกมาเป็นก้อน Array สินค้า
         const itemsList = foundRows.map(row => {
-          // ค้นหาคอลัมน์ชื่อสินค้า/รายการ
           const itemKey = Object.keys(row).find(k => k.includes("รายการ") || k.includes("สินค้า") || k.includes("โปรเจกต์"));
-          // ค้นหาคอลัมน์สถานะ
           const statusKey = Object.keys(row).find(k => k.includes("สถานะ"));
-          // ค้นหาคอลัมน์รูปภาพ/หลักฐาน
-          const proofKey = Object.keys(row).find(k => k.includes("หลักฐาน") || k.includes("สลิป") || k.toLowerCase().includes("slip") || k.includes("รูป"));
+         const proofKey = Object.keys(row).find(k => k.includes("หลักฐาน") || k.includes("สลิป") || k.toLowerCase().includes("slip") || k.includes("รูป") || k.toLowerCase().includes("tracking") || k.includes("เลข"));
 
           return {
             Name: itemKey && row[itemKey] ? row[itemKey].toString().trim() : "ไม่ระบุชื่อรายการ",
@@ -180,8 +193,9 @@ function ProjectStatusView({ project, onBack }) {
           };
         });
 
+        setSearchResult({ MainText: finalMainText, Items: itemsList, settings: settings });
+
         // 3. บันทึกผลลัพธ์เป็น Array (มีตัวแปร Items เพิ่มเข้ามา)
-        setSearchResult({ Wallet: finalWallet, Items: itemsList });
       } else {
         setSearchResult({ error: "ไม่พบข้อมูล Wallet นี้ในระบบ โปรดตรวจสอบความถูกต้อง" });
       }
@@ -204,6 +218,7 @@ function ProjectStatusView({ project, onBack }) {
     
     if (s === "ยังไม่โอน") return { bg: "#fef2f2", text: "#ef4444", border: "#fecaca" }; 
     if (s === "โอนบัตรแล้ว") return { bg: "linear-gradient(135deg, #f0fdf4, #dcfce7)", text: "#16a34a", border: "#bbf7d0",shadow: "0 4px 12px rgba(34, 197, 94, 0.15)", weight: "500" }; 
+    if (s === "จัดส่งแล้ว") return { bg: "#f0fdf4", text: "#16a34a", border: "#bbf7d0" };
     
     return { bg: "#f8fafc", text: "#334155", border: "#e2e8f0" }; 
   };
@@ -303,7 +318,7 @@ function ProjectStatusView({ project, onBack }) {
               <div style={{ display: "inline-flex", alignItems: "center", gap: "12px", padding: "8px 24px 8px 10px", backgroundColor: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "999px", boxShadow: "0 2px 10px rgba(0, 0, 0, 0.02)" }}>
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "36px", height: "36px", backgroundColor: "#f8fafc", borderRadius: "50%", border: "1px solid #f1f5f9" }}>
                <img 
-  src={PROJECT_CONFIG[project.Project] || PROJECT_CONFIG.default} 
+  src={(PROJECT_CONFIG[project.Project] || PROJECT_CONFIG.default).icon}
   alt="Project Icon" 
   style={{ height: "20px", width: "auto", display: "block" }} // ปรับความสูงให้พอดีกับวงกลม 36px
 />
@@ -316,9 +331,11 @@ function ProjectStatusView({ project, onBack }) {
             </div>
 
             <div style={{ background: "#ffffff", padding: "40px 32px", borderRadius: "24px", border: "1px solid #e2e8f0", boxShadow: "0 10px 30px rgba(0, 0, 0, 0.03)" }}>
-              <h3 style={{ fontSize: "16px", color: "#475569", margin: "0 0 20px 0", fontFamily: '"Mitr", sans-serif', fontWeight: "500" }}>ระบุเลข IAM Wallet Code ของคุณ</h3>
+             <h3 style={{ fontSize: "16px", color: "#475569", margin: "0 0 20px 0", fontFamily: '"Mitr", sans-serif', fontWeight: "500" }}>
+                {(PROJECT_CONFIG[project.Project] || PROJECT_CONFIG.default).searchLabel}
+              </h3>
               <div style={{ display: "flex", gap: "12px", justifyContent: "center", flexWrap: "wrap" }}>
-                <input type="text" placeholder="0x1234abcd..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && handleSearch()} style={{ flex: "1", minWidth: "220px", padding: "16px 20px", borderRadius: "12px", border: "1px solid #e2e8f0", outline: "none", fontSize: "15px", fontFamily: '"Mitr", sans-serif', color: "#0f172a", backgroundColor: "#f8fafc", transition: "all 0.2s ease" }} />
+                <input type="text" placeholder={(PROJECT_CONFIG[project.Project] || PROJECT_CONFIG.default).placeholder} value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && handleSearch()} style={{ flex: "1", minWidth: "220px", padding: "16px 20px", borderRadius: "12px", border: "1px solid #e2e8f0", outline: "none", fontSize: "15px", fontFamily: '"Mitr", sans-serif', color: "#0f172a", backgroundColor: "#f8fafc", transition: "all 0.2s ease" }} />
                 <button onClick={handleSearch} disabled={isSearching} style={{ padding: "16px 32px", borderRadius: "12px", backgroundColor: "#0f172a", color: "#ffffff", border: "none", fontSize: "15px", fontWeight: "500", fontFamily: '"Mitr", sans-serif', cursor: isSearching ? "wait" : "pointer", opacity: isSearching ? 0.7 : 1 }}>{isSearching ? "กำลังค้นหา..." : "ค้นหาข้อมูล"}</button>
               </div>
 
@@ -333,10 +350,14 @@ function ProjectStatusView({ project, onBack }) {
                     <div style={{ padding: "32px", background: "#ffffff", borderRadius: "20px", border: "1px solid #e2e8f0", textAlign: "left", boxShadow: "0 4px 20px rgba(0,0,0,0.02)" }}>
                       
                       {/* หัวข้อ Wallet ID */}
-                      <div style={{ marginBottom: "28px" }}>
-                        <div style={{ fontSize: "14px", color: "#927bb3", fontWeight: "500", marginBottom: "6px", fontFamily: '"Mitr", sans-serif', letterSpacing: "0.01em" }}> Wallet ID </div>
+                     <div style={{ marginBottom: "28px" }}>
+                        <div style={{ fontSize: "14px", color: "#927bb3", fontWeight: "500", marginBottom: "6px", fontFamily: '"Mitr", sans-serif', letterSpacing: "0.01em" }}> 
+                          {searchResult.settings?.resultTitle || "ข้อมูลของคุณ"} 
+                        </div>
                         <div style={{ background: "#f8f9fa", padding: "12px 16px", borderRadius: "10px", display: "flex", alignItems: "center", border: "1px solid #f1f5f9" }}>
-                          <span style={{ color: "#7c7b7e", fontWeight: "500", fontSize: "14px", fontFamily: '"Inter", "Mitr", sans-serif', wordBreak: "break-all", letterSpacing: "0.03em" }}> {searchResult.Wallet} </span>
+                          <span style={{ color: "#7c7b7e", fontWeight: "500", fontSize: "14px", fontFamily: '"Inter", "Mitr", sans-serif', wordBreak: "break-all", letterSpacing: "0.03em" }}> 
+                            {searchResult.MainText} 
+                          </span>
                         </div>
                       </div>
 
@@ -370,7 +391,88 @@ function ProjectStatusView({ project, onBack }) {
                             {/* กรุ๊ปสถานะ + ปุ่มดูหลักฐาน */}
                             {/* ➡️ ฝั่งขวา: ป้ายสถานะ (ที่กลายเป็นปุ่มกดเมื่อโอนบัตรแล้ว) */}
 <div style={{ display: "flex", alignItems: "center" }}>
-  {item.Status === "โอนบัตรแล้ว" && item.Proof ? (
+
+ {item.Status === "จัดส่งแล้ว" && item.Proof ? (
+          /* 👉 สร้างกล่อง Column ขึ้นมาครอบเฉพาะปุ่มกับเลขพัสดุ บังคับตกลงล่างแน่นอน */
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "6px" }}>
+            
+            {/* 1. ปุ่มสถานะ */}
+            <div 
+              onClick={() => setExpandedTracking(prev => ({...prev, [index]: !prev[index]}))}
+              style={{ 
+                background: expandedTracking[index] ? "#dcfce7" : "linear-gradient(135deg, #f0fdf4, #dcfce7)", 
+                color: "#16a34a", 
+                border: "1px solid #bbf7d0", 
+                padding: "6px 18px", 
+                borderRadius: "999px", 
+                fontSize: "13px", 
+                fontWeight: "600", 
+                fontFamily: '"Mitr", sans-serif',
+                cursor: "pointer", 
+                display: "flex",
+                alignItems: "center",
+                gap: "6px",
+                userSelect: "none"
+              }}
+            >
+              {item.Status}
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ transform: expandedTracking[index] ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.2s ease' }}>
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </div>
+
+            {/* 2. เลขพัสดุ (อัปเกรดดีไซน์เป็น Tag โค้งมนดูพรีเมียมขึ้น) */}
+            {expandedTracking[index] && (
+              <div 
+                onClick={() => { 
+                  navigator.clipboard.writeText(item.Proof); 
+                  alert("คัดลอกเลข Tracking: " + item.Proof + " เรียบร้อยแล้ว!"); 
+                }}
+                style={{ 
+                  display: "flex", 
+                  alignItems: "center", 
+                  gap: "8px",
+                  marginTop: "4px", // เว้นระยะห่างจากปุ่มด้านบนนิดนึงให้หายใจได้
+                  padding: "6px 14px", 
+                  background: "#f8fafc", // พื้นหลังสีเทาอ่อนมากๆ ให้ดูเป็นกล่อง
+                  border: "1px solid #e2e8f0", // เส้นขอบบางๆ
+                  borderRadius: "10px", // มุมโค้งมนกำลังดีเข้ากับปุ่ม
+                  cursor: "pointer", 
+                  transition: "all 0.2s ease",
+                  animation: "heroFadeInUp 0.2s ease-out forwards"
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = "#f1f5f9"; // ชี้แล้วเข้มขึ้นนิดนึง
+                  e.currentTarget.style.borderColor = "#cbd5e1";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = "#f8fafc";
+                  e.currentTarget.style.borderColor = "#e2e8f0";
+                }}
+                title="คลิกเพื่อคัดลอก"
+              >
+                {/* เพิ่มคำว่าเลขพัสดุตัวเล็กๆ สีเทา ให้ดูเป็นสัดส่วน */}
+                <span style={{ fontSize: "12px", color: "#64748b", fontFamily: '"Mitr", sans-serif', fontWeight: "500" }}>
+                  Tracking
+                </span>
+                
+                {/* ตัวเลขพัสดุ */}
+                <span style={{ fontSize: "14px", fontWeight: "600", color: "#334155", fontFamily: '"Inter", "Mitr", sans-serif', letterSpacing: "0.5px" }}>
+                  {item.Proof}
+                </span>
+
+                {/* ไอคอน Copy สีม่วงอ่อนๆ ให้ดูน่ากด */}
+                <div style={{ marginLeft: "2px", display: "flex", alignItems: "center" }}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                  </svg>
+                </div>
+              </div>
+            )}
+          </div>
+    
+  ) : item.Status === "โอนบัตรแล้ว" && item.Proof ? (
     /* 🔗 ถ้าสถานะคือ 'โอนบัตรแล้ว' ให้ครอบด้วยลิงก์หลักฐาน */
     <a 
       href={getDirectImageLink(item.Proof)} 
@@ -516,7 +618,7 @@ function TokenPage() {
               return (
                 <div key={index} className="project-card" onClick={() => setSelectedProject(proj)} style={{ background: "#ffffff", borderRadius: "28px", padding: "32px 24px", border: "1px solid rgba(197, 116, 255, 0.18)", boxShadow: "0 10px 28px rgba(180, 140, 255, 0.08)", display: "flex", flexDirection: "column", alignItems: "center" }}>
                  <img 
-  src={PROJECT_CONFIG[proj.Project] || PROJECT_CONFIG.default} 
+  src={(PROJECT_CONFIG[proj.Project] || PROJECT_CONFIG.default).icon}
   alt="Project Icon" 
   style={{ height: "48px", width: "auto", display: "block", marginBottom: "14px" }} 
 />
