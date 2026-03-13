@@ -97,7 +97,7 @@ function MerchPage() {
           
           <div className="section-header" style={{ marginBottom: "40px" }}>
             <h2 style={{ fontSize: "42px", fontFamily: '"Bebas Neue", sans-serif', color: "#2c2537", marginBottom: "8px", letterSpacing: "0.04em" }}>SPECIAL MERCH</h2>
-            <p style={{ fontSize: "18px", color: "#8a7b9e", fontFamily: '"Mitr", sans-serif', margin: 0 }}>✦ สั่งซื้อป้ายไฟ (Limited Edition ลายละ 5 ชิ้น) ✦</p>
+            <p style={{ fontSize: "18px", color: "#8a7b9e", fontFamily: '"Mitr", sans-serif', margin: 0 }}>✦ สั่งซื้อป้ายไฟรอบพิเศษ (จำนวนจำกัด แบบละ 5 ชิ้น) ✦</p>
           </div>
 
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "24px" }}>
