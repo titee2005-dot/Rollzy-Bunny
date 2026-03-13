@@ -101,60 +101,67 @@ function MerchPage() {
           </div>
 
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "24px" }}>
-            {items.map(item => {
-              const isSoldOut = item.remaining === 0;
+           {items.map(item => {
+  const isSoldOut = item.remaining === 0;
 
-              return (
-                <div key={item.id} style={{
-                  background: "#ffffff",
-                  borderRadius: "24px",
-                  overflow: "hidden",
-                  border: "1px solid rgba(197, 116, 255, 0.18)",
-                  boxShadow: "0 10px 28px rgba(180, 140, 255, 0.08)",
-                  display: "flex",
-                  flexDirection: "column",
-                  transition: "transform 0.2s ease, box-shadow 0.2s ease",
-                  opacity: isSoldOut ? 0.7 : 1,
-                  cursor: "default"
-                }}
-                onMouseEnter={(e) => { if(!isSoldOut && !loading) e.currentTarget.style.transform = "translateY(-6px)"; }}
-                onMouseLeave={(e) => { if(!isSoldOut && !loading) e.currentTarget.style.transform = "none"; }}
-                >
-                  <div style={{ position: "relative", width: "100%", aspectRatio: "1/1", backgroundColor: "#f8f6ff" }}>
-                    <img src={item.img} alt={item.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-                    {isSoldOut && !loading && (
-                      <div style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.6)", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "42px", fontFamily: '"Bebas Neue", sans-serif', letterSpacing: "0.05em" }}>
-                        SOLD OUT
-                      </div>
-                    )}
-                  </div>
-                  
-                  <div style={{ padding: "24px", display: "flex", flexDirection: "column", flex: 1, alignItems: "center" }}>
-                    <h3 style={{ fontSize: "18px", fontWeight: "600", fontFamily: '"Mitr", sans-serif', color: "#2c2537", margin: "0 0 8px 0" }}>{item.name}</h3>
-                    <p style={{ fontSize: "15px", color: "#6b50c5", fontWeight: "500", fontFamily: '"Mitr", sans-serif', margin: "0 0 24px 0" }}>
-                      {loading ? "กำลังเช็คสต็อก..." : `เหลือ ${item.remaining} / ${MAX_STOCK} ชิ้น`}
-                    </p>
-                    
-                    {loading ? (
-                      <button disabled style={{ marginTop: "auto", width: "100%", padding: "12px", borderRadius: "999px", background: "#f1f5f9", color: "#94a3b8", border: "1px solid #e2e8f0", fontSize: "15px", fontWeight: "600", fontFamily: '"Mitr", sans-serif', cursor: "wait" }}>
-                        รอสักครู่...
-                      </button>
-                    ) : isSoldOut ? (
-                      <button disabled style={{ marginTop: "auto", width: "100%", padding: "12px", borderRadius: "999px", background: "#f1f5f9", color: "#94a3b8", border: "1px solid #e2e8f0", fontSize: "15px", fontWeight: "600", fontFamily: '"Mitr", sans-serif', cursor: "not-allowed" }}>
-                        สินค้าหมด
-                      </button>
-                    ) : (
-                      <a href={item.link} target="_blank" rel="noopener noreferrer" style={{ marginTop: "auto", width: "100%", padding: "12px", borderRadius: "999px", background: "linear-gradient(135deg, #c574ff, #f8b6e8)", color: "#ffffff", border: "none", fontSize: "15px", fontWeight: "600", fontFamily: '"Mitr", sans-serif', textDecoration: "none", cursor: "pointer", display: "inline-block", textAlign: "center", boxShadow: "0 4px 16px rgba(197, 116, 255, 0.3)", transition: "opacity 0.2s ease" }}
-                      onMouseEnter={(e) => e.target.style.opacity = "0.9"}
-                      onMouseLeave={(e) => e.target.style.opacity = "1"}
-                      >
-                        สั่งซื้อลายนี้
-                      </a>
-                    )}
-                  </div>
-                </div>
-              );
-            })}
+  return (
+    <div key={item.id} style={{
+      background: "#ffffff",
+      borderRadius: "20px", // ลดความโค้งลงเล็กน้อยให้ดูคมขึ้น
+      overflow: "hidden",
+      border: "1px solid rgba(197, 116, 255, 0.18)",
+      boxShadow: "0 8px 24px rgba(180, 140, 255, 0.06)",
+      display: "flex",
+      flexDirection: "column",
+      transition: "transform 0.2s ease, box-shadow 0.2s ease",
+      opacity: isSoldOut ? 0.7 : 1,
+      cursor: "default",
+      // 🟢 เพิ่มการจำกัดความกว้างสูงสุดเพื่อให้การ์ดไม่ดูใหญ่เกินไปบนมือถือ
+      maxWidth: "320px",
+      margin: "0 auto",
+      width: "100%"
+    }}
+    onMouseEnter={(e) => { if(!isSoldOut && !loading) e.currentTarget.style.transform = "translateY(-6px)"; }}
+    onMouseLeave={(e) => { if(!isSoldOut && !loading) e.currentTarget.style.transform = "none"; }}
+    >
+      {/* 🖼️ ปรับสัดส่วนรูปภาพเป็น 4:3 เพื่อให้การ์ดไม่สูงเกินไป */}
+      <div style={{ position: "relative", width: "100%", aspectRatio: "4/3", backgroundColor: "#f8f6ff" }}>
+        <img src={item.img} alt={item.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+        {isSoldOut && !loading && (
+          <div style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.6)", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "32px", fontFamily: '"Bebas Neue", sans-serif', letterSpacing: "0.05em" }}>
+            SOLD OUT
+          </div>
+        )}
+      </div>
+      
+      {/* 📝 ปรับลด Padding จาก 24px เหลือ 16px เพื่อให้ดูเล็กกะทัดรัด */}
+      <div style={{ padding: "16px", display: "flex", flexDirection: "column", flex: 1, alignItems: "center" }}>
+        <h3 style={{ fontSize: "16px", fontWeight: "600", fontFamily: '"Mitr", sans-serif', color: "#2c2537", margin: "0 0 6px 0" }}>{item.name}</h3>
+        <p style={{ fontSize: "14px", color: "#6b50c5", fontWeight: "500", fontFamily: '"Mitr", sans-serif', margin: "0 0 16px 0" }}>
+          {loading ? "กำลังเช็คสต็อก..." : `เหลือ ${item.remaining} / ${MAX_STOCK} ชิ้น`}
+        </p>
+        
+        {/* 🔘 ปรับลดขนาดปุ่มและ Padding ของปุ่ม */}
+        {loading ? (
+          <button disabled style={{ marginTop: "auto", width: "100%", padding: "10px", borderRadius: "999px", background: "#f1f5f9", color: "#94a3b8", border: "1px solid #e2e8f0", fontSize: "14px", fontWeight: "600", fontFamily: '"Mitr", sans-serif', cursor: "wait" }}>
+            รอสักครู่...
+          </button>
+        ) : isSoldOut ? (
+          <button disabled style={{ marginTop: "auto", width: "100%", padding: "10px", borderRadius: "999px", background: "#f1f5f9", color: "#94a3b8", border: "1px solid #e2e8f0", fontSize: "14px", fontWeight: "600", fontFamily: '"Mitr", sans-serif', cursor: "not-allowed" }}>
+            สินค้าหมด
+          </button>
+        ) : (
+          <a href={item.link} target="_blank" rel="noopener noreferrer" style={{ marginTop: "auto", width: "100%", padding: "10px", borderRadius: "999px", background: "linear-gradient(135deg, #c574ff, #f8b6e8)", color: "#ffffff", border: "none", fontSize: "14px", fontWeight: "600", fontFamily: '"Mitr", sans-serif', textDecoration: "none", cursor: "pointer", display: "inline-block", textAlign: "center", boxShadow: "0 4px 16px rgba(197, 116, 255, 0.3)", transition: "opacity 0.2s ease" }}
+          onMouseEnter={(e) => e.target.style.opacity = "0.9"}
+          onMouseLeave={(e) => e.target.style.opacity = "1"}
+          >
+            สั่งซื้อลายนี้
+          </a>
+        )}
+      </div>
+    </div>
+  );
+})}
           </div>
         </div>
       </section>
