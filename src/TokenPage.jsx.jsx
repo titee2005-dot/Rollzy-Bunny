@@ -197,7 +197,7 @@ function ProjectStatusView({ project, onBack }) {
 
         // 3. บันทึกผลลัพธ์เป็น Array (มีตัวแปร Items เพิ่มเข้ามา)
       } else {
-        setSearchResult({ error: "ไม่พบข้อมูล Wallet นี้ในระบบ โปรดตรวจสอบความถูกต้อง" });
+        setSearchResult({ error: "ไม่พบข้อมูลในระบบ โปรดตรวจสอบความถูกต้อง" });
       }
     } catch (error) {
       console.error("Search Error:", error);
