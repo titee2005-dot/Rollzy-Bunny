@@ -49,6 +49,10 @@ function Navbar() {
       setActiveId("token");
       return; // 👈 ถ้าอยู่หน้า tokens ให้ออกจาก useEffect เลย ไม่ต้องรัน Observer ดัก scroll
     }
+    if (location.pathname === "/merch") {
+      setActiveId("merch");
+      return; 
+    }
 
     // ถ้าไม่ได้อยู่หน้า Home ก็ไม่ต้องดักจับ Scroll
     if (!isHome) return; 
@@ -114,9 +118,13 @@ function Navbar() {
           <a href="/#gallery" onClick={handleNavClick("gallery")} className={linkClass("gallery")}>Gallery</a>
           <a href="/#rollzy" onClick={handleNavClick("rollzy")} className={linkClass("rollzy")}>Rollzy Bunny</a>
           
+          
           {/* ลิงก์ไปหน้า Tokens */}
           <Link to="/tokens" onClick={closeMenu} className={linkClass("token")}>
             Tokens
+          </Link>
+          <Link to="/merch" onClick={closeMenu} className={linkClass("merch")}>
+            Special Merch
           </Link>
         </div>
       </nav>

@@ -7,6 +7,7 @@ import AllSchedulePage from "./AllSchedulePage.jsx";
 import AllGalleryPage from "./AllGalleryPage.jsx";   // ← เพิ่มบรรทัดนี้
 import TokenPage from "./TokenPage.jsx"; // 1. นำเข้า TokenPage
 import "./index.css";
+import MerchPage from './MerchPage.jsx';
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -16,6 +17,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/all-schedule" element={<AllSchedulePage />} />
         <Route path="/gallery" element={<AllGalleryPage />} /> {/* ใหม่ */}
         <Route path="/tokens" element={<TokenPage />} />
+        <Route path="/merch" element={<MerchPage />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
