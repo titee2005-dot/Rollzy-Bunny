@@ -10,7 +10,7 @@ function MerchPage() {
 
   useEffect(() => {
     // ⚠️ ตรวจสอบชื่อแท็บ (Sheet Name) ด้านล่างของไฟล์ Google Sheet ให้ตรงเป๊ะๆ
-    const SHEET_ID = "1gcPQi93xQ8IawQxGoUvj1uim0sex8vPBztv8JH9e2yY";
+    const SHEET_ID = "1EmBLs1QoFC3nxamRZy4Op6gyOr4OAhyDHGB-o3a4rjA";
     const tab1 = "Form Responses 1";
     const tab2 = "Form Responses 2";
     const tab3 = "Form Responses 3";
@@ -49,7 +49,7 @@ function MerchPage() {
     // ⚠️ ไม่แนะนำให้ตั้งเป็น 0 เพราะจะทำให้ API บล็อกการเข้าถึงได้
     const interval = setInterval(() => {
       fetchStock();
-    }, 0);
+    }, 1000);
 
     // 3. ดึงข้อมูลทันทีเมื่อสลับแท็บกลับมาจากหน้าฟอร์ม
     const handleFocus = () => {
