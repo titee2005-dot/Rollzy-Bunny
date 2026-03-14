@@ -10,8 +10,8 @@ const PROJECT_CONFIG = {
     resultTitle: "Wallet ID",
     keyHint: ["wallet", "iam"] 
   },
-  "Merch (Coming Soon)": { 
-    icon: "/Merch.png", 
+  "Merch": { 
+    icon: "/bnktoken.png", 
     apiUrl: "https://opensheet.elk.sh/1EmBLs1QoFC3nxamRZy4Op6gyOr4OAhyDHGB-o3a4rjA/StatusWeb", 
     searchLabel: "ระบุชื่อ-นามสกุล หรือ อีเมลของคุณ",
     placeholder: "เช่น โรซี่ บันนี่ หรือ rollzy@gmail.com",
