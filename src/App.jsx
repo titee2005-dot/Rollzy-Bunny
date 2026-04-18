@@ -25,7 +25,7 @@ function Hero() {
       {/* รูปพื้นหลังเต็มจอ */}
       <div
         className="hero-image-bg"
-        style={{ backgroundImage: "url('/rose-hero.jpg')" }}
+        style={{ backgroundImage: "url('/rose-cover1.JPG')" }}
       />
 
       {/* ชั้นทับมืดบาง ๆ */}
@@ -48,7 +48,7 @@ function AboutSection() {
       {/* รูป */}
       <aside className="about-photo-card">
         <div className="about-photo-frame">
-          <img src="/rose-about.jpg" alt="Rose BNK48" />
+          <img src="/rose-about2.jpg" alt="Rose BNK48" />
         </div>
         {/* <p className="about-photo-caption">
         
