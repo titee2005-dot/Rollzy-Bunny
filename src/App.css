@@ -1197,7 +1197,7 @@ body {
 
 /* ปรับเฉพาะ event  */
 .event-thumb--e1 img {
-  object-position: 50% 85% !important; 
+  object-position: 50% 55% !important; 
   /* 50% = กลางแนวนอน, 20% = เลื่อนลงเล็กน้อย
      ลองปรับเป็น 10 / 30 / 40% ได้ตามที่ชอบ */
 }

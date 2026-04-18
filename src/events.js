@@ -48,7 +48,7 @@
       place: "",
       image: "/Presstour.jpg",
       link: "https://www.facebook.com/share/p/1SrowXE8KU/",
-      lastShowDate: new Date(2026, 4, 8, 23, 59, 59),
+      lastShowDate: new Date(2026, 3, 4, 23, 59, 59),
     },
     {
       title: "THAI LIZM Music Festival 2026",
@@ -56,6 +56,14 @@
       place: "📍Outdor Square @CentralWorld, Bangkok",
       image: "/Thailizm.jpg",
       link: "https://www.facebook.com/share/p/18QTvSwCUQ/",
-      lastShowDate: new Date(2026, 4, 13, 23, 59, 59),
+      lastShowDate: new Date(2026, 3, 13, 23, 59, 59),
+    },
+    {
+      title: "Shock Me Girls: LOCKER BOX",
+      date: "16 พฤษภาคม 2026",
+      place: "📍Paradise Park, Bangkok",
+      image: "/smglocker.jpg",
+      link: "https://www.facebook.com/share/p/18QTvSwCUQ/",
+      lastShowDate: new Date(2026, 4, 16, 23, 59, 59),
     },
   ];
