@@ -8,6 +8,7 @@ import AllGalleryPage from "./AllGalleryPage.jsx";   // ← เพิ่มบ�
 import TokenPage from "./TokenPage.jsx"; // 1. นำเข้า TokenPage
 import "./index.css";
 import MerchPage from './MerchPage.jsx';
+import DonationPage from "./DonationPage.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -18,6 +19,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/gallery" element={<AllGalleryPage />} /> {/* ใหม่ */}
         <Route path="/tokens" element={<TokenPage />} />
         <Route path="/merch" element={<MerchPage />} />
+        <Route path="/donation" element={<DonationPage />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

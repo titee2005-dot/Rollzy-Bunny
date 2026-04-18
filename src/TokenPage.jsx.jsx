@@ -19,7 +19,7 @@ const PROJECT_CONFIG = {
     keyHint: ["ชื่อ", "name", "order", "ออร์เดอร์"] 
   },
   "default": { 
-    icon: "/rose-icon.png", 
+    icon: "/rose-icon.jpg", 
     apiUrl: "https://opensheet.elk.sh/1pLkCTv-nlDK2t4zQmzLV50NX7bd87JHEOFSgK7E6L8w/StatusWeb",
     searchLabel: "ค้นหาข้อมูลของคุณ",
     placeholder: "กรอกข้อมูลเพื่อค้นหา...",

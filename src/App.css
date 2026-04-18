@@ -1172,7 +1172,8 @@ body {
 @media (min-width: 768px) {
   .card-row {
     padding: 6px 0 8px 0;
-    justify-content: space-between;
+    justify-content: flex-start; /* เปลี่ยนเป็น flex-start ให้เริ่มเรียงจากซ้ายไปขวา */
+    gap: 48px; /* เพิ่มระยะห่างระหว่างการ์ดตามที่ต้องการ (ปรับตัวเลขได้ครับ) */
   }
 
   .event-card {
@@ -1196,7 +1197,7 @@ body {
 
 /* ปรับเฉพาะ event  */
 .event-thumb--e1 img {
-  object-position: 50% 0% !important; 
+  object-position: 50% 85% !important; 
   /* 50% = กลางแนวนอน, 20% = เลื่อนลงเล็กน้อย
      ลองปรับเป็น 10 / 30 / 40% ได้ตามที่ชอบ */
 }
