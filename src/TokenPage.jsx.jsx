@@ -19,7 +19,7 @@ const PROJECT_CONFIG = {
     keyHint: ["ชื่อ", "name", "order", "ออร์เดอร์"] 
   },
   "default": { 
-    icon: "/rose-icon.jpg", 
+    icon: "/billboard.jpg", 
     apiUrl: "https://opensheet.elk.sh/1pLkCTv-nlDK2t4zQmzLV50NX7bd87JHEOFSgK7E6L8w/StatusWeb",
     searchLabel: "ค้นหาข้อมูลของคุณ",
     placeholder: "กรอกข้อมูลเพื่อค้นหา...",
@@ -613,27 +613,68 @@ function TokenPage() {
           <p style={{ fontSize: "18px", color: "#8a7b9e", fontFamily: '"Mitr", sans-serif', marginBottom: "40px" }}>รายละเอียดจากแต่ละโปรเจกต์ย่อย (กำลังพัฒนา)</p>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))", gap: "24px", maxWidth: "800px", margin: "0 auto" }}>
             {projects.map((proj, index) => {
-              const isMerch = proj.Project && proj.Project.toLowerCase().includes("merch");
-              const hintText = isMerch ? "สถานะการจัดส่ง" : "สถานะการโอนบัตร";
-              return (
-                <div key={index} className="project-card" onClick={() => setSelectedProject(proj)} style={{ background: "#ffffff", borderRadius: "28px", padding: "32px 24px", border: "1px solid rgba(197, 116, 255, 0.18)", boxShadow: "0 10px 28px rgba(180, 140, 255, 0.08)", display: "flex", flexDirection: "column", alignItems: "center" }}>
-                 <img 
-  src={(PROJECT_CONFIG[proj.Project] || PROJECT_CONFIG.default).icon}
-  alt="Project Icon" 
-  style={{ height: "48px", width: "auto", display: "block", marginBottom: "14px" }} 
-/>
-                    <h4 style={{ margin: "0 0 14px 0", /* คุมระยะห่างระหว่างชื่อกับตัวเลข */ fontSize: "18px", color: "#6b50c5", fontWeight: "600",  fontFamily: '"Mitr", sans-serif', textAlign: "center" }}>{proj.Project || "Unknown Project"} </h4>
-                  {/* จุดสำคัญ: เพิ่ม lineHeight: "1" เพื่อบีบพื้นที่ตัวเลขให้แคบลงเท่าโค้ดเก่า */}
-                    <div style={{fontSize: "48px", fontFamily: '"Bebas Neue", sans-serif', background: "linear-gradient(135deg, var(--accent), var(--accent-mint))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", fontWeight: "bold", lineHeight: "1"  /* <--- ใส่ตัวนี้เพื่อลดระยะห่างบน-ล่างของตัวเลข */}}> {Number(proj.Tokens || 0).toLocaleString()}</div>
-                    <div style={{fontSize: "14px", color: "#a093b5", marginTop: "6px", /* ระยะห่างระหว่างตัวเลขกับคำว่า */ TOKENSfontWeight: "500", letterSpacing: "0.05em", fontFamily: '"Mitr", sans-serif' }}> TOKENS </div>
-                    <div style={{ marginTop: "24px", padding: "8px 20px 8px 10px", borderRadius: "999px", background: "linear-gradient(to right, #fcfaff, #fff5f9)", border: "2px solid #f3e8ff", display: "flex", alignItems: "center", gap: "10px", color: "#927bb3", fontSize: "14px", fontFamily: '"Mitr", sans-serif', fontWeight: "500" }}>
-                    <div style={{ display: "flex", alignItems: "center", justifyContent: "center", background: "#ffffff", borderRadius: "50%", width: "28px", height: "28px", boxShadow: "0 2px 6px rgba(180, 140, 255, 0.1)" }}>
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#b48cff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                    </div>คลิกเพื่อตรวจสอบ{hintText}
-                  </div>
-                </div>
-              )
-            })}
+  // 1. เช็คว่าถ้าเป็น Billboard ให้ถือว่ากดไม่ได้ (isClickable = false)
+  // หรือถ้าต้องการให้กดได้เฉพาะ SummerFest กับ Merch ก็ใช้:
+  // const isClickable = proj.Project === "SummerFest" || proj.Project === "Merch";
+  const isClickable = proj.Project !== "Billboard"; 
+
+  const isMerch = proj.Project && proj.Project.toLowerCase().includes("merch");
+  const hintText = isMerch ? "สถานะการจัดส่ง" : "สถานะการโอนบัตร";
+
+  return (
+    <div 
+      key={index} 
+      // 2. ถ้า isClickable เป็น false จะไม่ใส่ class "project-card" (ทำให้ไม่มีเงา/ไม่มีการขยับตอนชี้)
+      className={isClickable ? "project-card" : ""} 
+      
+      // 3. ถ้า isClickable เป็น false ฟังก์ชัน onClick จะไม่ทำงาน
+      onClick={() => isClickable && setSelectedProject(proj)} 
+      
+      style={{ 
+        background: "#ffffff", 
+        borderRadius: "28px", 
+        padding: "32px 24px", 
+        border: "1px solid rgba(197, 116, 255, 0.18)", 
+        boxShadow: "0 10px 28px rgba(180, 140, 255, 0.08)", 
+        display: "flex", 
+        flexDirection: "column", 
+        alignItems: "center",
+        // 4. ถ้ากดไม่ได้ ให้เมาส์เป็นรูปปกติ ไม่ใช่รูปมือ
+        cursor: isClickable ? "pointer" : "default" 
+      }}
+    >
+      <img 
+        src={(PROJECT_CONFIG[proj.Project] || PROJECT_CONFIG.default).icon}
+        alt="Project Icon" 
+        style={{ height: "48px", width: "auto", display: "block", marginBottom: "14px" }} 
+      />
+      <h4 style={{ margin: "0 0 14px 0", fontSize: "18px", color: "#6b50c5", fontWeight: "600", fontFamily: '"Mitr", sans-serif', textAlign: "center" }}>
+        {proj.Project || "Unknown Project"}
+      </h4>
+      
+      <div style={{ fontSize: "48px", fontFamily: '"Bebas Neue", sans-serif', background: "linear-gradient(135deg, var(--accent), var(--accent-mint))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", fontWeight: "bold", lineHeight: "1" }}>
+        {Number(proj.Tokens || 0).toLocaleString()}
+      </div>
+      
+      <div style={{ fontSize: "14px", color: "#a093b5", marginTop: "6px", fontWeight: "500", letterSpacing: "0.05em", fontFamily: '"Mitr", sans-serif' }}>
+        TOKENS
+      </div>
+
+      {/* 5. ปรับให้แสดงป้าย "คลิกเพื่อตรวจสอบ" เฉพาะอันที่กดได้เท่านั้น */}
+      {isClickable && (
+        <div style={{ marginTop: "24px", padding: "8px 20px 8px 10px", borderRadius: "999px", background: "linear-gradient(to right, #fcfaff, #fff5f9)", border: "2px solid #f3e8ff", display: "flex", alignItems: "center", gap: "10px", color: "#927bb3", fontSize: "14px", fontFamily: '"Mitr", sans-serif', fontWeight: "500" }}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", background: "#ffffff", borderRadius: "50%", width: "28px", height: "28px", boxShadow: "0 2px 6px rgba(180, 140, 255, 0.1)" }}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#b48cff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+          </div>
+          คลิกเพื่อตรวจสอบ{hintText}
+        </div>
+      )}
+    </div>
+  );
+})}
           </div>
         </div>
       </section>
