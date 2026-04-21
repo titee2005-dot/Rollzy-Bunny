@@ -18,7 +18,7 @@ const PROJECT_CONFIG = {
     resultTitle: "ข้อมูลผู้จอง",
     keyHint: ["ชื่อ", "name", "order", "ออร์เดอร์"] 
   },
-  "Billboard": { 
+  "default": { 
     icon: "/billboard.jpg", 
     apiUrl: "https://opensheet.elk.sh/1pLkCTv-nlDK2t4zQmzLV50NX7bd87JHEOFSgK7E6L8w/StatusWeb",
     searchLabel: "ค้นหาข้อมูลของคุณ",
