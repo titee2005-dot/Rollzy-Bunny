@@ -25,6 +25,14 @@ const PROJECT_CONFIG = {
     placeholder: "กรอกข้อมูลเพื่อค้นหา...",
     resultTitle: "ผลการค้นหา",
     keyHint: ["wallet", "ชื่อ", "id"]
+  }, 
+  "Shared": { 
+    icon: "/your-new-image.jpg", // ใส่ Path รูปภาพใหม่ที่ต้องการที่นี่
+    apiUrl: "", 
+    searchLabel: "",
+    placeholder: "",
+    resultTitle: "",
+    keyHint: []
   }
 };
 
@@ -616,7 +624,8 @@ function TokenPage() {
   // 1. เช็คว่าถ้าเป็น Billboard ให้ถือว่ากดไม่ได้ (isClickable = false)
   // หรือถ้าต้องการให้กดได้เฉพาะ SummerFest กับ Merch ก็ใช้:
   // const isClickable = proj.Project === "SummerFest" || proj.Project === "Merch";
-  const isClickable = proj.Project !== "Billboard"; 
+  // เพิ่ม && proj.Project !== "Shared" เข้าไป
+  const isClickable = proj.Project !== "Billboard" && proj.Project !== "Shared";
 
   const isMerch = proj.Project && proj.Project.toLowerCase().includes("merch");
   const hintText = isMerch ? "สถานะการจัดส่ง" : "สถานะการโอนบัตร";
