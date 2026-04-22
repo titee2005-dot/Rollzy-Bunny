@@ -215,52 +215,39 @@ function Navbar() {
           }
 
           @media (max-width: 720px) {
-            /* 1. จัดปุ่ม Special ให้อยู่ตรงกลางและบังคับเรียงลงด้านล่าง */
             .nav-dropdown {
               display: flex;
-              flex-direction: column;
+              flex-direction: row;
               align-items: center;
-              gap: 8px;
-              width: 100%;
+              gap: 6px;
             }
-            
-            /* 2. ทำให้เมนูย่อยเป็น "กล่องแยก" ออกมาอย่างชัดเจน */
             .nav-dropdown-menu {
               position: static;
               transform: none;
-              flex-direction: column;
-              width: 85%; /* ให้กล่องเล็กกว่าเมนูหลักนิดนึง จะได้ดูเป็นเมนูย่อย */
-              padding: 10px;
-              gap: 6px;
-              background: rgba(197, 116, 255, 0.08); /* พื้นหลังกล่องสีม่วงอ่อนๆ */
-              border: 1px solid rgba(197, 116, 255, 0.3); /* เส้นขอบกล่อง */
-              border-radius: 14px; /* ขอบกล่องโค้งมน */
-              box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); /* เพิ่มเงาบางๆ */
+              flex-direction: row;
+              box-shadow: none;
+              border: none;
+              background: transparent;
+              padding: 0;
+              min-width: auto;
               animation: none;
+              gap: 6px;
             }
-            
-            /* ซ่อนสะพานเชื่อมเพราะไม่ได้ใช้บนมือถือ */
             .nav-dropdown-menu::before {
               display: none;
             }
-            
-            /* 3. ปรับดีไซน์ปุ่มลิงก์ข้างในกล่องให้กดง่ายและสวยงาม */
             .nav-dropdown-menu a {
               background: rgba(255, 255, 255, 0.95) !important;
               border: 1px solid transparent !important;
-              color: var(--text-main) !important;
-              border-radius: 10px !important;
-              padding: 12px 10px !important; /* เพิ่มพื้นที่ให้ใช้นิ้วกดง่ายขึ้น */
-              font-size: 0.85rem;
-              text-align: center;
-              display: block;
-              width: 100%; /* ปุ่มกว้างเต็มกล่องย่อย */
+              color: var(--text-soft) !important;
+              border-radius: 999px !important;
+              padding: 6px 10px !important;
+              font-size: 0.8rem;
             }
-            
             .nav-dropdown-menu a:hover, .nav-dropdown-menu a.active-sub {
               color: var(--text-main) !important;
               border-color: rgba(197, 116, 255, 0.6) !important;
-              background: rgba(197, 116, 255, 0.15) !important;
+              background: rgba(197, 116, 255, 0.14) !important;
             }
           }
         `}
