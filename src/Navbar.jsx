@@ -217,14 +217,15 @@ function Navbar() {
           @media (max-width: 720px) {
             .nav-dropdown {
               display: flex;
-              flex-direction: row;
-              align-items: center;
+              flex-direction: column; /* 1. แก้เป็น column ให้อยู่แนวตั้ง */
+              align-items: center; /* ให้ปุ่มอยู่ตรงกลาง */
               gap: 6px;
+              width: 100%; /* บังคับกว้างเต็ม */
             }
             .nav-dropdown-menu {
               position: static;
               transform: none;
-              flex-direction: row;
+              flex-direction: column; /* 2. แก้เป็น column ให้อยู่แนวตั้งเช่นกัน */
               box-shadow: none;
               border: none;
               background: transparent;
@@ -232,6 +233,7 @@ function Navbar() {
               min-width: auto;
               animation: none;
               gap: 6px;
+              width: 100%;
             }
             .nav-dropdown-menu::before {
               display: none;
@@ -243,6 +245,8 @@ function Navbar() {
               border-radius: 999px !important;
               padding: 6px 10px !important;
               font-size: 0.8rem;
+              text-align: center; /* 3. จัดตัวหนังสือให้อยู่กึ่งกลาง */
+              display: block; /* ให้กดได้เต็มปุ่ม */
             }
             .nav-dropdown-menu a:hover, .nav-dropdown-menu a.active-sub {
               color: var(--text-main) !important;
