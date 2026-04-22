@@ -63,7 +63,15 @@
       date: "16 พฤษภาคม 2026",
       place: "📍Paradise Park, Bangkok",
       image: "/smglocker.jpg",
-      link: "https://www.facebook.com/share/p/18QTvSwCUQ/",
+      link: "https://www.facebook.com/share/p/14iJTztbBsv/",
       lastShowDate: new Date(2026, 4, 16, 23, 59, 59),
+    },
+    {
+      title: "BNK48 6th Album 'Ponytail to Shushu' 2-Shot Event",
+      date: "13-14 มิถุนายน 2026",
+      place: "📍MCC Hall, The Mall Lifestore Ngamwongwan",
+      image: "/2shot.jpg",
+      link: "https://www.facebook.com/share/p/1CF3z4rwSv/",
+      lastShowDate: new Date(2026, 5, 14, 23, 59, 59),
     },
   ];
