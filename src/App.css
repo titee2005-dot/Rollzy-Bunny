@@ -3592,3 +3592,26 @@ text-align: left;     /* เหมือนตอนข้อความ */
 
 /* Tokens Page */
 /* ========================================= */
+/* =========================================
+   แก้ไขเมนู Dropdown (Special) สำหรับหน้าจอมือถือ
+   ========================================= */
+@media (max-width: 768px) {
+  .nav-dropdown-menu {
+    position: relative; /* ยกเลิก absolute เพื่อให้เมนูดันตัวอื่นๆ ลงไปด้านล่าง */
+    top: 0;
+    left: 0;
+    width: 100%; /* ให้ความกว้างเต็มพื้นที่ของเมนู */
+    box-shadow: none; /* เอาเงาออกให้กลืนไปกับเมนูหลัก (จะใส่ไว้ก็ได้) */
+    background-color: transparent; /* เอาพื้นหลังออกให้กลืนกัน */
+    margin-top: 10px; /* เว้นระยะห่างจากปุ่ม Special นิดหน่อย */
+    display: flex;
+    flex-direction: column; /* ให้ลิงก์ย่อยด้านในเรียงเป็นแนวตั้ง */
+    align-items: center; /* จัดให้อยู่กึ่งกลาง */
+  }
+
+  .nav-dropdown-menu a {
+    width: 100%;
+    text-align: center;
+    padding: 12px 0; /* เพิ่มพื้นที่ให้ใช้นิ้วกดง่ายขึ้น */
+  }
+}
