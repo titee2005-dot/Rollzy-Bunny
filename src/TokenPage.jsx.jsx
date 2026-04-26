@@ -33,6 +33,14 @@ const PROJECT_CONFIG = {
     placeholder: "",
     resultTitle: "",
     keyHint: []
+  }, 
+  "2Shot": { 
+    icon: "/your-new-image.jpg", // ใส่ Path รูปภาพใหม่ที่ต้องการที่นี่
+    apiUrl: "", 
+    searchLabel: "",
+    placeholder: "",
+    resultTitle: "",
+    keyHint: []
   }
 };
 
@@ -556,7 +564,7 @@ function ProjectStatusView({ project, onBack }) {
 
 
 // ============================================================================
-// 4. COMPONENT: TokenPage (หน้ารวมโปรเจกต์หลัก) - ห้ามแก้เด็ดขาดคงเดิม 100%
+// 4. COMPONENT: TokenPage (หน้ารวมโปรเจกต์หลัก) 
 // ============================================================================
 function TokenPage() {
   const [totalTokens, setTotalTokens] = useState(0);
@@ -624,8 +632,7 @@ function TokenPage() {
   // 1. เช็คว่าถ้าเป็น Billboard ให้ถือว่ากดไม่ได้ (isClickable = false)
   // หรือถ้าต้องการให้กดได้เฉพาะ SummerFest กับ Merch ก็ใช้:
   // const isClickable = proj.Project === "SummerFest" || proj.Project === "Merch";
-  // เพิ่ม && proj.Project !== "Shared" เข้าไป
-  const isClickable = proj.Project !== "Billboard" && proj.Project !== "Shared";
+  const isClickable = proj.Project !== "Billboard" && proj.Project !== "Shared" && proj.Project !== "2Shot";
 
   const isMerch = proj.Project && proj.Project.toLowerCase().includes("merch");
   const hintText = isMerch ? "สถานะการจัดส่ง" : "สถานะการโอนบัตร";
