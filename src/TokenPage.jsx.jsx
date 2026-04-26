@@ -34,7 +34,7 @@ const PROJECT_CONFIG = {
     resultTitle: "",
     keyHint: []
   }, 
-  "2Shot": { 
+  "2-Shot": { 
     icon: "/your-new-image.jpg", // ใส่ Path รูปภาพใหม่ที่ต้องการที่นี่
     apiUrl: "", 
     searchLabel: "",
@@ -626,13 +626,16 @@ function TokenPage() {
       <section className="page-section" style={{ padding: "80px 20px" }}>
         <div className="page-section-inner" style={{ textAlign: "center", width: "100%" }}>
           <h2 style={{ fontSize: "56px", color: "#2c2537", fontFamily: '"Bebas Neue", sans-serif', marginBottom: "40px" }}>TOKENS BY PROJECT</h2>
-          <p style={{ fontSize: "18px", color: "#8a7b9e", fontFamily: '"Mitr", sans-serif', marginBottom: "40px" }}>รายละเอียดจากแต่ละโปรเจกต์ย่อย (กำลังพัฒนา)</p>
+          <p style={{ fontSize: "18px", color: "#8a7b9e", fontFamily: '"Mitr", sans-serif', marginBottom: "40px" }}>รายละเอียดจากแต่ละโปรเจกต์ย่อย</p>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))", gap: "24px", maxWidth: "800px", margin: "0 auto" }}>
             {projects.map((proj, index) => {
   // 1. เช็คว่าถ้าเป็น Billboard ให้ถือว่ากดไม่ได้ (isClickable = false)
   // หรือถ้าต้องการให้กดได้เฉพาะ SummerFest กับ Merch ก็ใช้:
   // const isClickable = proj.Project === "SummerFest" || proj.Project === "Merch";
-  const isClickable = proj.Project !== "Billboard" && proj.Project !== "Shared" && proj.Project !== "2Shot";
+  const isClickable = 
+    proj.Project !== "Billboard" && 
+    proj.Project !== "Shared" && 
+    proj.Project !== "2-Shot";
 
   const isMerch = proj.Project && proj.Project.toLowerCase().includes("merch");
   const hintText = isMerch ? "สถานะการจัดส่ง" : "สถานะการโอนบัตร";
