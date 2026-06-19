@@ -1,5 +1,6 @@
 // src/AllGalleryPage.jsx
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Navbar from "./Navbar.jsx";
 
 const GALLERY_TABS = [
@@ -185,8 +186,10 @@ function AllGalleryPage() {
         {/* ใส่ section-reveal ตรง block ที่อยากให้มีเอฟเฟกต์ */}
         <div className="page-section-inner section-reveal">
           <header className="gallery-page-header">
+             <Link to="/" className="back-btn">← Back to Home</Link>
             <h2>Gallery</h2>
-            <p>รวมภาพของโรสทั้งบน Stage, Event, Meme, Fanart และอื่นๆ</p>
+            <div className="pink-line"></div>
+         {/*   <p>รวมภาพของโรสทั้งบน Stage, Event, Meme, Fanart และอื่นๆ</p> */}
           </header>
 
           {/* Tabs */}

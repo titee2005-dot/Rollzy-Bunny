@@ -74,4 +74,20 @@
       link: "https://www.facebook.com/share/p/1CF3z4rwSv/",
       lastShowDate: new Date(2026, 5, 14, 23, 59, 59),
     },
+    {
+      title: "POPCYCLE SHOWS",
+      date: "28 มิถุนายน 2026 (20:40 น.)",
+      place: "📍หอศิลปวัฒนธรรมแห่งกรุงเทพมหานคร (BACC)",
+      image: "/popcycle.jpg",
+      link: "https://www.facebook.com/share/p/19Gic69tAy/",
+      lastShowDate: new Date(2026, 5, 28, 23, 59, 59),
+    },
+     {
+      title: "BNK48 & CGM48: Bon Odori 2026",
+      date: "24-26 กรกฎาคม 2026",
+      place: "📍Island Hall, Fashion Island (Bangkok)",
+      image: "/bonodori.jpg",
+      link: "https://www.facebook.com/share/p/1BTMUy2ZjU/",
+      lastShowDate: new Date(2026, 5, 28, 23, 59, 59),
+    },
   ];

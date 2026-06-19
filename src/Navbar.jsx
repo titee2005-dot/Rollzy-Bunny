@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom"; 
 
-const SECTION_IDS = ["home", "about", "schedule", "highlight", "social", "gallery", "rollzy"];
+const SECTION_IDS = ["home", "about", "schedule", "discography", "highlight", "social", "gallery", "rollzy"];
 const HEADER_OFFSET = 80;
 
 function Navbar() {
@@ -12,22 +12,22 @@ function Navbar() {
 
   const [open, setOpen] = useState(false);
   
-  // แยกสถานะการชี้ (Hover) กับการกดค้าง (Pin)
   const [isHovered, setIsHovered] = useState(false);
   const [isPinned, setIsPinned] = useState(false);
-  
-  // เมนูจะแสดงก็ต่อเมื่อ กำลังชี้อยู่ หรือ กดล็อกเอาไว้
   const showSpecial = isHovered || isPinned;
 
   const [activeId, setActiveId] = useState(isToken ? "token" : "home");
 
   const dropdownRef = useRef(null);
   const hoverTimeoutRef = useRef(null); 
+  
+  // 🌟 เพิ่มตัวแปรสำหรับล็อกไม่ให้เมนูเปลี่ยนสีมั่วตอนกำลังกดสไลด์
+  const isClickScrolling = useRef(false);
+  const scrollTimeoutRef = useRef(null);
 
   const toggleMenu = () => setOpen((o) => !o);
   const closeMenu = () => setOpen(false);
 
-  // ฟังก์ชันเวลาคลิกลิงก์ข้างในเมนูย่อย ให้ปิดทุกอย่าง
   const handleSpecialLinkClick = () => {
     closeMenu();
     setIsPinned(false);
@@ -55,11 +55,24 @@ function Navbar() {
     }
 
     e.preventDefault();
+    
+    // 1. เปิดระบบล็อก: สั่งให้ Scroll Listener หยุดทำงานชั่วคราว
+    isClickScrolling.current = true;
+    
+    // 2. ไฮไลท์สีที่ปุ่มเป้าหมายทันที
+    setActiveId(id);
+
+    // 3. สไลด์หน้าจอไปที่เป้าหมาย
     scrollToSection(id);
     closeMenu();
+
+    // 4. ตั้งเวลาปลดล็อก: หลังจากสไลด์เสร็จ (ประมาณ 800 มิลลิวินาที) ให้กลับมาจับตำแหน่งตามปกติ
+    clearTimeout(scrollTimeoutRef.current);
+    scrollTimeoutRef.current = setTimeout(() => {
+      isClickScrolling.current = false;
+    }, 800);
   };
 
-  // --- จัดการเรื่องชี้เมาส์ (Hover) ---
   const handleMouseEnter = () => {
     if (window.innerWidth > 720) {
       clearTimeout(hoverTimeoutRef.current);
@@ -75,7 +88,6 @@ function Navbar() {
     }
   };
 
-  // --- จัดการคลิกที่อื่นเพื่อปลดล็อก (Click Outside) ---
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -95,33 +107,31 @@ function Navbar() {
 
     if (!isHome) return; 
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        let mostVisible = null;
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          if (!mostVisible || entry.intersectionRatio > mostVisible.intersectionRatio) {
-            mostVisible = entry;
-          }
-        });
+    const handleScroll = () => {
+      // 🌟 ถ้ากำลังสไลด์หน้าจอจากการกดปุ่ม ให้ข้ามการคำนวณไปเลย (แก้ปัญหาสีแวบๆ)
+      if (isClickScrolling.current) return;
 
-        if (mostVisible?.target?.id) {
-          setActiveId(mostVisible.target.id);
+      const scrollPosition = window.scrollY + HEADER_OFFSET + 200; 
+      let currentSection = "home";
+
+      SECTION_IDS.forEach((id) => {
+        const el = document.getElementById(id);
+        if (el && el.offsetTop <= scrollPosition) {
+          currentSection = id; 
         }
-      },
-      {
-        root: null,
-        threshold: 0.4,
-        rootMargin: `-${HEADER_OFFSET}px 0px 0px 0px`,
+      });
+
+      if ((window.innerHeight + Math.round(window.scrollY)) >= document.body.offsetHeight - 50) {
+        currentSection = SECTION_IDS[SECTION_IDS.length - 1]; 
       }
-    );
 
-    SECTION_IDS.forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    });
+      setActiveId(currentSection);
+    };
 
-    return () => observer.disconnect();
+    window.addEventListener("scroll", handleScroll);
+    handleScroll(); 
+
+    return () => window.removeEventListener("scroll", handleScroll);
   }, [location.pathname, isHome]); 
 
   const linkClass = (id) =>
@@ -154,7 +164,6 @@ function Navbar() {
             color: var(--text-main);
             border-color: rgba(197, 116, 255, 0.5);
           }
-          /* ค้างสีม่วงไว้ตอนที่เมนูเปิดอยู่ */
           .nav-link-btn.dropdown-open {
             color: var(--text-main);
             border-color: rgba(197, 116, 255, 0.5);
@@ -184,7 +193,6 @@ function Navbar() {
             animation: dropdownFadeIn 0.2s ease-out forwards;
           }
 
-          /* สร้างสะพานล่องหนเชื่อมปุ่มกับเมนู */
           .nav-dropdown-menu::before {
             content: '';
             position: absolute;
@@ -274,6 +282,7 @@ function Navbar() {
             <a href="/#home" onClick={handleNavClick("home")} className={linkClass("home")}>Home</a>
             <a href="/#about" onClick={handleNavClick("about")} className={linkClass("about")}>About Rose</a>
             <a href="/#schedule" onClick={handleNavClick("schedule")} className={linkClass("schedule")}>Schedule</a>
+            <a href="/#discography" onClick={handleNavClick("discography")} className={linkClass("discography")}>Discography</a>
             <a href="/#highlight" onClick={handleNavClick("highlight")} className={linkClass("highlight")}>Highlight</a>
             <a href="/#social" onClick={handleNavClick("social")} className={linkClass("social")}>Social Media</a>
             <a href="/#gallery" onClick={handleNavClick("gallery")} className={linkClass("gallery")}>Gallery</a>
@@ -283,7 +292,6 @@ function Navbar() {
               Tokens
             </Link>
 
-            {/* กล่องควบคุมเมนู Special */}
             <div 
               className="nav-dropdown" 
               ref={dropdownRef}
@@ -291,24 +299,21 @@ function Navbar() {
               onMouseLeave={handleMouseLeave}
             >
               <button 
-                className={`nav-link-btn ${['merch'/*, 'dance', 'donation'*/].includes(activeId) ? 'nav-link--active' : ''} ${showSpecial ? 'dropdown-open' : ''}`}
+                className={`nav-link-btn ${['merch'].includes(activeId) ? 'nav-link--active' : ''} ${showSpecial ? 'dropdown-open' : ''}`}
                 onClick={(e) => { 
                   e.preventDefault(); 
-                  // พอกดปุ่ม ให้สลับการล็อก (Pin)
                   setIsPinned(!isPinned);
                 }}
               >
                 Special {showSpecial ? '▴' : '▾'}
               </button>
 
-              {showSpecial && (
+           {/*   {showSpecial && (
                 <div className="nav-dropdown-menu">
                   <Link to="/merch" onClick={handleSpecialLinkClick} className={activeId === 'merch' ? 'active-sub' : ''}>Merch</Link>
-                 
                 </div>
-              )}
+              )} */}
             </div>
-            
           </div>
         </nav>
       </header>
