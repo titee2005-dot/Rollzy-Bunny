@@ -799,7 +799,7 @@ body {
 
 @media (max-width: 768px) {
   #schedule .section-header h2 {
-    font-size: 34px !important;
+    font-size: 27px !important;
     line-height: 1.2;
   }
   #schedule .section-header p {
@@ -992,6 +992,23 @@ body {
   .event-thumb--e3 img { object-position: 50% 55% !important; }
 }
 
+@media (max-width: 768px) {
+  /* 🌟 บังคับลดขนาดหัวข้อ Schedule ทุกรูปแบบ ทั้งในหน้าแยกและหน้าแรก */
+  .all-schedule-page h1,
+  .all-schedule-page h2,
+  .all-schedule-page h3,
+  .all-schedule-page .section-header h1,
+  .all-schedule-page .section-header h2,
+  .all-schedule-page .section-header h3,
+  .all-schedule-page .pink-section-header h2,
+  .all-schedule-page .events-header h2,
+  #schedule .section-header h1,
+  #schedule .section-header h2,
+  #schedule .section-header h3 {
+    font-size: 25px !important; /* ปรับลดลงมาเหลือ 22px ให้เห็นความต่างชัดเจน */
+    line-height: 1.2 !important;
+  }
+}
 
 /* ========================================= */
 /* Pink Section Header (ทั่วไปสำหรับหลาย Section) */
@@ -1397,6 +1414,141 @@ body {
   }
   .disco-grid {
     grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  /* ========================================= */
+  /* --- DISCOGRAPHY (มือถือ) --- */
+  /* ========================================= */
+  .discography-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px !important;
+  }
+  .disco-featured-card, 
+  .disco-mini-card {
+    margin: 0 !important; 
+    background: #ffffff !important;
+    border-radius: 20px !important;
+    border: 1px solid rgba(255, 192, 203, 0.3) !important;
+    box-shadow: 0 10px 30px rgba(255, 182, 193, 0.15) !important;
+    overflow: hidden;
+  }
+  .disco-featured-info, 
+  .disco-mini-body {
+    padding: 14px 16px 18px !important; 
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 6px !important; 
+    text-align: left !important;
+  }
+  .disco-title-lg, 
+  .disco-mini-title {
+    font-family: 'Space Grotesk', 'Mitr', sans-serif !important;
+    font-size: 1.05rem !important; 
+    color: #D83A7E !important;
+    margin: 0 !important; 
+    line-height: 1.60 !important;
+    display: block;
+  }
+  .disco-badge, 
+  .disco-mini-tag {
+    display: inline-block;
+    background: #ffb6c1 !important;
+    color: white !important;
+    padding: 3px 10px !important;
+    border-radius: 999px !important;
+    font-size: 0.6rem !important;
+    font-weight: 700 !important;
+    text-transform: uppercase;
+    margin: 0 !important; 
+    align-self: flex-start !important;
+  }
+  .disco-meta-lg, 
+  .disco-mini-date {
+    font-size: 0.75rem !important;
+    color: #a07c89 !important;
+    margin: 0 !important;
+  }
+  .disco-desc-lg {
+    font-size: 0.8rem !important;
+    line-height: 1.4 !important;
+    margin: 0 !important;
+  }
+  .disco-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 16px !important;
+  }
+  /* ซ่อนวิดีโออันที่ 4 ให้เหลือ 3 อัน */
+  .disco-grid .disco-mini-card:last-child {
+    display: none !important;
+  }
+  #discography .pink-section-header {
+    margin-top: 40px !important;
+    margin-bottom: 40px !important;
+  }
+  #discography .pink-line {
+    margin-top: 10px !important;
+  }
+
+  /* ========================================= */
+  /* --- HIGHLIGHT (มือถือ) --- */
+  /* ========================================= */
+  .hl-final-main-card {
+    aspect-ratio: 16 / 9 !important;
+    margin-bottom: 12px !important;
+  }
+  .hl-final-info-bar {
+    position: absolute !important; 
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    padding: 20px 12px 10px !important;
+    background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 100%) !important;
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: flex-end !important;
+    pointer-events: none !important;
+  }
+  .hl-final-info-bar * { pointer-events: auto !important; }
+  
+  .hl-final-text { text-align: left; }
+  
+  .hl-final-title {
+    color: #ffffff !important;
+    font-size: 0.9rem !important;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.5) !important;
+    margin: 2px 0 !important;
+  }
+  .hl-final-sub {
+    color: rgba(255,255,255,0.8) !important;
+    font-size: 0.65rem !important; 
+  }
+  .hl-final-tag {
+    font-size: 0.55rem !important;
+    letter-spacing: 0.5px !important;
+  }
+  .hl-final-link-btn {
+    background: rgba(255, 255, 255, 0.2) !important;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    font-size: 0.6rem !important;
+    padding: 4px 10px !important;
+    margin-bottom: 2px;
+  }
+  
+  /* ซ่อนปุ่ม Play/Pause */
+  .hl-final-play-btn {
+    display: none !important;
+  }
+  /* เปลี่ยนเคอร์เซอร์ของ Shield ให้รู้ว่ากดได้ */
+  .hl-final-shield {
+    cursor: pointer !important;
+    pointer-events: auto !important; 
   }
 }
 
@@ -2299,8 +2451,8 @@ body {
     margin-bottom: 16px !important;
   }
   .gallery-page-header h2 {
-    font-size: 34px !important;
-    font-family: "Bebas Neue", sans-serif;
+    font-size: 30px !important; /* ปรับขนาดให้พอดีบนจอมือถือ */
+    font-family: 'Space Grotesk', 'Mitr', sans-serif !important; /* <--- เปลี่ยนกลับเป็นฟอนต์หลัก */
   }
 }
 
@@ -2349,6 +2501,73 @@ body {
   color: #fff;
   transform: translateY(-50%) scale(1.05); /* เปลี่ยนจากการขยับซ้ายขวา เป็นการขยายขนาดนิดเดียวแทน */
   background: #ecbdcd;
+}
+
+/* ========================================= */
+/* ปุ่ม Back เป็นปุ่มลอยติดมุมขวาล่าง (เฉพาะมือถือ) */
+/* ========================================= */
+@media (max-width: 768px) {
+  .back-btn {
+    position: fixed !important; 
+    top: auto !important;       
+    bottom: 10px !important;    
+    right: 20px !important;     
+    transform: none !important; 
+    z-index: 9999 !important;   
+    
+    /* 🌟 1. เอาสีขาวออกให้หมด ดึงแค่ขอบบนกับล่างนิดเดียว (ตรงกลางโปร่งใส 100%) */
+    background: linear-gradient(
+      180deg, 
+      rgba(255, 255, 255, 0.2) 0%,   /* ลดขาวด้านบนเหลือแค่ 0.2 */
+      rgba(255, 255, 255, 0.0) 25%,  /* ใสทะลุ */
+      rgba(255, 255, 255, 0.0) 75%,  /* ใสทะลุ */
+      rgba(255, 255, 255, 0.05) 100% /* เงาขาวด้านล่างจางๆ */
+    ) !important;
+    
+    /* 🌟 2. ลดความเบลอลงครึ่งนึง (จาก 25px เหลือ 10px) เพื่อให้มองทะลุเห็นฉากหลังชัดขึ้น */
+    backdrop-filter: blur(5px) saturate(140%) !important; 
+    -webkit-backdrop-filter: blur(10px) saturate(140%) !important; 
+    
+    /* 🌟 3. ลดขอบไม่ให้ดูทึบ แต่ยังคงแสงตกกระทบขอบบนไว้ */
+    border: 1px solid rgba(255, 255, 255, 0.15) !important; 
+    border-top: 1px solid rgba(255, 255, 255, 0.45) !important; 
+    
+    /* 🌟 4. เน้นเฉพาะแสงสะท้อนขอบด้านใน ไม่กวนความใสของตัวเนื้อกระจก */
+    box-shadow: 
+      0 10px 20px rgba(0, 0, 0, 0.06),                  /* เงาบางมากๆ ให้แค่พอลอย */
+      inset 0 1.5px 2px rgba(255, 255, 255, 0.8),       /* ไฮไลท์สว่างขอบบน */
+      inset 0 -1px 2px rgba(255, 255, 255, 0.2) !important; 
+    
+    padding: 7px 16px !important;   
+    font-size: 0.80rem !important;
+    border-radius: 999px !important;
+    color: #ffffff !important; 
+    font-weight: 600 !important;
+  /*  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.6) !important; */
+  }
+
+  .back-btn:hover {
+    transform: scale(1.03) !important; 
+    /* ตอนกดค่อยให้กระจกขุ่นขึ้นนิดนึงจะได้รู้ว่ากดโดน */
+    background: linear-gradient(
+      180deg, 
+      rgba(255, 255, 255, 0.3) 0%, 
+      rgba(255, 255, 255, 0.05) 25%, 
+      rgba(255, 255, 255, 0.05) 75%, 
+      rgba(255, 255, 255, 0.15) 100%
+    ) !important;
+  }
+
+  .gallery-page-header {
+    display: block !important;
+    text-align: center !important;
+  }
+}
+/* ล้างค่า transform ของกล่องแม่หลังจากแอนิเมชันทำงานเสร็จ เพื่อคืนคุณสมบัติการลอยตัวให้ปุ่ม */
+.section-reveal.visible,
+.page-section-inner,
+.app-root {
+  transform: none !important;
 }
 
 
