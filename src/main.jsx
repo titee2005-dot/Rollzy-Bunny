@@ -9,6 +9,8 @@ import TokenPage from "./TokenPage.jsx"; // 1. นำเข้า TokenPage
 import "./index.css";
 import MerchPage from './MerchPage.jsx';
 import DonationPage from "./DonationPage.jsx";
+import PlannerApp from "./Planner/PlannerApp.jsx";
+import './App.css';
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -20,6 +22,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/tokens" element={<TokenPage />} />
         <Route path="/merch" element={<MerchPage />} />
         <Route path="/donation" element={<DonationPage />} />
+        <Route path="/planner" element={<PlannerApp />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

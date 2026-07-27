@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import Navbar from "./Navbar.jsx"; 
+const IS_VOTING_ENDED = false;
 
 const PROJECT_CONFIG = {
   "SummerFest": {
@@ -59,9 +60,9 @@ const getDirectImageLink = (url) => {
 };
 
 // ==========================================
-// 1. Component ล้อหมุนตัวเลข (Odometer) - สี Gradient แบบหน้าหลัก
+// 1. Component ล้อหมุนตัวเลข (Odometer) - อัปเดตให้รองรับตัว X หมุน
 // ==========================================
-function Digit({ targetValue, trigger, digitIndex, forceSpin }) {
+function Digit({ targetValue, trigger, digitIndex, forceSpin, isMasked }) {
   const [offset, setOffset] = useState(0);
   const duration = 1.0 + (digitIndex * 2.5); 
   const defaultTransition = `transform ${duration}s cubic-bezier(0.16, 1, 0.3, 1)`;
@@ -103,7 +104,8 @@ function Digit({ targetValue, trigger, digitIndex, forceSpin }) {
       <div style={{ display: "block", transition: transition, transform: `translateY(-${offset * 82}px)` }}>
         {digitsArray.map((d, i) => (
           <div key={i} style={{ height: "82px", lineHeight: "82px", fontFamily: '"Bebas Neue", sans-serif', fontSize: "82px", fontWeight: "bold", background: "linear-gradient(135deg, var(--accent), var(--accent-mint))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-            {d}
+            {/* 🌟 ถ้าโดนซ่อน (isMasked) ให้แสดงเป็น X แทนตัวเลข */}
+            {isMasked ? "X" : d}
           </div>
         ))}
       </div>
@@ -112,7 +114,7 @@ function Digit({ targetValue, trigger, digitIndex, forceSpin }) {
 }
 
 // ==========================================
-// 2. Component หั่นตัวเลขเป็นหลักๆ
+// 2. Component หั่นตัวเลขเป็นหลักๆ - แก้ไขให้ฐานตรงกัน
 // ==========================================
 function NumberTicker({ value }) {
   const stringValue = value.toLocaleString(); 
@@ -133,20 +135,37 @@ function NumberTicker({ value }) {
     const stableKey = length - i;
 
     if (char === ",") {
+      // 🌟 แก้ไข: ปรับ height และ lineHeight ให้เป็น 82px ตรงกับตัวเลข
       elements.unshift(
-        <span key={`comma-${stableKey}`} style={{ fontSize: "82px", fontFamily: '"Bebas Neue", sans-serif', fontWeight: "bold", lineHeight: "65px", background: "linear-gradient(135deg, var(--accent), var(--accent-mint))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", margin: "0 2px" }}>,</span>
+        <span key={`comma-${stableKey}`} style={{ display: "inline-block", height: "82px", lineHeight: "82px", fontSize: "82px", fontFamily: '"Bebas Neue", sans-serif', fontWeight: "bold", background: "linear-gradient(135deg, var(--accent), var(--accent-mint))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", margin: "0 2px" }}>,</span>
       );
     } else {
+      const showFirstDigit = false; //เปลี่ยน false ปิดเลขทุกตัว, true เปิดแค่ตัวเลขหน้าตัวเดียว
+      const isFirstChar = i === 0;
+
+      // 🌟 เช็คว่าตัวนี้ต้องถูกซ่อนเป็นตัว X หรือไม่ (อ้างอิงสวิตช์ IS_VOTING_ENDED)
+      const isMasked = !IS_VOTING_ENDED && !(showFirstDigit && isFirstChar);
+      
       const forceSpin = diff >= Math.pow(10, currentDigitIndex);
+      
+      // 🌟 ใช้ Digit ในการเรนเดอร์ทั้งหมดเพื่อรักษาระนาบและการหมุน
       elements.unshift(
-        <Digit key={`digit-${stableKey}`} targetValue={parseInt(char)} trigger={value} digitIndex={currentDigitIndex} forceSpin={forceSpin} />
+        <Digit 
+          key={`digit-${stableKey}`} 
+          targetValue={parseInt(char)} 
+          trigger={value} 
+          digitIndex={currentDigitIndex} 
+          forceSpin={forceSpin} 
+          isMasked={isMasked} 
+        />
       );
       currentDigitIndex++;
     }
   }
 
   return (
-    <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "center", height: "82px" }}>
+    // 🌟 เปลี่ยน alignItems เป็น "center" เพื่อให้ทุกกล่องที่มีความสูงเท่ากันจัดกึ่งกลางพอดีเป๊ะ
+    <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "82px" }}>
       {elements}
     </div>
   );
@@ -571,6 +590,18 @@ function TokenPage() {
   const [projects, setProjects] = useState([]); 
   const [selectedProject, setSelectedProject] = useState(null); 
 
+  // 🌟 เพิ่มฟังก์ชันสำหรับแปลงตัวเลขที่นี่
+  const maskNumber = (num) => {
+    const str = Number(num).toLocaleString(); // จะได้ค่าเช่น "8,000"
+    if (str.length <= 1) return str;
+    
+    // หากต้องการแสดงตัวแรก (8,XXX) ให้ใช้บรรทัดนี้:
+   // return str.charAt(0) + str.slice(1).replace(/[0-9]/g, 'X'); 
+    
+    // หากต้องการปิดทั้งหมด (X,XXX) ให้ลบบรรทัดบนแล้วใช้บรรทัดนี้แทน:
+     return str.replace(/[0-9]/g, 'X');
+  };
+
   useEffect(() => {
     window.scrollTo(0, 0);
     const fetchData = () => {
@@ -672,7 +703,7 @@ function TokenPage() {
       </h4>
       
       <div style={{ fontSize: "48px", fontFamily: '"Bebas Neue", sans-serif', background: "linear-gradient(135deg, var(--accent), var(--accent-mint))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", fontWeight: "bold", lineHeight: "1" }}>
-        {Number(proj.Tokens || 0).toLocaleString()}
+        {maskNumber(proj.Tokens || 0)}
       </div>
       
       <div style={{ fontSize: "14px", color: "#a093b5", marginTop: "6px", fontWeight: "500", letterSpacing: "0.05em", fontFamily: '"Mitr", sans-serif' }}>
@@ -705,4 +736,15 @@ function TokenPage() {
   );
 }
 
+const maskNumber = (num) => {
+    const str = Number(num).toLocaleString(); 
+    
+    // 🌟 ถ้าโหวตจบแล้ว ให้คืนค่าตัวเลขเต็มๆ กลับไปเลยโดยไม่แสดง X
+    if (IS_VOTING_ENDED) return str; 
+
+    if (str.length <= 1) return str;
+    
+    return str.charAt(0) + str.slice(1).replace(/[0-9]/g, 'X'); 
+
+  };
 export default TokenPage;
