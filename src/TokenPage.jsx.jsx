@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import Navbar from "./Navbar.jsx"; 
-const IS_VOTING_ENDED = false;
+const IS_VOTING_ENDED = true;
 
 const PROJECT_CONFIG = {
   "SummerFest": {
