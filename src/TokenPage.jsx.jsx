@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import Navbar from "./Navbar.jsx"; 
 const IS_VOTING_ENDED = true;
 
+
 const PROJECT_CONFIG = {
   "SummerFest": {
     icon: "/SummerFest.jpg", 
@@ -591,7 +592,7 @@ function TokenPage() {
   const [selectedProject, setSelectedProject] = useState(null); 
 
   // 🌟 เพิ่มฟังก์ชันสำหรับแปลงตัวเลขที่นี่
-  const maskNumber = (num) => {
+ /* const maskNumber = (num) => {
     const str = Number(num).toLocaleString(); // จะได้ค่าเช่น "8,000"
     if (str.length <= 1) return str;
     
@@ -600,7 +601,7 @@ function TokenPage() {
     
     // หากต้องการปิดทั้งหมด (X,XXX) ให้ลบบรรทัดบนแล้วใช้บรรทัดนี้แทน:
      return str.replace(/[0-9]/g, 'X');
-  };
+  }; */
 
   useEffect(() => {
     window.scrollTo(0, 0);
