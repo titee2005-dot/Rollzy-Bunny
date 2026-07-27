@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import Navbar from "./Navbar.jsx"; 
 const IS_VOTING_ENDED = true;
-
+const VOTING_END_DATE = "2026-11-11T23:59:59+07:00";
 
 const PROJECT_CONFIG = {
   "SummerFest": {
@@ -602,6 +602,30 @@ function TokenPage() {
     // หากต้องการปิดทั้งหมด (X,XXX) ให้ลบบรรทัดบนแล้วใช้บรรทัดนี้แทน:
      return str.replace(/[0-9]/g, 'X');
   }; */
+  // นับถอยหลัง
+  const calculateTimeLeft = () => {
+    const difference = +new Date(VOTING_END_DATE) - +new Date();
+    let timeLeft = { days: 0, hours: 0, minutes: 0, seconds: 0 };
+
+    if (difference > 0) {
+      timeLeft = {
+        days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+        hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+        minutes: Math.floor((difference / 1000 / 60) % 60),
+        seconds: Math.floor((difference / 1000) % 60)
+      };
+    }
+    return timeLeft;
+  };
+
+  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft(calculateTimeLeft());
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -653,6 +677,36 @@ function TokenPage() {
             </div>
           </div>
         </div>
+        {/* 🌟 โค้ดกล่องแสดงเวลานับถอยหลัง (แยกเป็นอิสระ ทำงานตามเวลาจริง) */}
+          {timeLeft.days > 0 || timeLeft.hours > 0 || timeLeft.minutes > 0 || timeLeft.seconds > 0 ? (
+            <div style={{ marginTop: "32px", display: "flex", flexDirection: "column", alignItems: "center", animation: "heroFadeInUp 0.8s ease-out forwards" }}>
+              <p style={{ fontSize: "15px", color: "#8a7b9e", fontFamily: '"Mitr", sans-serif', marginBottom: "14px", fontWeight: "500", letterSpacing: "0.02em" }}>
+                สิ้นสุดการโหวตในอีก
+              </p>
+              <div style={{ display: "flex", gap: "10px", justifyContent: "center" }}>
+                {[
+                  { label: "วัน", value: timeLeft.days },
+                  { label: "ชม.", value: timeLeft.hours },
+                  { label: "นาที", value: timeLeft.minutes },
+                  { label: "วิ", value: timeLeft.seconds }
+                ].map((item, idx) => (
+                  <div key={idx} style={{ display: "flex", flexDirection: "column", alignItems: "center", background: "#ffffff", padding: "12px 14px", borderRadius: "18px", minWidth: "75px", boxShadow: "0 8px 24px rgba(180, 140, 255, 0.1)", border: "1px solid rgba(197, 116, 255, 0.15)" }}>
+                    <span style={{ fontSize: "28px", fontWeight: "bold", fontFamily: '"Bebas Neue", sans-serif', color: "#6b50c5", lineHeight: "1" }}>
+                      {String(item.value).padStart(2, '0')}
+                    </span>
+                    <span style={{ fontSize: "12px", color: "#a093b5", fontFamily: '"Mitr", sans-serif', marginTop: "4px", fontWeight: "500" }}>
+                      {item.label}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <div style={{ marginTop: "32px", padding: "10px 24px", background: "#f0fdf4", color: "#16a34a", borderRadius: "999px", border: "1px solid #bbf7d0", fontSize: "15px", fontWeight: "500", fontFamily: '"Mitr", sans-serif', display: "inline-flex", animation: "heroFadeInUp 0.8s ease-out forwards" }}>
+              🎉 สิ้นสุดระยะเวลาการโหวตแล้ว ขอบคุณทุกการสนับสนุน!
+            </div>
+          )}
+          {/* 🌟 สิ้นสุดโค้ดนับถอยหลัง */}
       </section>
 
       <section className="page-section" style={{ padding: "80px 20px" }}>
