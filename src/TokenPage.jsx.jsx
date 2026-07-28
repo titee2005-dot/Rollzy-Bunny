@@ -695,7 +695,7 @@ function TokenPage() {
           <div className="section-header" style={{ marginBottom: "24px", display: "flex", flexDirection: "column", alignItems: "center" }}>
             <img src="/bnktoken.png" alt="BNK Token" style={{ height: "56px", width: "auto", marginBottom: "16px", filter: "drop-shadow(0 4px 8px rgba(130, 90, 180, 0.2))" }} />
             <h2 style={{ fontSize: "56px", margin: "0 0 8px 0", fontFamily: '"Bebas Neue", sans-serif' }}>TOTAL TOKENS</h2>
-            <p style={{ fontSize: "18px", color: "#8a7b9e", fontFamily: '"Mitr", sans-serif' }}>ยอดรวม Tokens จากโปรเจกต์ทั้งหมด (จะแสดงตัวเลขหลังจากโหวตสิ้นสุด)</p>
+            <p style={{ fontSize: "18px", color: "#8a7b9e", fontFamily: '"Mitr", sans-serif' }}>ยอดรวม Tokens จากโปรเจกต์ทั้งหมด</p>
           </div>
           <div style={{ position: "relative", background: "linear-gradient(180deg, #ffffff 0%, #fdfcff 100%)", borderRadius: "32px", padding: "40px 20px 32px", width: "100%", maxWidth: "400px", margin: "0 auto", boxShadow: "0 24px 50px rgba(180, 140, 255, 0.15)", display: "flex", flexDirection: "column", alignItems: "center" }}>
             <NumberTicker value={totalTokens} />
