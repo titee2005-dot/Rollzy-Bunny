@@ -1,7 +1,19 @@
 import { useEffect, useState, useRef } from "react";
 import Navbar from "./Navbar.jsx"; 
-const IS_VOTING_ENDED = true;
-const VOTING_END_DATE = "2026-11-11T23:59:59+07:00";
+
+// 🌟 1. กำหนดเวลาเปิดโหวต ปิดโหวต และสถานะ
+const VOTING_START_DATE = "2026-10-01T12:00:00+07:00"; // ตั้งเวลาเปิดโหวตตรงนี้
+const VOTING_END_DATE = "2026-11-12T21:00:00+07:00";   // ตั้งเวลาปิดโหวตตรงนี้
+
+const IS_VOTING_ENDED = true; // แนะนำให้ตั้งเป็น false ไว้ เพื่อให้ปิดบังตัวเลขเป็น X 
+
+// 🌟 2. วาง maskNumber ไว้ตรงนี้จุดเดียวเท่านั้น
+const maskNumber = (num) => {
+  const str = Number(num).toLocaleString(); 
+  if (IS_VOTING_ENDED) return str; 
+  if (str.length <= 1) return str;
+  return str.replace(/[0-9]/g, 'X'); 
+};
 
 const PROJECT_CONFIG = {
   "SummerFest": {
@@ -603,26 +615,42 @@ function TokenPage() {
      return str.replace(/[0-9]/g, 'X');
   }; */
   // นับถอยหลัง
-  const calculateTimeLeft = () => {
-    const difference = +new Date(VOTING_END_DATE) - +new Date();
-    let timeLeft = { days: 0, hours: 0, minutes: 0, seconds: 0 };
+ const calculateTimeLeft = () => {
+    const now = +new Date();
+    const startTime = +new Date(VOTING_START_DATE);
+    const endTime = +new Date(VOTING_END_DATE);
 
-    if (difference > 0) {
-      timeLeft = {
+    let targetTime = 0;
+    let phase = ""; // สถานะ: "upcoming" (รอกด), "active" (กำลังโหวต), "ended" (จบแล้ว)
+
+    if (now < startTime) {
+      targetTime = startTime;
+      phase = "upcoming";
+    } else if (now < endTime) {
+      targetTime = endTime;
+      phase = "active";
+    } else {
+      phase = "ended";
+      return { timeLeft: { days: 0, hours: 0, minutes: 0, seconds: 0 }, phase };
+    }
+
+    const difference = targetTime - now;
+    return {
+      timeLeft: {
         days: Math.floor(difference / (1000 * 60 * 60 * 24)),
         hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
         minutes: Math.floor((difference / 1000 / 60) % 60),
         seconds: Math.floor((difference / 1000) % 60)
-      };
-    }
-    return timeLeft;
+      },
+      phase
+    };
   };
 
-  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+  const [timeData, setTimeData] = useState(calculateTimeLeft());
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setTimeLeft(calculateTimeLeft());
+      setTimeData(calculateTimeLeft());
     }, 1000);
     return () => clearInterval(timer);
   }, []);
@@ -677,26 +705,64 @@ function TokenPage() {
             </div>
           </div>
         </div>
-        {/* 🌟 โค้ดกล่องแสดงเวลานับถอยหลัง (แยกเป็นอิสระ ทำงานตามเวลาจริง) */}
-          {timeLeft.days > 0 || timeLeft.hours > 0 || timeLeft.minutes > 0 || timeLeft.seconds > 0 ? (
+        {/* 🌟 3. กล่องแสดงเวลานับถอยหลัง (เปลี่ยนคำตาม Phase อัตโนมัติ) */}
+          {timeData.phase !== "ended" ? (
             <div style={{ marginTop: "32px", display: "flex", flexDirection: "column", alignItems: "center", animation: "heroFadeInUp 0.8s ease-out forwards" }}>
-              <p style={{ fontSize: "15px", color: "#8a7b9e", fontFamily: '"Mitr", sans-serif', marginBottom: "14px", fontWeight: "500", letterSpacing: "0.02em" }}>
-                สิ้นสุดการโหวตในอีก
+              <p style={{ fontSize: "18px", color: "#8a7b9e", fontFamily: '"Mitr", sans-serif', marginBottom: "14px", fontWeight: "600", letterSpacing: "0.02em" }}>
+                {timeData.phase === "upcoming" ? "เปิดโหวตในอีก" : "สิ้นสุดการโหวตในอีก"}
               </p>
-              <div style={{ display: "flex", gap: "10px", justifyContent: "center" }}>
+             <div style={{ display: "flex", gap: "10px", justifyContent: "center" }}>
                 {[
-                  { label: "วัน", value: timeLeft.days },
-                  { label: "ชม.", value: timeLeft.hours },
-                  { label: "นาที", value: timeLeft.minutes },
-                  { label: "วิ", value: timeLeft.seconds }
+                  { label: "วัน", value: timeData.timeLeft.days },
+                  { label: "ชม.", value: timeData.timeLeft.hours },
+                  { label: "นาที", value: timeData.timeLeft.minutes },
+                  { label: "วิ", value: timeData.timeLeft.seconds }
                 ].map((item, idx) => (
-                  <div key={idx} style={{ display: "flex", flexDirection: "column", alignItems: "center", background: "#ffffff", padding: "12px 14px", borderRadius: "18px", minWidth: "75px", boxShadow: "0 8px 24px rgba(180, 140, 255, 0.1)", border: "1px solid rgba(197, 116, 255, 0.15)" }}>
-                    <span style={{ fontSize: "28px", fontWeight: "bold", fontFamily: '"Bebas Neue", sans-serif', color: "#6b50c5", lineHeight: "1" }}>
-                      {String(item.value).padStart(2, '0')}
-                    </span>
-                    <span style={{ fontSize: "12px", color: "#a093b5", fontFamily: '"Mitr", sans-serif', marginTop: "4px", fontWeight: "500" }}>
+                  <div key={idx} style={{ 
+                    display: "flex", 
+                    flexDirection: "column", 
+                    alignItems: "center", 
+                    background: "#ffffff", 
+                    borderRadius: "16px", 
+                    minWidth: "75px", 
+                    boxShadow: "0 8px 24px rgba(180, 140, 255, 0.15)", 
+                    border: "1px solid #eadeff",
+                    overflow: "hidden" /* ซ่อนส่วนที่ล้นออกนอกมุมโค้ง */
+                  }}>
+                    {/* 🌟 ส่วนหัวปฏิทิน (แถบสีพาสเทล) */}
+                    <div style={{
+                      width: "100%",
+                      background: "linear-gradient(135deg, #c5a3ff, #f9b4c3)",
+                      padding: "6px 0",
+                      fontSize: "13px",
+                      color: "#ffffff",
+                      fontFamily: '"Mitr", sans-serif',
+                      fontWeight: "500",
+                      textAlign: "center",
+                      letterSpacing: "0.02em",
+                      borderBottom: "1px dashed rgba(255,255,255,0.4)" /* เส้นประรอยฉีกกระดาษ */
+                    }}>
                       {item.label}
-                    </span>
+                    </div>
+                    
+                    {/* 🌟 ส่วนตัวปฏิทิน (พื้นขาว + ตัวเลข) */}
+                    <div style={{
+                      width: "100%",
+                      padding: "10px 0 12px",
+                      textAlign: "center",
+                      backgroundColor: "#ffffff"
+                    }}>
+                      <span style={{ 
+                        fontSize: "34px", 
+                        fontWeight: "bold", 
+                        fontFamily: '"Bebas Neue", sans-serif', 
+                        /* 🌟 ใช้สีชมพูอมม่วงเพื่อให้กลมกลืนกับโทนสีหลัก */
+                        color: item.label === "วิ" ? "#c36aac" : "#6b50c5", 
+                        lineHeight: "1" 
+                      }}>
+                        {String(item.value).padStart(2, '0')}
+                      </span>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -791,7 +857,7 @@ function TokenPage() {
   );
 }
 
-const maskNumber = (num) => {
+/*const maskNumber = (num) => {
     const str = Number(num).toLocaleString(); 
     
     // 🌟 ถ้าโหวตจบแล้ว ให้คืนค่าตัวเลขเต็มๆ กลับไปเลยโดยไม่แสดง X
@@ -801,5 +867,5 @@ const maskNumber = (num) => {
     
     return str.charAt(0) + str.slice(1).replace(/[0-9]/g, 'X'); 
 
-  };
+  }; */
 export default TokenPage;
