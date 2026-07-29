@@ -1075,8 +1075,19 @@ function TokenPage() {
         <div className="page-section-inner" style={{ textAlign: "center", width: "100%" }}>
           <div className="section-header" style={{ marginBottom: "24px", display: "flex", flexDirection: "column", alignItems: "center" }}>
             <img src="/bnktoken.png" alt="BNK Token" style={{ height: "56px", width: "auto", marginBottom: "16px", filter: "drop-shadow(0 4px 8px rgba(130, 90, 180, 0.2))" }} />
-            <h2 style={{ fontSize: "56px", margin: "0 0 8px 0", fontFamily: '"Bebas Neue", sans-serif' }}>TOTAL TOKENS #RoseToGE6</h2>
-            <p style={{ fontSize: "18px", color: "#8a7b9e", fontFamily: '"Mitr", sans-serif' }}>ยอดรวม Tokens จากโปรเจกต์ทั้งหมด</p>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "6px", margin: "0 0 8px 0" }}>
+              <h2 style={{ fontSize: "56px", margin: "0", fontFamily: '"Bebas Neue", sans-serif', lineHeight: "1", color: "#2c2537" }}>TOTAL TOKENS</h2>
+              <span style={{ 
+                color: "#c24670",
+                fontSize: "32px", 
+                fontWeight: "900",
+                fontFamily: '"Nunito", sans-serif',
+                letterSpacing: "-0.01em",
+              }}>
+                #RoseToGE6
+              </span>
+            </div>
+           {/* <p style={{ fontSize: "18px", color: "#8a7b9e", fontFamily: '"Mitr", sans-serif' }}>ยอดรวม Tokens จากโปรเจกต์ทั้งหมด</p> */}
           </div>
           <div style={{ position: "relative", background: "linear-gradient(180deg, #ffffff 0%, #fdfcff 100%)", borderRadius: "32px", padding: "40px 20px 32px", width: "100%", maxWidth: "400px", margin: "0 auto", boxShadow: "0 24px 50px rgba(180, 140, 255, 0.15)", display: "flex", flexDirection: "column", alignItems: "center" }}>
             <NumberTicker value={totalTokens} />
