@@ -3180,3 +3180,25 @@ body {
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: rgba(233, 118, 139, 0.5);
 }
+
+
+/* ─── Completed progress bar (green) ─── */
+.story-progress-bar-complete {
+  background: linear-gradient(90deg, #5cb589, #8fd4b0, #5cb589) !important;
+  background-size: 200% 100% !important;
+  animation: storyProgressShine 4s infinite linear !important;
+}
+/* ─── Entrance reveal for completed token count ─── */
+@keyframes storyCompletedReveal {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.story-completed-reveal {
+  animation: storyCompletedReveal 0.6s cubic-bezier(0.25, 0, 0.1, 1) forwards;
+}

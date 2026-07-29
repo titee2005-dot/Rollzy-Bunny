@@ -59,6 +59,25 @@ const PROJECT_CONFIG = {
 };
 
 // ==========================================
+// 📖 กำหนดข้อมูลนิทาน Reward 10 ตอน
+// ตอน 1-9: ปลดล็อคด้วย Token (เป้าหมาย 20,000)
+// ตอน 10: ผลอันดับการโหวต (ปลดล็อคเมื่อถึงวันที่กำหนด)
+// แก้ไข title, content, image ได้ตามต้องการ
+// ==========================================
+const STORY_CHAPTERS = [
+  { chapter: 1, title: "ตอนที่ 1", content: "(รอเพิ่มเนื้อเรื่อง)", requiredTokens: 8000, emoji: "🌸", image: "", isComingSoon: true },
+  { chapter: 2, title: "ตอนที่ 2", content: "(รอเพิ่มเนื้อเรื่อง)", requiredTokens: 8500, emoji: "🌿", image: "", isComingSoon: true },
+  { chapter: 3, title: "ตอนที่ 3", content: "(รอเพิ่มเนื้อเรื่อง)", requiredTokens: 9000, emoji: "🦋", image: "", isComingSoon: true },
+  { chapter: 4, title: "ตอนที่ 4", content: "(รอเพิ่มเนื้อเรื่อง)", requiredTokens: 9500, emoji: "⭐", image: "", isComingSoon: true },
+  { chapter: 5, title: "ตอนที่ 5", content: "(รอเพิ่มเนื้อเรื่อง)", requiredTokens: 10000, emoji: "🌙", image: "", isComingSoon: true },
+  { chapter: 6, title: "ตอนที่ 6", content: "(รอเพิ่มเนื้อเรื่อง)", requiredTokens: 10500, emoji: "🔮", image: "", isComingSoon: true },
+  { chapter: 7, title: "ตอนที่ 7", content: "(รอเพิ่มเนื้อเรื่อง)", requiredTokens: 11000, emoji: "💫", image: "", isComingSoon: true },
+  { chapter: 8, title: "ตอนที่ 8", content: "(รอเพิ่มเนื้อเรื่อง)", requiredTokens: 11500, emoji: "🌟", image: "", isComingSoon: true },
+  { chapter: 9, title: "ตอนที่ 9", content: "(รอเพิ่มเนื้อเรื่อง)", requiredTokens: 12000, emoji: "✨", image: "", isComingSoon: true },
+  { chapter: 10, title: "ผลอันดับการโหวต", content: "(รอเพิ่มผลอันดับ)", emoji: "🏆", image: "", isFinalRanking: true },
+];
+
+// ==========================================
 // ฟังก์ชันเสริม: แปลงลิงก์รูปให้แสดงผลได้ 100%
 // ==========================================
 const getDirectImageLink = (url) => {
@@ -595,6 +614,367 @@ function ProjectStatusView({ project, onBack }) {
 }
 
 
+
+// ============================================================================
+// 📖 COMPONENT: StoryRewardSection (ปลดล็อคนิทานตามยอด Token)
+// ตอน 1-9: ปลดล็อคด้วย Token / ตอน 10: ปลดล็อคเมื่อถึงวันที่ (ผลอันดับ)
+// ============================================================================
+function StoryRewardSection({ totalTokens }) {
+  const [openChapter, setOpenChapter] = useState(null);
+
+  // ตอน 1-9 เช็คจาก Token, ตอน 10 เช็คจากวันที่
+  const isChapterUnlocked = (chapter) => {
+    if (chapter.isFinalRanking) {
+      return new Date() >= new Date(VOTING_END_DATE);
+    }
+    return totalTokens >= chapter.requiredTokens;
+  };
+
+  const tokenChapters = STORY_CHAPTERS.filter(ch => !ch.isFinalRanking);
+  const unlockedTokenCount = tokenChapters.filter(ch => totalTokens >= ch.requiredTokens).length;
+  const totalTarget = 12000;
+  const progressPercent = Math.min((totalTokens / totalTarget) * 100, 100);
+  const nextTokenChapter = tokenChapters.find(ch => totalTokens < ch.requiredTokens);
+  const isTargetReached = totalTokens >= totalTarget;
+
+  return (
+    <section className="page-section" style={{ padding: "72px 20px 80px", background: "#fdfcff" }}>
+      <div style={{ textAlign: "center", width: "100%", maxWidth: "880px", margin: "0 auto" }}>
+
+        {/* ─── Section Header ─── */}
+        <div style={{ marginBottom: "44px" }}>
+          <div style={{ fontSize: "40px", marginBottom: "8px" }}>📖</div>
+          <h2 style={{ fontSize: "52px", color: "#2c2537", fontFamily: '"Bebas Neue", sans-serif', marginBottom: "6px", letterSpacing: "0.04em" }}>Special Story</h2>
+          <p style={{ fontSize: "15px", color: "#8a7b9e", fontFamily: '"Mitr", sans-serif', marginBottom: "32px", fontWeight: "400" }}>ภารกิจพิเศษ สะสม Token เพื่อปลดล็อคตอน</p>
+
+          {/* ─── Progress Bar ─── */}
+          <div style={{ maxWidth: "480px", margin: "0 auto" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "8px" }}>
+              <span style={{ fontSize: "13px", color: isTargetReached ? "#3d8c6a" : "#6b50c5", fontWeight: "600", fontFamily: '"Mitr", sans-serif' }}>
+                {isTargetReached
+                  ? "✓ Mission Complete"
+                  : `ปลดล็อคแล้ว ${unlockedTokenCount}/${tokenChapters.length} ตอน`}
+              </span>
+              {!isTargetReached && nextTokenChapter && (
+                <span style={{ fontSize: "12px", color: "#a093b5", fontFamily: '"Mitr", sans-serif' }}>
+                  ถัดไป: {nextTokenChapter.requiredTokens.toLocaleString()}
+                </span>
+              )}
+            </div>
+             <div style={{ width: "100%", height: "8px", background: isTargetReached ? "#d4eddf" : "#ede8f5", borderRadius: "999px", overflow: "hidden" }}>
+              <div
+                className={isTargetReached ? "story-progress-bar-complete" : "story-progress-bar"}
+                style={{ width: `${progressPercent}%`, height: "100%", borderRadius: "999px", transition: "width 0.8s cubic-bezier(0.25, 0, 0.1, 1)" }}
+              />
+              </div>
+            <div
+              className={isTargetReached ? "story-completed-reveal" : ""}
+              style={{ marginTop: "10px", display: "flex", justifyContent: "center", alignItems: "baseline", gap: "4px" }}
+            >
+              <span style={{
+                fontSize: isTargetReached ? "24px" : "20px",
+                fontWeight: "700",
+                color: isTargetReached ? "#2a7c55" : "#3d2e5c",
+                fontFamily: '"Bebas Neue", sans-serif',
+                letterSpacing: "0.03em",
+              }}>
+                {totalTokens.toLocaleString()}
+              </span>
+              <span style={{
+                fontSize: "13px",
+                color: isTargetReached ? "#8abfa3" : "#c4bdd0",
+                fontWeight: "500",
+                fontFamily: '"Mitr", sans-serif',
+              }}>
+                / {totalTarget.toLocaleString()} Token
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* ─── Story Cards Grid ─── */}
+        <div className="story-cards-grid" style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: "14px" }}>
+          {STORY_CHAPTERS.map((chapter) => {
+             const isTokensReached = isChapterUnlocked(chapter);
+            const isFinal = chapter.isFinalRanking;
+            const isComingSoon = chapter.isComingSoon;
+            const isUnlocked = isTokensReached && !isComingSoon;
+            const tokensNeeded = isFinal ? 0 : (chapter.requiredTokens - totalTokens);
+
+            return (
+              <div
+                key={chapter.chapter}
+                className={`${isUnlocked ? 'story-card-unlocked' : 'story-card-locked'} ${isFinal ? 'story-card-final' : ''}`}
+                onClick={() => isUnlocked && setOpenChapter(chapter)}
+                style={{
+                  position: "relative",
+                  padding: "24px 12px 18px",
+                  borderRadius: "16px",
+                  border: isTokensReached
+                    ? (isFinal ? "1px solid #e8d5a3" : (isComingSoon ? "1px dashed #c4bdd0" : "1px solid #e0d4f0"))
+                    : "1px solid #e5e2eb",
+                    background: isTokensReached
+                    ? (isFinal ? "#fdf8ed" : (isComingSoon ? "#fcfbfe" : "#faf8ff"))
+                    : "#f5f3f8",
+                  cursor: isUnlocked ? "pointer" : "default",
+                  overflow: "hidden",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  gap: "6px",
+                  minHeight: "164px",
+                  justifyContent: "center",
+                }}
+              >
+                {/* Chapter number badge */}
+                <div style={{
+                  position: "absolute", top: "8px", left: "8px",
+                  width: "22px", height: "22px", borderRadius: "50%",
+                  background: isUnlocked
+                    ? (isFinal ? "#d4a853" : "#9b7fcf")
+                    : "#c4bdd0",
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  fontSize: "10px", fontWeight: "700", color: "#fdfcff", fontFamily: '"Inter", sans-serif',
+                }}>
+                  {chapter.chapter}
+                </div>
+
+                {/* Emoji / Lock icon */}
+                <div style={{
+                  fontSize: "32px", marginTop: "2px",
+                   opacity: isUnlocked ? 1 : 0.4,
+                  filter: isUnlocked ? "none" : "grayscale(1)",
+                  transition: "opacity 0.3s cubic-bezier(0.25, 0, 0.1, 1), filter 0.3s cubic-bezier(0.25, 0, 0.1, 1)",
+                }}>
+                   {isTokensReached ? chapter.emoji : "🔒"}
+                </div>
+
+                {/* Title */}
+                <div style={{
+                  fontSize: isFinal ? "12px" : "13px", fontWeight: "600",
+                  color: isUnlocked ? (isFinal ? "#7c5a1e" : "#3d2e5c") : "#a09aae",
+                  fontFamily: '"Mitr", sans-serif', lineHeight: "1.3",
+                }}>
+                  {chapter.title}
+                </div>
+
+                {/* Unlocked: subtle lock-open icon + token amount */}
+                {isTokensReached && !isFinal && (
+                  <div style={{
+                    display: "flex", alignItems: "center", gap: "4px",
+                    fontSize: "10px", color: "#a093b5", fontFamily: '"Mitr", sans-serif', fontWeight: "500",
+                    marginTop: "2px",
+                  }}>
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                      <path d="M7 11V7a5 5 0 0 1 9.9-1"></path>
+                    </svg>
+                    {chapter.requiredTokens.toLocaleString()}
+                  </div>
+                )}
+
+                {/* Unlocked: read CTA */}
+                {isUnlocked && (
+                  <div style={{
+                    fontSize: "11px", fontWeight: "500",
+                    color: isFinal ? "#a07d3a" : "#7b6ba0",
+                    fontFamily: '"Mitr", sans-serif',
+                    marginTop: "2px",
+                  }}>
+                    กดเพื่ออ่าน
+                  </div>
+                )}
+
+                {/* Coming Soon status */}
+                {isTokensReached && isComingSoon && !isFinal && (
+                  <div style={{
+                    fontSize: "11px", color: "#a09aae",
+                    fontFamily: '"Mitr", sans-serif', fontWeight: "500",
+                    marginTop: "2px",
+                  }}>
+                    เร็ว ๆ นี้
+                  </div>
+                )}
+
+                {/* Final card: date-based status */}
+                {!isTokensReached && isFinal && (
+                  <div style={{
+                    fontSize: "10px", color: "#a09aae",
+                    fontFamily: '"Mitr", sans-serif', fontWeight: "500",
+                    marginTop: "2px",
+                  }}>
+                    รอประกาศผล
+                  </div>
+                )}
+
+                {/* Locked: tokens needed */}
+                {!isTokensReached && !isFinal && (
+                  <div style={{
+                    fontSize: "10px", color: "#a09aae",
+                    fontFamily: '"Mitr", sans-serif', fontWeight: "500",
+                    marginTop: "2px",
+                  }}>
+                    อีก {tokensNeeded.toLocaleString()} Token
+                  </div>
+                )}
+
+                {/* Shimmer overlay */}
+                {isUnlocked && (
+                  <div className="story-shimmer" style={{
+                    position: "absolute", top: 0, left: 0, right: 0, bottom: 0,
+                    borderRadius: "16px", pointerEvents: "none",
+                  }} />
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* ─── Story Reading Modal ─── */}
+      {openChapter && (
+        <div
+          onClick={(e) => e.target === e.currentTarget && setOpenChapter(null)}
+          style={{
+            position: "fixed", top: 0, left: 0, right: 0, bottom: 0,
+            background: "rgba(22, 14, 36, 0.65)", backdropFilter: "blur(6px)",
+            display: "flex", alignItems: "center", justifyContent: "center",
+            zIndex: 9999, padding: "20px",
+            animation: "storyModalIn 0.25s cubic-bezier(0.25, 0, 0.1, 1) forwards",
+          }}
+        >
+          <div style={{
+            background: "#fdfcff", borderRadius: "20px",
+            padding: "36px 28px", maxWidth: "500px", width: "100%",
+            maxHeight: "80vh", overflowY: "auto", position: "relative",
+            boxShadow: "0 16px 40px rgba(22, 14, 36, 0.2)",
+            animation: "storyCardPop 0.3s cubic-bezier(0.25, 0, 0.1, 1) forwards",
+          }}>
+            {/* Close button */}
+            <button
+              className="story-modal-close"
+              onClick={() => setOpenChapter(null)}
+              style={{
+                position: "absolute", top: "14px", right: "14px",
+                width: "32px", height: "32px", borderRadius: "50%",
+                border: "1px solid #e0d4f0", background: "#f5f3f8",
+                cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center",
+                color: "#8a7b9e", fontSize: "16px", transition: "all 0.2s cubic-bezier(0.25, 0, 0.1, 1)",
+              }}
+            >✕</button>
+
+            {/* Chapter badge pill */}
+            <div style={{
+              display: "inline-flex", alignItems: "center", gap: "6px",
+              padding: "5px 14px",
+              background: openChapter.isFinalRanking ? "#fdf8ed" : "#f5f1fc",
+              borderRadius: "999px",
+              border: openChapter.isFinalRanking ? "1px solid #e8d5a3" : "1px solid #e0d4f0",
+              marginBottom: "16px",
+            }}>
+              <span style={{ fontSize: "16px" }}>{openChapter.emoji}</span>
+              <span style={{
+                fontSize: "12px", fontWeight: "600",
+                color: openChapter.isFinalRanking ? "#7c5a1e" : "#6b50c5",
+                fontFamily: '"Mitr", sans-serif',
+              }}>
+                {openChapter.isFinalRanking ? "FINAL REWARD" : `CHAPTER ${openChapter.chapter}`}
+              </span>
+            </div>
+
+            {/* Title */}
+            <h3 style={{
+              fontSize: "22px", fontWeight: "700", color: "#2c2537",
+              fontFamily: '"Mitr", sans-serif', margin: "0 0 6px 0", lineHeight: "1.4",
+            }}>
+              {openChapter.title}
+            </h3>
+
+            {/* Milestone info */}
+            <div style={{
+              fontSize: "12px", color: "#a093b5", fontFamily: '"Mitr", sans-serif',
+              marginBottom: "20px", display: "flex", alignItems: "center", gap: "5px",
+            }}>
+              {openChapter.isFinalRanking ? (
+                <>📅 ปลดล็อคเมื่อสิ้นสุดการโหวต</>
+              ) : (
+                <>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 9.9-1"></path>
+                  </svg>
+                  ปลดล็อคที่ {openChapter.requiredTokens.toLocaleString()} Token
+                </>
+              )}
+            </div>
+
+            {/* Divider */}
+            <div style={{ height: "1px", background: "#e8e2f0", marginBottom: "20px" }} />
+
+            {/* Image (if exists) */}
+            {openChapter.image && (
+              <div style={{ marginBottom: "20px", borderRadius: "12px", overflow: "hidden" }}>
+                <img src={openChapter.image} alt={openChapter.title} style={{ width: "100%", display: "block" }} />
+              </div>
+            )}
+
+            {/* Content */}
+            <div style={{
+              fontSize: "15px", color: "#4a3f5c", fontFamily: '"Mitr", sans-serif',
+              lineHeight: "1.8", fontWeight: "400", whiteSpace: "pre-line",
+              textAlign: "left",
+            }}>
+              {openChapter.content}
+            </div>
+
+            {/* Navigation buttons */}
+            <div style={{
+              marginTop: "28px", display: "flex", justifyContent: "space-between", alignItems: "center",
+              paddingTop: "16px", borderTop: "1px solid #ede8f5",
+            }}>
+              {/* Previous */}
+              {openChapter.chapter > 1 && isChapterUnlocked(STORY_CHAPTERS[openChapter.chapter - 2]) ? (
+                <button
+                  className="story-modal-nav-btn"
+                  onClick={() => setOpenChapter(STORY_CHAPTERS[openChapter.chapter - 2])}
+                  style={{
+                    display: "flex", alignItems: "center", gap: "6px",
+                    padding: "8px 16px", background: "transparent",
+                    border: "1px solid #e0d4f0", borderRadius: "10px",
+                    color: "#6b50c5", fontSize: "12px", fontWeight: "500",
+                    fontFamily: '"Mitr", sans-serif', cursor: "pointer",
+                  }}
+                >
+                  ← ก่อนหน้า
+                </button>
+              ) : <div />}
+
+              {/* Next */}
+              {openChapter.chapter < STORY_CHAPTERS.length && isChapterUnlocked(STORY_CHAPTERS[openChapter.chapter]) ? (
+                <button
+                  className="story-modal-nav-btn"
+                  onClick={() => setOpenChapter(STORY_CHAPTERS[openChapter.chapter])}
+                  style={{
+                    display: "flex", alignItems: "center", gap: "6px",
+                    padding: "8px 16px",
+                    background: "#3d2e5c",
+                    border: "none", borderRadius: "10px",
+                    color: "#fdfcff", fontSize: "12px", fontWeight: "500",
+                    fontFamily: '"Mitr", sans-serif', cursor: "pointer",
+                  }}
+                >
+                  ถัดไป →
+                </button>
+              ) : <div />}
+            </div>
+          </div>
+        </div>
+      )}
+    </section>
+  );
+}
+
+
 // ============================================================================
 // 4. COMPONENT: TokenPage (หน้ารวมโปรเจกต์หลัก) 
 // ============================================================================
@@ -602,6 +982,7 @@ function TokenPage() {
   const [totalTokens, setTotalTokens] = useState(0);
   const [projects, setProjects] = useState([]); 
   const [selectedProject, setSelectedProject] = useState(null); 
+  const [showAllProjects, setShowAllProjects] = useState(false);
 
   // 🌟 เพิ่มฟังก์ชันสำหรับแปลงตัวเลขที่นี่
  /* const maskNumber = (num) => {
@@ -775,12 +1156,15 @@ function TokenPage() {
           {/* 🌟 สิ้นสุดโค้ดนับถอยหลัง */}
       </section>
 
+      {/* 📖 Story Rewards Section */}
+      <StoryRewardSection totalTokens={totalTokens} />
+
       <section className="page-section" style={{ padding: "80px 20px" }}>
         <div className="page-section-inner" style={{ textAlign: "center", width: "100%" }}>
           <h2 style={{ fontSize: "56px", color: "#2c2537", fontFamily: '"Bebas Neue", sans-serif', marginBottom: "40px" }}>TOKENS BY PROJECT</h2>
           <p style={{ fontSize: "18px", color: "#8a7b9e", fontFamily: '"Mitr", sans-serif', marginBottom: "40px" }}>รายละเอียดจากแต่ละโปรเจกต์ย่อย</p>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))", gap: "24px", maxWidth: "800px", margin: "0 auto" }}>
-            {projects.map((proj, index) => {
+            {(showAllProjects ? [...projects].reverse() : [...projects].reverse().slice(0, 2)).map((proj, index) => {
   // 1. เช็คว่าถ้าเป็น Billboard ให้ถือว่ากดไม่ได้ (isClickable = false)
   // หรือถ้าต้องการให้กดได้เฉพาะ SummerFest กับ Merch ก็ใช้:
   // const isClickable = proj.Project === "SummerFest" || proj.Project === "Merch";
@@ -847,6 +1231,48 @@ function TokenPage() {
   );
 })}
           </div>
+          
+          {projects.length > 2 && (
+            <div style={{ marginTop: "40px", display: "flex", justifyContent: "center" }}>
+              <button 
+                onClick={() => setShowAllProjects(!showAllProjects)}
+                style={{
+                  background: "#ffffff",
+                  border: "1px solid #eadeff",
+                  borderRadius: "999px",
+                  padding: "10px 24px",
+                  color: "#6b50c5",
+                  fontSize: "14px",
+                  fontWeight: "600",
+                  fontFamily: '"Mitr", sans-serif',
+                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "6px",
+                  boxShadow: "0 2px 8px rgba(107, 80, 197, 0.04)",
+                  transition: "all 0.3s cubic-bezier(0.25, 0, 0.1, 1)"
+                }}
+                onMouseOver={(e) => {
+                  e.currentTarget.style.background = "#faf8ff";
+                  e.currentTarget.style.borderColor = "#c574ff";
+                  e.currentTarget.style.boxShadow = "0 4px 12px rgba(107, 80, 197, 0.08)";
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.background = "#ffffff";
+                  e.currentTarget.style.borderColor = "#eadeff";
+                  e.currentTarget.style.boxShadow = "0 2px 8px rgba(107, 80, 197, 0.04)";
+                }}
+              >
+                {showAllProjects ? "Show less" : "Show more"}
+                <svg 
+                  width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
+                  style={{ transform: showAllProjects ? "rotate(180deg)" : "none", transition: "transform 0.3s ease" }}
+                >
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </button>
+            </div>
+          )}
         </div>
       </section>
       <footer className="footer">
