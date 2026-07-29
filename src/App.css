@@ -3202,3 +3202,31 @@ body {
 .story-completed-reveal {
   animation: storyCompletedReveal 0.6s cubic-bezier(0.25, 0, 0.1, 1) forwards;
 }
+
+@media (max-width: 768px) {
+  .story-cards-grid {
+    display: flex !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory !important;
+    -webkit-overflow-scrolling: touch !important;
+    gap: 10px !important;
+    padding-bottom: 12px !important;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+  }
+  .story-cards-grid::-webkit-scrollbar {
+    display: none;
+  }
+  .story-cards-grid > div {
+    flex: 0 0 130px !important;
+    scroll-snap-align: start !important;
+    min-height: 140px !important;
+    padding: 20px 10px 14px !important;
+  }
+  .story-cards-grid > div:first-child {
+    margin-left: 4px;
+  }
+  .story-cards-grid > div:last-child {
+    margin-right: 4px;
+  }
+}
