@@ -65,7 +65,19 @@ const PROJECT_CONFIG = {
 // แก้ไข title, content, image ได้ตามต้องการ
 // ==========================================
 const STORY_CHAPTERS = [
-  { chapter: 1, title: "ตอนที่ 1", content: "(รอเพิ่มเนื้อเรื่อง)", requiredTokens: 8000, emoji: "🌸", image: "", isComingSoon: true },
+  { chapter: 1, title: "ตอนที่ 1", content: "(รอเพิ่มเนื้อเรื่อง)", requiredTokens: 8000, emoji: "", image: "", isComingSoon: true },
+  { chapter: 2, title: "ตอนที่ 2", content: "(รอเพิ่มเนื้อเรื่อง)", requiredTokens: 8500, emoji: "", image: "", isComingSoon: true },
+  { chapter: 3, title: "ตอนที่ 3", content: "(รอเพิ่มเนื้อเรื่อง)", requiredTokens: 9000, emoji: "", image: "", isComingSoon: true },
+  { chapter: 4, title: "ตอนที่ 4", content: "(รอเพิ่มเนื้อเรื่อง)", requiredTokens: 9500, emoji: "", image: "", isComingSoon: true },
+  { chapter: 5, title: "ตอนที่ 5", content: "(รอเพิ่มเนื้อเรื่อง)", requiredTokens: 10000, emoji: "", image: "", isComingSoon: true },
+  { chapter: 6, title: "ตอนที่ 6", content: "(รอเพิ่มเนื้อเรื่อง)", requiredTokens: 10500, emoji: "", image: "", isComingSoon: true },
+  { chapter: 7, title: "ตอนที่ 7", content: "(รอเพิ่มเนื้อเรื่อง)", requiredTokens: 11000, emoji: "", image: "", isComingSoon: true },
+  { chapter: 8, title: "ตอนที่ 8", content: "(รอเพิ่มเนื้อเรื่อง)", requiredTokens: 11500, emoji: "", image: "", isComingSoon: true },
+  { chapter: 9, title: "ตอนที่ 9", content: "(รอเพิ่มเนื้อเรื่อง)", requiredTokens: 12000, emoji: "", image: "", isComingSoon: true },
+  { chapter: 10, title: "ผลอันดับการโหวต", content: "(รอเพิ่มผลอันดับ)", emoji: "🏆", image: "", isFinalRanking: true },
+];
+
+/* { chapter: 1, title: "ตอนที่ 1", content: "(รอเพิ่มเนื้อเรื่อง)", requiredTokens: 8000, emoji: "🌸", image: "", isComingSoon: true },
   { chapter: 2, title: "ตอนที่ 2", content: "(รอเพิ่มเนื้อเรื่อง)", requiredTokens: 8500, emoji: "🌿", image: "", isComingSoon: true },
   { chapter: 3, title: "ตอนที่ 3", content: "(รอเพิ่มเนื้อเรื่อง)", requiredTokens: 9000, emoji: "🦋", image: "", isComingSoon: true },
   { chapter: 4, title: "ตอนที่ 4", content: "(รอเพิ่มเนื้อเรื่อง)", requiredTokens: 9500, emoji: "⭐", image: "", isComingSoon: true },
@@ -75,7 +87,7 @@ const STORY_CHAPTERS = [
   { chapter: 8, title: "ตอนที่ 8", content: "(รอเพิ่มเนื้อเรื่อง)", requiredTokens: 11500, emoji: "🌟", image: "", isComingSoon: true },
   { chapter: 9, title: "ตอนที่ 9", content: "(รอเพิ่มเนื้อเรื่อง)", requiredTokens: 12000, emoji: "✨", image: "", isComingSoon: true },
   { chapter: 10, title: "ผลอันดับการโหวต", content: "(รอเพิ่มผลอันดับ)", emoji: "🏆", image: "", isFinalRanking: true },
-];
+*/
 
 // ==========================================
 // ฟังก์ชันเสริม: แปลงลิงก์รูปให้แสดงผลได้ 100%
