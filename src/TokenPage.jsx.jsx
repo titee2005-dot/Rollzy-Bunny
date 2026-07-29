@@ -55,6 +55,14 @@ const PROJECT_CONFIG = {
     placeholder: "",
     resultTitle: "",
     keyHint: []
+  },
+  "RoseToGE6 x 19thBloomingRose": { 
+    icon: "/your-new-image.jpg", // ใส่ Path รูปภาพใหม่ที่ต้องการที่นี่
+    apiUrl: "", 
+    searchLabel: "",
+    placeholder: "",
+    resultTitle: "",
+    keyHint: []
   }
 };
 
@@ -1194,7 +1202,8 @@ function TokenPage() {
   const isClickable = 
     proj.Project !== "Billboard" && 
     proj.Project !== "Shared" && 
-    proj.Project !== "2-Shot";
+    proj.Project !== "2-Shot" && 
+    proj.Project !== "RoseToGE6 x 19thBloomingRose"; 
 
   const isMerch = proj.Project && proj.Project.toLowerCase().includes("merch");
   const hintText = isMerch ? "สถานะการจัดส่ง" : "สถานะการโอนบัตร";
