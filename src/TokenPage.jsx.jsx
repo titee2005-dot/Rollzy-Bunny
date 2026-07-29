@@ -65,7 +65,7 @@ const PROJECT_CONFIG = {
 // แก้ไข title, content, image ได้ตามต้องการ
 // ==========================================
 const STORY_CHAPTERS = [
-  { chapter: 1, title: "ตอนที่ 1", content: "(รอเพิ่มเนื้อเรื่อง)", requiredTokens: 8000, emoji: "🌸", image: "", isComingSoon: false },
+  { chapter: 1, title: "ตอนที่ 1", content: "(รอเพิ่มเนื้อเรื่อง)", requiredTokens: 8000, emoji: "🌸", image: "", isComingSoon: true },
   { chapter: 2, title: "ตอนที่ 2", content: "(รอเพิ่มเนื้อเรื่อง)", requiredTokens: 8500, emoji: "🌿", image: "", isComingSoon: true },
   { chapter: 3, title: "ตอนที่ 3", content: "(รอเพิ่มเนื้อเรื่อง)", requiredTokens: 9000, emoji: "🦋", image: "", isComingSoon: true },
   { chapter: 4, title: "ตอนที่ 4", content: "(รอเพิ่มเนื้อเรื่อง)", requiredTokens: 9500, emoji: "⭐", image: "", isComingSoon: true },
