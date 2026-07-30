@@ -26,15 +26,26 @@ const SHEET_URL = "https://opensheet.elk.sh/1PUd1SFU6QNbKW0a2C8pJ3urNQeVGGAva3hk
 // 🎮 HELPER FUNCTIONS
 // ============================================================================
 
+/** Auto-detect or resolve weapon from donation amount */
+const resolveWeapon = (donation) => {
+  const amount = Number(donation.Amount) || 0;
+  
+  const availableWeapons = Object.values(WEAPONS).sort((a, b) => b.minAmount - a.minAmount);
+  const autoWeapon = availableWeapons.find(w => amount >= w.minAmount) || WEAPONS.punch;
+  
+  const providedKey = (donation.Weapon || "").toLowerCase().trim();
+  const providedWeapon = WEAPONS[providedKey];
+  
+  if (providedWeapon && amount >= providedWeapon.minAmount) {
+    return providedWeapon;
+  }
+  return autoWeapon;
+};
+
 /** Calculate damage for a single donation */
 const calcDamage = (donation) => {
   const amount = Number(donation.Amount) || 0;
-  const weaponKey = (donation.Weapon || "punch").toLowerCase().trim();
-  const weapon = WEAPONS[weaponKey] || WEAPONS.punch;
-  // Fallback to punch if amount is below weapon's minimum
-  if (amount < weapon.minAmount) {
-    return Math.floor(amount * WEAPONS.punch.multiplier);
-  }
+  const weapon = resolveWeapon(donation);
   return Math.floor(amount * weapon.multiplier);
 };
 
@@ -299,7 +310,7 @@ function BossBattle() {
             </div>
           </div>
         )}
-        
+
       </section>
     );
   }
@@ -457,8 +468,7 @@ function BossBattle() {
             <div className="boss-log">
               <div className="boss-log-title">📜 Attack Log</div>
               {displayedAttacks.map((d, i) => {
-                const weaponKey = (d.Weapon || "punch").toLowerCase().trim();
-                const weapon = WEAPONS[weaponKey] || WEAPONS.punch;
+                const weapon = resolveWeapon(d);
                 const dmg = calcDamage(d);
                 return (
                   <div key={i} className="boss-log-entry">
