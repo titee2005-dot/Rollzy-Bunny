@@ -235,6 +235,33 @@ function BossBattle() {
             <div className="boss-victory-sub">
               ทุกด่านถูกพิชิตแล้ว! ขอบคุณฮีโร่ทุกคน!
             </div>
+
+ {/* Top 3 Damage Leaderboard */}
+            {topHeroes.length > 0 && (
+              <div className="boss-leaderboard" style={{ marginTop: '24px' }}>
+                <div className="boss-leaderboard-title">🏆 TOP 3 DAMAGE 🏆</div>
+                <div className="boss-heroes">
+                  {topHeroes.map((hero) => (
+                    <div key={hero.rank} className={`boss-hero-card rank-${hero.rank}`}>
+                      <div className="boss-hero-rank">
+                        {hero.rank === 1 ? "🥇" : hero.rank === 2 ? "🥈" : "🥉"}
+                      </div>
+                      <div className="boss-hero-name">{hero.name}</div>
+                      <div className="boss-hero-dmg">{hero.dmg.toLocaleString()} DMG</div>
+                    </div>
+                  ))}
+                </div>
+                
+                <button 
+                  className="boss-btn-more"
+                  style={{ marginTop: '16px', display: 'block', margin: '16px auto 0' }}
+                  onClick={() => setShowHeroesModal(true)}
+                >
+                  View All Heroes ({allHeroesRanked.length})
+                </button>
+              </div>
+            )}
+
             <div style={{ marginTop: "24px" }}>
               <div className="boss-stats">
                 <div className="boss-stat">
@@ -253,6 +280,26 @@ function BossBattle() {
             </div>
           </div>
         </div>
+
+        {/* All Heroes Modal */}
+        {showHeroesModal && (
+          <div className="heroes-modal-overlay" onClick={() => setShowHeroesModal(false)}>
+            <div className="heroes-modal-content" onClick={e => e.stopPropagation()}>
+              <button className="heroes-modal-close" onClick={() => setShowHeroesModal(false)}>✖</button>
+              <div className="heroes-modal-title">⚔️ ALL HEROES ({allHeroesRanked.length}) ⚔️</div>
+              <div className="heroes-modal-list">
+                {allHeroesRanked.map(([name, dmg], i) => (
+                  <div key={name} className="heroes-modal-item">
+                    <span className="heroes-modal-rank">#{i + 1}</span>
+                    <span className="heroes-modal-name">{name}</span>
+                    <span className="heroes-modal-dmg">{dmg.toLocaleString()} DMG</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+        
       </section>
     );
   }
