@@ -41,7 +41,7 @@ const PROJECT_CONFIG = {
     keyHint: ["wallet", "ชื่อ", "id"]
   }, 
   "Shared": { 
-    icon: "/your-new-image.jpg", // ใส่ Path รูปภาพใหม่ที่ต้องการที่นี่
+    icon: "/rollzy-title.png", // ใส่ Path รูปภาพใหม่ที่ต้องการที่นี่
     apiUrl: "", 
     searchLabel: "",
     placeholder: "",
@@ -49,7 +49,7 @@ const PROJECT_CONFIG = {
     keyHint: []
   }, 
   "2-Shot": { 
-    icon: "/your-new-image.jpg", // ใส่ Path รูปภาพใหม่ที่ต้องการที่นี่
+    icon: "/2Shot1.JPG", // ใส่ Path รูปภาพใหม่ที่ต้องการที่นี่
     apiUrl: "", 
     searchLabel: "",
     placeholder: "",
@@ -57,7 +57,7 @@ const PROJECT_CONFIG = {
     keyHint: []
   },
   "RoseToGE6 x 19thBloomingRose": { 
-    icon: "/your-new-image.jpg", // ใส่ Path รูปภาพใหม่ที่ต้องการที่นี่
+    icon: "/GExBD.JPG", // ใส่ Path รูปภาพใหม่ที่ต้องการที่นี่
     apiUrl: "", 
     searchLabel: "",
     placeholder: "",
