@@ -162,7 +162,7 @@
 
 .arena-hero-name {
   font-family: "Mitr", sans-serif;
-  font-size: 9px;
+  font-size: 11px;
   color: #fff;
   text-shadow: 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
   margin-bottom: 2px;
@@ -170,8 +170,8 @@
 }
 
 .arena-hero-img {
-  width: 32px;
-  height: 32px;
+  width: 64px;
+  height: 64px;
   image-rendering: pixelated;
 }
 
@@ -674,11 +674,17 @@
 
 /* ─── Responsive ─── */
 @media (max-width: 768px) {
+  .boss-battle-section {
+    padding: 100px 10px 60px;
+  }
   .boss-title {
     font-size: 14px;
   }
+  .boss-stage-navigator {
+    gap: 10px;
+  }
   .boss-stage-label {
-    font-size: 8px;
+    font-size: 9px;
   }
   .boss-image-wrapper {
     width: 110px !important;
@@ -688,22 +694,88 @@
     height: 200px;
   }
   .boss-heroes {
-    gap: 10px;
+    gap: 8px;
   }
   .boss-hero-card {
-    min-width: 70px;
-    padding: 8px 10px 6px;
+    min-width: 65px;
+    padding: 8px 8px 6px;
+  }
+  .boss-hero-rank {
+    font-size: 16px;
+  }
+  .boss-hero-name {
+    font-size: 7px;
+  }
+  .boss-hero-dmg {
+    font-size: 8px;
   }
   .boss-victory-text {
     font-size: 18px;
   }
   .boss-weapon-legend {
-    gap: 10px;
+    gap: 8px;
+    padding: 6px;
+  }
+  .boss-weapon-item {
+    padding: 4px 8px;
+  }
+  .boss-weapon-item .weapon-emoji {
+    font-size: 16px;
+  }
+  .boss-weapon-item .weapon-name {
+    font-size: 10px;
+  }
+  .weapon-detail {
+    font-size: 6px;
   }
   .boss-stats {
-    gap: 20px;
+    gap: 12px;
   }
   .floating-dmg {
+    font-size: 16px;
+  }
+  .boss-log {
+    padding: 12px;
+  }
+  .boss-log-entry {
+    gap: 6px;
+  }
+  .log-name {
+    font-size: 7px;
+  }
+  .log-dmg {
+    font-size: 9px;
+  }
+}
+
+@media (max-width: 480px) {
+  .boss-arena-stage {
+    height: 180px;
+  }
+  .boss-image-wrapper {
+    width: 90px !important;
+    height: 90px !important;
+    right: 10px !important;
+    bottom: 10px !important;
+  }
+  .heroes-modal-content {
+    width: 95%;
+  }
+  .heroes-modal-title {
+    font-size: 10px;
+    padding: 20px 16px 12px;
+  }
+  .heroes-modal-name {
     font-size: 12px;
+  }
+  .heroes-modal-dmg {
+    font-size: 9px;
+  }
+  .boss-hero-card {
+    min-width: 0;
+    flex: 1;
+  }
+  .floating-dmg {
+    font-size: 14px;
   }
 }

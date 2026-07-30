@@ -6,11 +6,11 @@ import './BossBattle.css';
 // ============================================================================
 
 const BOSS_STAGES = [
-  { stage: 1, name: "งูยักษ์", emoji: "🐍", hp: 500, image: "/boss1.jpg", bg: "/boss_arena_bg.jpg" },
-  { stage: 2, name: "หมาป่า", emoji: "🐺", hp: 800, image: "/boss2.jpg", bg: "/boss_bg_stage2.jpg" },
-  { stage: 3, name: "มังกร", emoji: "🐉", hp: 1200, image: "/boss3.jpg", bg: "/boss_bg_stage3.jpg" },
-  { stage: 4, name: "อสูร", emoji: "👹", hp: 1500, image: "/boss4.jpg", bg: "/boss_arena_bg.jpg" }, // Reuse Stage 1 BG until quota resets
-  { stage: 5, name: "จอมมาร", emoji: "👿", hp: 2000, image: "/boss5.jpg", bg: "/boss_bg_stage2.jpg" }, // Reuse Stage 2 BG until quota resets
+  { stage: 1, name: "งูยักษ์", emoji: "🐍", hp: 500, image: "/boss1.png", bg: "/boss_arena_bg.jpg" },
+  { stage: 2, name: "หมาป่า", emoji: "🐺", hp: 800, image: "/boss2.png", bg: "/boss_bg_stage2.jpg" },
+  { stage: 3, name: "มังกร", emoji: "🐉", hp: 1200, image: "/boss3.png", bg: "/boss_bg_stage3.jpg" },
+  { stage: 4, name: "อสูร", emoji: "👹", hp: 1500, image: "/boss4.png", bg: "/boss_arena_bg.jpg" }, // Reuse Stage 1 BG until quota resets
+  { stage: 5, name: "จอมมาร", emoji: "👿", hp: 2000, image: "/boss5.png", bg: "/boss_bg_stage2.jpg" }, // Reuse Stage 2 BG until quota resets
 ];
 
 const WEAPONS = {
@@ -271,6 +271,7 @@ function BossBattle() {
 
         {/* Header with Navigation */}
         <div className="boss-title">⚔️ BOSS BATTLE</div>
+
         <div className="boss-stage-navigator">
           <button 
             className="boss-nav-btn" 
@@ -329,13 +330,13 @@ function BossBattle() {
             {/* Heroes (Left side) */}
             <div className="arena-heroes">
               {displayHeroes.length === 0 && !isViewingPast && (
-                <div className="arena-empty-text">Waiting Heroes...</div>
+                <div className="arena-empty-text">Awaiting Heroes...</div>
               )}
               {displayHeroes.map((heroName, i) => {
                 // Generate a consistent pseudo-random position based on hero name
                 const hash = hashCode(heroName + displayStageIndex); 
-                const top = 20 + (hash % 60); // 20% to 80% top
-                const left = 2 + ((hash >> 4) % 35); // 2% to 37% left
+                const top = 30 + (hash % 50); // 30% to 80%
+                const left = 15 + ((hash >> 4) % 40); // 15% to 55% left
                 const zIndex = Math.floor(top);
                 const hue = hash % 360;
                 
@@ -343,10 +344,13 @@ function BossBattle() {
                   <div key={heroName} className="arena-hero" style={{ top: `${top}%`, left: `${left}%`, zIndex }}>
                     <div className="arena-hero-name">{heroName}</div>
                     <img 
-                      src="/pixel_hero.jpg" 
+                      src="/pixel_hero.png" 
                       alt="Hero" 
                       className="arena-hero-img" 
-                      style={{ filter: `hue-rotate(${hue}deg) drop-shadow(0 4px 4px rgba(0,0,0,0.5))` }} 
+                      style={{ 
+                        filter: `hue-rotate(${hue}deg) drop-shadow(1px 0 0 white) drop-shadow(-1px 0 0 white) drop-shadow(0 1px 0 white) drop-shadow(0 -1px 0 white) drop-shadow(0 4px 6px rgba(0,0,0,0.8))`,
+                        transform: 'scale(1.2)'
+                      }}  
                     />
                   </div>
                 );
@@ -464,6 +468,7 @@ function BossBattle() {
             </div>
           </div>
         )}
+
 
       </div>
     </section>
