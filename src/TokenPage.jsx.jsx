@@ -1107,7 +1107,7 @@ function TokenPage() {
                 #RoseToGE6
               </span>
             </div>
-           {/* <p style={{ fontSize: "18px", color: "#8a7b9e", fontFamily: '"Mitr", sans-serif' }}>ยอดรวม Tokens จากโปรเจกต์ทั้งหมด</p> */}
+            <p style={{ fontSize: "12px", color: "#8a7b9e", fontFamily: '"Mitr", sans-serif' }}>*จะแสดงหลักฐานการโหวตยอดที่ได้จากการทบโทเคนก่อนประกาศผลด่วน 1 และจะไม่แสดงยอดโทเคนอีกจนถึงวันปิดโหวต</p> 
           </div>
           <div style={{ position: "relative", background: "linear-gradient(180deg, #ffffff 0%, #fdfcff 100%)", borderRadius: "32px", padding: "40px 20px 32px", width: "100%", maxWidth: "400px", margin: "0 auto", boxShadow: "0 24px 50px rgba(180, 140, 255, 0.15)", display: "flex", flexDirection: "column", alignItems: "center" }}>
             <NumberTicker value={totalTokens} />
