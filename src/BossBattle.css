@@ -1,0 +1,709 @@
+/* ═══════════════════════════════════════════════
+   🎮 BOSS BATTLE — Pixel Art RPG Style
+   ═══════════════════════════════════════════════ */
+
+.boss-battle-section {
+  background: #f9f5ff;
+  padding: 120px 20px 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Pixel scanline overlay */
+.boss-battle-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(107, 80, 197, 0.03) 2px,
+    rgba(107, 80, 197, 0.03) 4px
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+.boss-battle-inner {
+  max-width: 700px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+/* ─── Header ─── */
+.boss-title {
+  font-family: "Press Start 2P", monospace;
+  font-size: 20px;
+  color: #6b50c5;
+  text-align: center;
+  margin-bottom: 4px;
+  text-shadow: 2px 2px 0 #ffffff;
+}
+
+.boss-stage-navigator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.boss-nav-btn {
+  background: #ffffff;
+  border: 1px solid #eadeff;
+  color: #6b50c5;
+  border-radius: 4px;
+  padding: 4px 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.boss-nav-btn:hover:not(:disabled) {
+  background: #eadeff;
+}
+
+.boss-nav-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.boss-stage-label {
+  font-family: "Press Start 2P", monospace;
+  font-size: 12px;
+  color: #6b50c5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  font-weight: bold;
+}
+
+.stage-status-badge {
+  font-family: "Mitr", sans-serif;
+  font-size: 10px;
+  background: #ffb8c6;
+  color: #fff;
+  padding: 2px 6px;
+  border-radius: 4px;
+  text-shadow: none;
+  letter-spacing: 0;
+}
+
+/* ─── Boss Arena Container ─── */
+.boss-arena-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 28px;
+  width: 100%;
+}
+
+.boss-hp-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+/* ─── Battle Stage (Background + Sprites) ─── */
+.boss-arena-stage {
+  width: 100%;
+  max-width: 600px;
+  height: 250px;
+  background-image: url('/boss_arena_bg.jpg');
+  background-size: cover;
+  background-position: bottom;
+  border-radius: 12px;
+  border: 2px solid #eadeff;
+  box-shadow: 0 10px 30px rgba(107, 80, 197, 0.1), inset 0 0 20px rgba(0,0,0,0.2);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 20px;
+}
+
+/* ─── Heroes on Stage ─── */
+.arena-heroes {
+  position: relative;
+  width: 50%;
+  height: 100%;
+}
+
+.arena-hero {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: translate(-50%, -50%);
+  animation: idleBob 2s infinite ease-in-out alternate;
+}
+
+.arena-empty-text {
+  font-family: "Mitr", sans-serif;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 12px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  text-align: center;
+}
+
+@keyframes idleBob {
+  from { transform: translate(-50%, -50%) translateY(0); }
+  to { transform: translate(-50%, -50%) translateY(-4px); }
+}
+
+.arena-hero-name {
+  font-family: "Mitr", sans-serif;
+  font-size: 9px;
+  color: #fff;
+  text-shadow: 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
+  margin-bottom: 2px;
+  white-space: nowrap;
+}
+
+.arena-hero-img {
+  width: 32px;
+  height: 32px;
+  image-rendering: pixelated;
+}
+
+.boss-name {
+  font-family: "Press Start 2P", monospace;
+  font-size: 12px;
+  color: #6b50c5;
+  margin-bottom: 10px;
+  text-shadow: 1px 1px 0 #fff;
+}
+
+/* ─── HP Bar ─── */
+.boss-hp-container {
+  width: 100%;
+  max-width: 300px;
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.boss-hp-bar-bg {
+  width: 100%;
+  height: 20px;
+  background: #ffffff;
+  border: 2px solid #eadeff;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.boss-hp-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #b19aeb 0%, #8d73db 100%);
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 10px rgba(107, 80, 197, 0.3);
+}
+
+.boss-hp-bar-fill.critical {
+  background: linear-gradient(90deg, #ff4d4f 0%, #ff7875 100%);
+  box-shadow: 0 0 10px rgba(255, 77, 79, 0.3);
+}
+.boss-hp-bar-fill.dead {
+  background: #e2e8f0;
+  box-shadow: none;
+}
+
+@keyframes hpPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.boss-hp-text {
+  font-family: "Press Start 2P", monospace;
+  font-size: 9px;
+  color: #d4c0f0;
+  text-align: center;
+  margin-top: 6px;
+}
+
+/* ─── Boss Image ─── */
+.boss-arena-stage .boss-image-wrapper {
+  margin-bottom: 0;
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  width: 150px;
+  height: 150px;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.boss-image-wrapper.defeated .boss-image {
+  filter: grayscale(100%) opacity(0.6);
+}
+
+.boss-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  image-rendering: pixelated;
+  filter: drop-shadow(0 0 20px rgba(255, 80, 80, 0.3));
+  transition: filter 0.3s ease;
+}
+
+.boss-image-wrapper.shake {
+  animation: bossShake 0.4s cubic-bezier(0.25, 0, 0.1, 1);
+}
+
+@keyframes bossShake {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-6px, -2px); }
+  20% { transform: translate(6px, 2px); }
+  30% { transform: translate(-4px, 4px); }
+  40% { transform: translate(4px, -4px); }
+  50% { transform: translate(-2px, 2px); }
+  60% { transform: translate(2px, -2px); }
+  70% { transform: translate(-2px, 0); }
+  80% { transform: translate(2px, 0); }
+}
+
+.boss-image-wrapper.shake .boss-image {
+  filter: drop-shadow(0 0 20px rgba(255, 80, 80, 0.3)) brightness(2) saturate(0.3);
+}
+
+/* ─── Floating Damage ─── */
+.floating-dmg {
+  position: absolute;
+  font-family: "Press Start 2P", monospace;
+  font-size: 24px;
+  color: #e11d48;
+  text-shadow: 2px 2px 0 #fff, -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff;
+  animation: floatUp 1.5s ease-out forwards;
+  pointer-events: none;
+  z-index: 100;
+  white-space: nowrap;
+}
+
+@keyframes floatUp {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(0.8);
+  }
+  20% {
+    transform: translateY(-20px) scale(1.1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-80px) scale(0.9);
+  }
+}
+
+/* ─── Leaderboard ─── */
+.boss-leaderboard {
+  margin-bottom: 24px;
+}
+
+.boss-leaderboard-title {
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  color: #6b50c5;
+  text-align: center;
+  margin-bottom: 12px;
+  text-shadow: 1px 1px 0 #fff;
+}
+
+.boss-hero-rank {
+  font-size: 20px;
+  line-height: 1;
+}
+
+.boss-heroes {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.boss-hero-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 12px 8px;
+  background: #ffffff;
+  border: 1px solid #eadeff;
+  border-radius: 8px;
+  min-width: 80px;
+  color: #6b50c5;
+}
+
+.boss-hero-card.rank-1 {
+  background: rgba(251, 191, 36, 0.15);
+  border-color: rgba(251, 191, 36, 0.4);
+  box-shadow: 0 0 15px rgba(251, 191, 36, 0.2);
+}
+.boss-hero-card.rank-2 {
+  background: rgba(148, 163, 184, 0.15);
+  border-color: rgba(148, 163, 184, 0.4);
+}
+.boss-hero-card.rank-3 {
+  background: rgba(217, 119, 6, 0.15);
+  border-color: rgba(217, 119, 6, 0.4);
+}
+
+.boss-hero-weapon {
+  font-size: 24px;
+  line-height: 1;
+}
+
+.boss-hero-name {
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  color: #442f80;
+  text-align: center;
+}
+
+.boss-hero-dmg {
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  color: #e11d48;
+}
+
+/* ─── Attack Log ─── */
+.boss-log-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 24px;
+  width: 100%;
+}
+
+.boss-log {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid #eadeff;
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 16px;
+  width: 100%;
+  max-width: 500px;
+}
+
+.boss-btn-more {
+  background: #ffffff;
+  border: 1px solid #eadeff;
+  color: #6b50c5;
+  font-family: "Mitr", sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 8px 24px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.25, 0, 0.1, 1);
+}
+
+.boss-btn-more:hover {
+  background: #eadeff;
+  color: #6b50c5;
+  border-color: #d4c0f0;
+}
+
+.boss-log-title {
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  color: #6b50c5;
+  text-align: center;
+  margin-bottom: 16px;
+  border-bottom: 1px dashed #eadeff;
+  padding-bottom: 8px;
+}
+
+.boss-log-entry {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(160, 140, 192, 0.08);
+  font-family: "Mitr", sans-serif;
+  font-size: 13px;
+  color: #c8b8e0;
+}
+
+.boss-log-entry:last-child {
+  border-bottom: none;
+}
+
+.boss-log-entry .log-weapon {
+  font-size: 16px;
+}
+
+.boss-log-entry .log-name {
+  color: #e0d0f8;
+  font-weight: 500;
+  flex: 1;
+}
+
+.boss-log-entry .log-dmg {
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  color: #fbbf24;
+}
+
+/* ─── Stats Bar ─── */
+.boss-stats {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.boss-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.boss-stat-value {
+  font-family: "Press Start 2P", monospace;
+  font-size: 14px;
+  color: #f0c040;
+}
+
+.boss-stat-label {
+  font-family: "Mitr", sans-serif;
+  font-size: 12px;
+  color: #8a7bae;
+  font-weight: 400;
+}
+
+/* ─── Victory Screen ─── */
+.boss-victory {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.boss-victory-text {
+  font-family: "Press Start 2P", monospace;
+  font-size: 28px;
+  color: #6b50c5;
+  text-shadow: 3px 3px 0 #fff, -3px -3px 0 #fff, 3px -3px 0 #fff, -3px 3px 0 #fff;
+  margin-bottom: 16px;
+  animation: victoryPulse 2s infinite;
+}
+
+@keyframes victoryPulse {
+  0%, 100% { transform: scale(1); color: #6b50c5; }
+  50% { transform: scale(1.05); color: #8d73db; }
+}
+
+.boss-victory-sub {
+  font-family: "Mitr", sans-serif;
+  font-size: 16px;
+  color: #6b50c5;
+}
+
+/* ─── Stage Clear ─── */
+.stage-clear-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(4px);
+  z-index: 200;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.stage-clear-text {
+  font-family: "Press Start 2P", monospace;
+  font-size: 24px;
+  color: #6b50c5;
+  text-shadow: 2px 2px 0 #fff, -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff;
+  text-align: center;
+  animation: stageClearBounce 0.6s cubic-bezier(0.25, 0, 0.1, 1);
+}
+
+@keyframes stageClearBounce {
+  0% { transform: scale(0.5); opacity: 0; }
+  60% { transform: scale(1.1); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* ─── Weapon Legend ─── */
+.boss-weapon-legend {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  border: 1px solid #eadeff;
+  border-radius: 8px;
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.boss-weapon-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+}
+
+.boss-weapon-item .weapon-emoji {
+  font-size: 18px;
+}
+
+.boss-weapon-item .weapon-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.boss-weapon-item .weapon-name {
+  font-family: "Mitr", sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: #6b50c5;
+}
+
+.weapon-detail {
+  font-family: "Press Start 2P", monospace;
+  font-size: 7px;
+  color: #8d73db;
+}
+
+/* ─── All Heroes Modal ─── */
+.heroes-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.heroes-modal-content {
+  background: #f9f5ff;
+  border: 2px solid #eadeff;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 400px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  box-shadow: 0 10px 40px rgba(107, 80, 197, 0.2);
+}
+
+.heroes-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  font-size: 16px;
+  color: #8d73db;
+  cursor: pointer;
+  padding: 4px;
+}
+.heroes-modal-close:hover {
+  color: #e11d48;
+}
+
+.heroes-modal-title {
+  font-family: "Press Start 2P", monospace;
+  font-size: 12px;
+  color: #6b50c5;
+  text-align: center;
+  padding: 24px 20px 16px;
+  border-bottom: 2px dashed #eadeff;
+}
+
+.heroes-modal-list {
+  padding: 16px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.heroes-modal-item {
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid #eadeff;
+  padding: 10px 12px;
+  border-radius: 8px;
+  gap: 12px;
+}
+
+.heroes-modal-rank {
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  color: #8d73db;
+  min-width: 30px;
+}
+
+.heroes-modal-name {
+  font-family: "Mitr", sans-serif;
+  font-size: 14px;
+  color: #442f80;
+  flex: 1;
+  font-weight: 500;
+}
+
+.heroes-modal-dmg {
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  color: #e11d48;
+  text-align: right;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+  .boss-title {
+    font-size: 14px;
+  }
+  .boss-stage-label {
+    font-size: 8px;
+  }
+  .boss-image-wrapper {
+    width: 110px !important;
+    height: 110px !important;
+  }
+  .boss-arena-stage {
+    height: 200px;
+  }
+  .boss-heroes {
+    gap: 10px;
+  }
+  .boss-hero-card {
+    min-width: 70px;
+    padding: 8px 10px 6px;
+  }
+  .boss-victory-text {
+    font-size: 18px;
+  }
+  .boss-weapon-legend {
+    gap: 10px;
+  }
+  .boss-stats {
+    gap: 20px;
+  }
+  .floating-dmg {
+    font-size: 12px;
+  }
+}

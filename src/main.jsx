@@ -11,6 +11,7 @@ import MerchPage from './MerchPage.jsx';
 import DonationPage from "./DonationPage.jsx";
 import PlannerApp from "./Planner/PlannerApp.jsx";
 import './App.css';
+import BossBattlePage from './BossBattlePage.jsx';
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -23,6 +24,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/merch" element={<MerchPage />} />
         <Route path="/donation" element={<DonationPage />} />
         <Route path="/planner" element={<PlannerApp />} />
+        <Route path="/boss-battle" element={<BossBattlePage />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
