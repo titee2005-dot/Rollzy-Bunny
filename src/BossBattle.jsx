@@ -329,7 +329,7 @@ function BossBattle() {
             {/* Heroes (Left side) */}
             <div className="arena-heroes">
               {displayHeroes.length === 0 && !isViewingPast && (
-                <div className="arena-empty-text">Awaiting Heroes...</div>
+                <div className="arena-empty-text">Waiting Heroes...</div>
               )}
               {displayHeroes.map((heroName, i) => {
                 // Generate a consistent pseudo-random position based on hero name
