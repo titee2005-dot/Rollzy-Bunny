@@ -1214,14 +1214,14 @@ function TokenPage() {
             {(showAllProjects ? [...projects].reverse() : [...projects].reverse().slice(0, 2)).map((proj, index) => {
   // 1. เช็คว่าถ้าเป็น Billboard ให้ถือว่ากดไม่ได้ (isClickable = false)
   // หรือถ้าต้องการให้กดได้เฉพาะ SummerFest กับ Merch ก็ใช้:
-  // const isClickable = proj.Project === "SummerFest" || proj.Project === "Merch";
-  const isClickable = 
+    const isClickable = proj.Project === "SummerFest" || proj.Project === "Merch";
+  /*const isClickable = 
     proj.Project !== "Billboard" && 
     proj.Project !== "Shared" && 
     proj.Project !== "2-Shot" && 
     proj.Project !== "RoseToGE6 x 19thBloomingRose" && 
     proj.Project !== "RoseToGE6" &&
-    proj.Project !== "RoseIsOn5ire" ;  
+    proj.Project !== "RoseIsOn5ire" ;   */
 
   const isMerch = proj.Project && proj.Project.toLowerCase().includes("merch");
   const hintText = isMerch ? "สถานะการจัดส่ง" : "สถานะการโอนบัตร";
