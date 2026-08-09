@@ -71,8 +71,7 @@ const PROJECT_CONFIG = {
     placeholder: "",
     resultTitle: "",
     keyHint: []
-  }
-  ,
+  },
   "RoseIsOn5ire": { 
     icon: "/GExBD.JPG", // ใส่ Path รูปภาพใหม่ที่ต้องการที่นี่
     apiUrl: "", 
