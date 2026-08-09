@@ -73,7 +73,7 @@ const PROJECT_CONFIG = {
     keyHint: []
   },
   "RoseIsOn5ire": { 
-    icon: "/GExBD.JPG", // ใส่ Path รูปภาพใหม่ที่ต้องการที่นี่
+    icon: "/GE6.jpg", // ใส่ Path รูปภาพใหม่ที่ต้องการที่นี่
     apiUrl: "", 
     searchLabel: "",
     placeholder: "",
