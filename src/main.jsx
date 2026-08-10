@@ -12,6 +12,9 @@ import DonationPage from "./DonationPage.jsx";
 import PlannerApp from "./Planner/PlannerApp.jsx";
 import './App.css';
 import BossBattlePage from './BossBattlePage.jsx';
+import { inject } from '@vercel/analytics';
+
+inject();
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
