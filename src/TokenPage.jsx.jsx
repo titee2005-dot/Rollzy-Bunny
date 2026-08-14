@@ -714,7 +714,7 @@ function StoryRewardSection({ totalTokens }) {
                 fontFamily: '"Bebas Neue", sans-serif',
                 letterSpacing: "0.03em",
               }}>
-                {totalTokens.toLocaleString()}
+                {totalTokens > 15000 ? "15,000 + XXXX" : totalTokens.toLocaleString()}
               </span>
               <span style={{
                 fontSize: "13px",
@@ -1123,10 +1123,27 @@ function TokenPage() {
                 #RoseToGE6
               </span>
             </div>
-            <p style={{ fontSize: "12px", color: "#8a7b9e", fontFamily: '"Mitr", sans-serif' }}>*จะแสดงหลักฐานการโหวตยอดที่ได้จากการทบ tokens ก่อนประกาศผลด่วน 1 ผ่านทาง OpenChat และจะไม่แสดงยอดโทเคนอีกจนถึงวันปิดโหวต</p> 
+            {/*<p style={{ fontSize: "12px", color: "#8a7b9e", fontFamily: '"Mitr", sans-serif' }}>*จะแสดงหลักฐานการโหวตยอดที่ได้จากการทบ tokens ก่อนประกาศผลด่วน 1 ผ่านทาง OpenChat และจะไม่แสดงยอดโทเคนอีกจนถึงวันปิดโหวต</p> */}
+            <p style={{ fontSize: "12px", color: "#8a7b9e", fontFamily: '"Mitr", sans-serif' }}>หมายเหตุ : จะโหวตทั้งหมด 15,000 Tokens ก่อนผลด่วน 1 และยอดที่เกิน 15,000 Tokens จะไม่แสดงจำนวน โดยจะสรุปยอดทั้งหมดหลังประกาศผล</p> 
           </div>
-          <div style={{ position: "relative", background: "linear-gradient(180deg, #ffffff 0%, #fdfcff 100%)", borderRadius: "32px", padding: "40px 20px 32px", width: "100%", maxWidth: "400px", margin: "0 auto", boxShadow: "0 24px 50px rgba(180, 140, 255, 0.15)", display: "flex", flexDirection: "column", alignItems: "center" }}>
-            <NumberTicker value={totalTokens} />
+          <div style={{ position: "relative", background: "linear-gradient(180deg, #ffffff 0%, #fdfcff 100%)", borderRadius: "32px", padding: "40px 20px 32px", width: "100%", maxWidth: "500px", margin: "0 auto", boxShadow: "0 24px 50px rgba(180, 140, 255, 0.15)", display: "flex", flexDirection: "column", alignItems: "center" }}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "12px", flexWrap: "wrap", width: "100%" }}>
+              <NumberTicker value={Math.min(totalTokens, 15000)} />
+              {totalTokens > 15000 && (
+                <div style={{ 
+                  fontSize: "64px", 
+                  fontFamily: '"Bebas Neue", sans-serif', 
+                  fontWeight: "bold", 
+                  background: "linear-gradient(135deg, var(--accent), var(--accent-mint))", 
+                  WebkitBackgroundClip: "text", 
+                  WebkitTextFillColor: "transparent",
+                  lineHeight: "82px",
+                  whiteSpace: "nowrap"
+                }}>
+                  + XXXX
+                </div>
+              )}
+            </div>
             <div style={{ marginTop: "24px", display: "inline-flex", alignItems: "center", gap: "6px", padding: "5px 12px", background: "#f4f0ff", borderRadius: "999px", border: "1px solid #eadeff" }}>
               <div style={{ width: "7px", height: "7px", backgroundColor: "#22c55e", borderRadius: "50%", animation: "pulse-dot 2s infinite" }} />
               <span style={{ fontSize: "12px", fontWeight: "600", color: "#6b50c5", fontFamily: '"Mitr", sans-serif' }}>LIVE UPDATE</span>
