@@ -1120,7 +1120,7 @@ function TokenPage() {
                 fontFamily: '"Nunito", sans-serif',
                 letterSpacing: "-0.01em",
               }}>
-                #RoseToGE6
+                #RoseIsOn5ire
               </span>
             </div>
             {/*<p style={{ fontSize: "12px", color: "#8a7b9e", fontFamily: '"Mitr", sans-serif' }}>*จะแสดงหลักฐานการโหวตยอดที่ได้จากการทบ tokens ก่อนประกาศผลด่วน 1 ผ่านทาง OpenChat และจะไม่แสดงยอดโทเคนอีกจนถึงวันปิดโหวต</p> */}
