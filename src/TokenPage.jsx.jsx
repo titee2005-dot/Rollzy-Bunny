@@ -1275,7 +1275,7 @@ function TokenPage() {
       </h4>
       
       <div style={{ fontSize: "48px", fontFamily: '"Bebas Neue", sans-serif', background: "linear-gradient(135deg, var(--accent), var(--accent-mint))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", fontWeight: "bold", lineHeight: "1" }}>
-        {maskNumber(proj.Tokens || 0)}
+        {proj.Project === "RoseIsOn5ire" ? "XXXX" : maskNumber(proj.Tokens || 0)}
       </div>
       
       <div style={{ fontSize: "14px", color: "#a093b5", marginTop: "6px", fontWeight: "500", letterSpacing: "0.05em", fontFamily: '"Mitr", sans-serif' }}>
