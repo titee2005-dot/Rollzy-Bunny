@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+﻿import { useEffect, useState, useRef } from "react";
 import Navbar from "./Navbar.jsx"; 
 
 // 🌟 1. กำหนดเวลาเปิดโหวต ปิดโหวต และสถานะ
@@ -1274,7 +1274,7 @@ function TopDonateSection() {
         {/* Header */}
         <div style={{ textAlign: "center", marginBottom: "48px", opacity: appeared ? 1 : 0, transform: appeared ? "translateY(0)" : "translateY(16px)", transition: "all 0.6s ease" }}>
           <h2 style={{ fontSize: "clamp(40px, 8vw, 56px)", color: "#2c2537", fontFamily: '"Bebas Neue", sans-serif', marginBottom: "8px", letterSpacing: "2px", lineHeight: 1 }}>TOP DONATOR</h2>
-          <p style={{ fontSize: "15px", color: "#a093b5", fontFamily: '"Mitr", sans-serif' }}>ยอดโดเนทรวมจากทุกกิจกรรม ♥</p>
+          <p style={{ fontSize: "15px", color: "#a093b5", fontFamily: '"Mitr", sans-serif' }}>ยอดโดเนทรวมจากทุกกิจกรรม (แสดงยอดเต็มหลักประกาศผล GE6)</p>
         </div>
 
         {loading ? (
