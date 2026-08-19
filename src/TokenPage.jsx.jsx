@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+﻿import { useEffect, useState, useRef } from "react";
 import Navbar from "./Navbar.jsx"; 
 
 // 🌟 1. กำหนดเวลาเปิดโหวต ปิดโหวต และสถานะ
@@ -680,8 +680,8 @@ function StoryRewardSection({ totalTokens }) {
         {/* ─── Section Header ─── */}
         <div style={{ marginBottom: "44px" }}>
           <div style={{ fontSize: "40px", marginBottom: "8px" }}>📖</div>
-          <h2 style={{ fontSize: "52px", color: "#2c2537", fontFamily: '"Bebas Neue", sans-serif', marginBottom: "6px", letterSpacing: "0.04em" }}>Special Story</h2>
-          <p style={{ fontSize: "15px", color: "#8a7b9e", fontFamily: '"Mitr", sans-serif', marginBottom: "32px", fontWeight: "400" }}>ภารกิจพิเศษ สะสม Token เพื่อปลดล็อคตอน</p>
+          <h2 style={{ fontSize: "56px", color: "#2c2537", fontFamily: '"Bebas Neue", sans-serif', marginBottom: "6px", letterSpacing: "0.04em" }}>Special Story</h2>
+          <p style={{ fontSize: "18px", color: "#8a7b9e", fontFamily: '"Mitr", sans-serif', marginBottom: "32px", fontWeight: "400" }}>ภารกิจพิเศษ สะสม Token เพื่อปลดล็อคตอน</p>
 
           {/* ─── Progress Bar ─── */}
           <div style={{ maxWidth: "480px", margin: "0 auto" }}>
@@ -1314,11 +1314,16 @@ function TopDonateSection() {
 
         @media (max-width: 640px) {
           .td-donor-section { padding: 48px 20px 60px !important; }
-          .td-header-wrap { margin-bottom: 28px !important; }
-          .td-header-title { margin-bottom: 2px !important; }
+          .td-header-wrap { margin-bottom: 4px !important; }
+          .td-header-title { 
+          margin-bottom: 18px !important;
+          font-size: 56px !important;  
+          }
           .td-header-subtitle { 
-            font-size: clamp(10px, 3.2vw, 15px) !important; 
-            white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important;
+            font-size: 14px !important; 
+            letter-spacing: -0.2px !important;
+            white-space: nowrap !important; overflow: visible !important;
+            margin-bottom: 4px !important;
           }
 
           .td-podium-wrap { gap: 4px !important; margin-bottom: 24px !important; align-items: flex-end !important; justify-content: center !important; }
@@ -1359,7 +1364,7 @@ function TopDonateSection() {
             margin-top: 0 !important; font-size: 12px !important; font-weight: 600 !important; line-height: 1.2 !important; white-space: normal !important; overflow: visible !important; word-break: break-word !important; margin-bottom: 0 !important; 
           }
           .td-donor-count {
-            font-size: 8.5px !important; margin-top: 4px !important; margin-bottom: 9px !important; padding: 2px 6px !important; line-height: 1.1 !important; color: #867a96 !important; background: rgba(255, 255, 255, 0.35) !important; backdrop-filter: blur(6px) !important; -webkit-backdrop-filter: blur(6px) !important; border: 1px solid rgba(255, 255, 255, 0.8) !important; font-weight: normal !important; box-shadow: 0 2px 8px rgba(0,0,0,0.02), inset 0 1px 0 rgba(255,255,255,1) !important;
+            font-size: 8.5px !important; margin-top: 5px !important; margin-bottom: 11px !important; padding: 2px 6px !important; line-height: 1.1 !important; color: #867a96 !important; background: rgba(255, 255, 255, 0.35) !important; backdrop-filter: blur(6px) !important; -webkit-backdrop-filter: blur(6px) !important; border: 1px solid rgba(255, 255, 255, 0.8) !important; font-weight: normal !important; box-shadow: 0 2px 8px rgba(0,0,0,0.02), inset 0 1px 0 rgba(255,255,255,1) !important;
           }
           .td-donor-amount { 
             margin-top: 0 !important; font-size: 11px !important; font-weight: 600 !important; font-family: "MyOpunMai", sans-serif !important; line-height: 1.2 !important; 
@@ -1370,8 +1375,8 @@ function TopDonateSection() {
       <div style={{ maxWidth: "800px", margin: "0 auto", width: "100%", position: "relative" }}>
         {/* Header */}
         <div className="td-header-wrap" style={{ textAlign: "center", marginBottom: "48px", opacity: appeared ? 1 : 0, transform: appeared ? "translateY(0)" : "translateY(16px)", transition: "all 0.6s ease" }}>
-          <h2 className="td-header-title" style={{ fontSize: "clamp(40px, 8vw, 56px)", color: "#2c2537", fontFamily: '"Bebas Neue", sans-serif', marginBottom: "8px", letterSpacing: "2px", lineHeight: 1 }}>TOP DONATOR</h2>
-          <p className="td-header-subtitle" style={{ fontSize: "15px", color: "#a093b5", fontFamily: '"Mitr", sans-serif' }}>ยอดโดเนทรวมจากทุกกิจกรรม (แสดงยอดเต็มหลังประกาศผล GE6)</p>
+          <h2 className="td-header-title" style={{ fontSize: "clamp(40px, 8vw, 56px)", color: "#2c2537", fontFamily: '"Bebas Neue", sans-serif', marginBottom: "14px", letterSpacing: "2px", lineHeight: 1 }}>TOP DONATOR</h2>
+          <p className="td-header-subtitle" style={{ fontSize: "18px", color: "#a093b5", marginBottom: "64px", fontFamily: '"Mitr", sans-serif' }}>ยอดโดเนทรวมจากทุกกิจกรรม (แสดงยอดเต็มหลังประกาศผล GE6)</p>
         </div>
 
         {loading ? (
@@ -1875,7 +1880,7 @@ function TokenPage() {
 
       <section className="page-section" style={{ padding: "80px 20px" }}>
         <div className="page-section-inner" style={{ textAlign: "center", width: "100%" }}>
-          <h2 style={{ fontSize: "56px", color: "#2c2537", fontFamily: '"Bebas Neue", sans-serif', marginBottom: "40px" }}>TOKENS BY PROJECT</h2>
+          <h2 style={{ fontSize: "56px", color: "#2c2537", fontFamily: '"Bebas Neue", sans-serif', marginBottom: "4px" }}>TOKENS BY PROJECT</h2>
           <p style={{ fontSize: "18px", color: "#8a7b9e", fontFamily: '"Mitr", sans-serif', marginBottom: "40px" }}>รายละเอียดจากแต่ละโปรเจกต์ย่อย</p>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))", gap: "24px", maxWidth: "800px", margin: "0 auto" }}>
             {(showAllProjects ? [...projects].reverse() : [...projects].reverse().slice(0, 2)).map((proj, index) => {
