@@ -1,4 +1,4 @@
-﻿import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import Navbar from "./Navbar.jsx"; 
 
 // 🌟 1. กำหนดเวลาเปิดโหวต ปิดโหวต และสถานะ
@@ -1254,19 +1254,27 @@ function TopDonateSection() {
              width: 76px !important; height: 76px !important;
           }
           .td-pill { 
-            margin-top: 0 !important; margin-left: 0 !important; 
+            margin-top: 36px !important; margin-left: 0 !important; 
             padding: 12px 4px !important; 
             flex-direction: column !important; align-items: center !important; justify-content: center !important;
           }
           .td-rank-num { 
-            top: -16px !important; font-size: 32px !important; 
+            top: -34px !important; font-size: 32px !important; 
             left: 50% !important; transform: translateX(-50%) rotate(0deg) !important; margin-left: 0 !important;
+          }
+          .td-podium-card.rank-1 .td-rank-num {
+            top: -42px !important; font-size: 38px !important;
           }
           .td-text-wrap {
             align-items: center !important; text-align: center !important;
+            margin-top: 4px !important;
           }
-          .td-donor-name { margin-top: 0 !important; font-size: 11px !important; font-weight: bold !important; line-height: 1.2 !important; white-space: normal !important; overflow: visible !important; word-break: break-word !important; }
-          .td-donor-amount { margin-top: 4px !important; font-size: 10px !important; font-weight: bold !important; font-family: "MyOpunMai", sans-serif !important; line-height: 1.2 !important; }
+          .td-donor-name { 
+            margin-top: 0 !important; font-size: 12px !important; font-weight: 600 !important; line-height: 1.2 !important; white-space: normal !important; overflow: visible !important; word-break: break-word !important; margin-bottom: 12px !important; 
+          }
+          .td-donor-amount { 
+            margin-top: 0 !important; font-size: 11px !important; font-weight: 600 !important; font-family: "MyOpunMai", sans-serif !important; line-height: 1.2 !important; 
+          }
         }
       `}</style>
 
@@ -1274,7 +1282,7 @@ function TopDonateSection() {
         {/* Header */}
         <div style={{ textAlign: "center", marginBottom: "48px", opacity: appeared ? 1 : 0, transform: appeared ? "translateY(0)" : "translateY(16px)", transition: "all 0.6s ease" }}>
           <h2 style={{ fontSize: "clamp(40px, 8vw, 56px)", color: "#2c2537", fontFamily: '"Bebas Neue", sans-serif', marginBottom: "8px", letterSpacing: "2px", lineHeight: 1 }}>TOP DONATOR</h2>
-          <p style={{ fontSize: "15px", color: "#a093b5", fontFamily: '"Mitr", sans-serif' }}>ยอดโดเนทรวมจากทุกกิจกรรม (แสดงยอดเต็มหลักประกาศผล GE6)</p>
+          <p style={{ fontSize: "15px", color: "#a093b5", fontFamily: '"Mitr", sans-serif' }}>ยอดโดเนทรวมจากทุกกิจกรรม (แสดงยอดเต็มหลังประกาศผล GE6)</p>
         </div>
 
         {loading ? (
@@ -1315,7 +1323,7 @@ function TopDonateSection() {
                         {/* Rank Number */}
                         <div className="td-rank-num" style={{
                           position: "absolute",
-                          top: donor.rank === 1 ? "-24px" : "-18px",
+                          top: donor.rank === 1 ? "-32px" : "-24px",
                           left: "50%",
                           transform: "translateX(-50%) rotate(-6deg)",
                           fontSize: donor.rank === 1 ? "46px" : "36px",
