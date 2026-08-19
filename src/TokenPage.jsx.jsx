@@ -1114,7 +1114,7 @@ function TopDonateSection() {
           // Auto-convert Google Drive share links to direct image links
           const driveMatch = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
           if (driveMatch && url.includes('drive.google.com')) {
-            return `https://drive.google.com/uc?export=view&id=${driveMatch[1]}`;
+            return `https://lh3.googleusercontent.com/d/${driveMatch[1]}=s400`;
           }
           return url;
         };
@@ -1240,32 +1240,34 @@ function TopDonateSection() {
         }
 
         @media (max-width: 640px) {
-          .td-podium-wrap { flex-direction: column; align-items: center; gap: 0px; margin-bottom: 32px; }
-          .td-podium-card { width: 100% !important; max-width: 380px; margin-bottom: 16px; padding: 0 !important; }
-          .td-podium-inner { flex-direction: row !important; padding: 12px 10px !important; }
+          .td-podium-wrap { gap: 6px; margin-bottom: 24px; align-items: flex-end; justify-content: center; }
+          .td-podium-card { width: 32% !important; margin: 0 !important; padding: 0 !important; }
+          .td-podium-inner { padding: 12px 4px !important; flex-direction: column !important; }
           
           .td-avatar { 
-            width: 64px !important; height: 64px !important; 
-            margin-bottom: 0 !important; margin-right: 16px !important;
-            border-width: 3px !important; 
+            width: 60px !important; height: 60px !important; 
+            margin-bottom: 12px !important; margin-right: 0 !important;
+            border-width: 2px !important; 
             border-radius: 12px !important; font-size: 20px !important;
+          }
+          .td-podium-card.rank-1 .td-avatar {
+             width: 76px !important; height: 76px !important;
           }
           .td-pill { 
             margin-top: 0 !important; margin-left: 0 !important; 
-            padding: 12px 16px !important; 
-            flex-direction: row !important; align-items: center !important; justify-content: flex-start !important;
-            box-shadow: inset 0 0 0 2px #fff, 0 6px 20px rgba(107,80,197,0.05) !important;
+            padding: 12px 4px !important; 
+            flex-direction: column !important; align-items: center !important; justify-content: center !important;
           }
           .td-rank-num { 
-            top: -8px !important; left: -8px !important; font-size: 28px !important; 
-            transform: rotate(-6deg) !important; margin-left: 0 !important;
+            top: -16px !important; font-size: 32px !important; 
+            left: 50% !important; transform: translateX(-50%) rotate(0deg) !important; margin-left: 0 !important;
           }
           .td-text-wrap {
-            align-items: flex-start !important;
+            align-items: center !important; text-align: center !important;
           }
-          .td-donor-name { margin-top: 0 !important; font-size: 15px !important; font-weight: 600 !important; line-height: 1.4 !important; }
-          .td-donor-amount { margin-top: 6px !important; font-size: 14px !important; font-weight: 600 !important; font-family: "MyOpunMai", sans-serif !important; line-height: 1.3 !important; }
-
+          .td-donor-name { margin-top: 0 !important; font-size: 11px !important; font-weight: bold !important; line-height: 1.2 !important; white-space: normal !important; overflow: visible !important; word-break: break-word !important; }
+          .td-donor-amount { margin-top: 4px !important; font-size: 10px !important; font-weight: bold !important; font-family: "MyOpunMai", sans-serif !important; line-height: 1.2 !important; }
+        }
       `}</style>
 
       <div style={{ maxWidth: "800px", margin: "0 auto", width: "100%", position: "relative" }}>
