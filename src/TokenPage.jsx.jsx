@@ -1339,15 +1339,14 @@ function TopDonateSection() {
                           border: "3px solid #fff",
                           boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
                           marginBottom: "16px",
-                          position: "relative",
-                          overflow: "hidden"
+                          position: "relative"
                         }}>
                           {donor.image && (
                             <img 
                               src={donor.image} 
                               alt="" 
                               referrerPolicy="no-referrer"
-                              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                              style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "13px" }}
                               onError={(e) => {
                                 e.target.style.display = 'none';
                                 e.target.nextSibling.style.display = 'flex';
