@@ -1012,8 +1012,527 @@ function StoryRewardSection({ totalTokens }) {
 
 
 // ============================================================================
+// COMPONENT: CurrentActivitiesSection
+// ============================================================================
+const ACTIVITIES = [
+  // ตัวอย่าง:
+  // { title: "เปิดรับโดเนท", date: "1 ส.ค. 2026", status: "completed", description: "เปิดรับบริจาคผ่าน QR Code" },
+  // { title: "สั่งทำป้ายโฆษณา", date: "15 ส.ค. 2026", status: "active", description: "อยู่ระหว่างการออกแบบ" },
+  // { title: "ติดตั้งป้ายที่สถานี BTS", date: "1 ก.ย. 2026", status: "upcoming", description: "" },
+];
+
+function CurrentActivitiesSection() {
+  // ซ่อน section นี้ชั่วคราวตามที่ผู้ใช้ขอ
+  return null;
+  return (
+    <section className="page-section" style={{ padding: "60px 20px", background: "#fdfcff" }}>
+      <style>{`
+        @keyframes pulse-dot { 
+          0% { transform: scale(0.8); opacity: 0.5; } 
+          50% { transform: scale(1.2); opacity: 1; } 
+          100% { transform: scale(0.8); opacity: 0.5; } 
+        }
+      `}</style>
+      <div style={{ maxWidth: "600px", margin: "0 auto", width: "100%" }}>
+        <div style={{ textAlign: "center", marginBottom: "40px" }}>
+          <h2 style={{ fontSize: "52px", color: "#2c2537", fontFamily: '"Bebas Neue", sans-serif', marginBottom: "6px" }}>CURRENT ACTIVITIES</h2>
+          <p style={{ fontSize: "16px", color: "#8a7b9e", fontFamily: '"Mitr", sans-serif' }}>อัปเดตสถานะและกิจกรรมของโปรเจกต์</p>
+        </div>
+
+        {ACTIVITIES.length === 0 ? (
+          <div style={{ textAlign: "center", padding: "40px", background: "#ffffff", borderRadius: "20px", border: "1px dashed #eadeff" }}>
+            <div style={{ fontSize: "32px", marginBottom: "12px", opacity: 0.5 }}>📅</div>
+            <div style={{ fontSize: "15px", color: "#a093b5", fontFamily: '"Mitr", sans-serif' }}>ยังไม่มีกิจกรรมในขณะนี้</div>
+          </div>
+        ) : (
+          <div style={{ position: "relative", paddingLeft: "16px" }}>
+            <div style={{ position: "absolute", left: "22px", top: "10px", bottom: "10px", width: "2px", background: "linear-gradient(to bottom, #c574ff, #f8b6e8)" }}></div>
+            {ACTIVITIES.map((activity, index) => {
+              const isCompleted = activity.status === "completed";
+              const isActive = activity.status === "active";
+              
+              let dotColor = "#cbd5e1"; // upcoming
+              if (isCompleted) dotColor = "#16a34a";
+              if (isActive) dotColor = "#c574ff";
+
+              return (
+                <div key={index} style={{ position: "relative", marginBottom: index === ACTIVITIES.length - 1 ? 0 : "32px", paddingLeft: "32px" }}>
+                  <div style={{ 
+                    position: "absolute", left: "-3px", top: "4px", width: "14px", height: "14px", 
+                    borderRadius: "50%", background: dotColor, border: "3px solid #fdfcff",
+                    boxShadow: isActive ? "0 0 0 4px rgba(197, 116, 255, 0.2)" : "none",
+                    animation: isActive ? "pulse-dot 2s infinite" : "none"
+                  }}></div>
+                  
+                  <div style={{ background: "#ffffff", padding: "20px", borderRadius: "16px", border: "1px solid #eadeff", boxShadow: "0 4px 12px rgba(180, 140, 255, 0.05)" }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "8px" }}>
+                      <div>
+                        <h4 style={{ margin: "0 0 4px 0", fontSize: "16px", color: "#2c2537", fontFamily: '"Mitr", sans-serif', fontWeight: "600" }}>{activity.title}</h4>
+                        <div style={{ fontSize: "13px", color: "#a093b5", fontFamily: '"Mitr", sans-serif' }}>{activity.date}</div>
+                      </div>
+                      <div style={{ 
+                        padding: "4px 10px", borderRadius: "999px", fontSize: "11px", fontWeight: "600", fontFamily: '"Mitr", sans-serif',
+                        background: isCompleted ? "#f0fdf4" : (isActive ? "#faf5ff" : "#f8fafc"),
+                        color: isCompleted ? "#16a34a" : (isActive ? "#c574ff" : "#64748b"),
+                        border: `1px solid ${isCompleted ? "#bbf7d0" : (isActive ? "#eadeff" : "#e2e8f0")}`
+                      }}>
+                        {isCompleted ? "เสร็จสิ้น" : (isActive ? "กำลังดำเนินการ" : "เร็วๆ นี้")}
+                      </div>
+                    </div>
+                    {activity.description && (
+                      <div style={{ fontSize: "14px", color: "#64748b", fontFamily: '"Mitr", sans-serif', marginTop: "12px", paddingTop: "12px", borderTop: "1px dashed #e2e8f0" }}>
+                        {activity.description}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}
+
+// ============================================================================
+// COMPONENT: TopDonateSection
+// ============================================================================
+function TopDonateSection() {
+  const [donors, setDonors] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [showAllDonors, setShowAllDonors] = useState(false);
+  const [appeared, setAppeared] = useState(false);
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    fetch("https://opensheet.elk.sh/1UPM1vEUMriWyQvQ_GVj8lr__JpgT67lYsrH05I-di4Y/จัดอันดับโดเนท")
+      .then(res => res.json())
+      .then(data => {
+        const processImageUrl = (url) => {
+          if (!url || !url.startsWith('http')) return null;
+          // Auto-convert Google Drive share links to direct image links
+          const driveMatch = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
+          if (driveMatch && url.includes('drive.google.com')) {
+            return `https://drive.google.com/uc?export=view&id=${driveMatch[1]}`;
+          }
+          return url;
+        };
+
+        const parsed = data
+          .map(row => {
+            const keys = Object.keys(row);
+            return {
+              rank: parseInt(row[keys[0]], 10),
+              name: row[keys[1]],
+              amount: row[keys[2]],
+              image: processImageUrl(row[keys[3]])
+            };
+          })
+          .filter(d => !isNaN(d.rank) && d.name && d.name !== "Total");
+        setDonors(parsed);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error(err);
+        setLoading(false);
+      });
+  }, []);
+
+  useEffect(() => {
+    if (!sectionRef.current || loading) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setAppeared(true); observer.disconnect(); } },
+      { threshold: 0.15 }
+    );
+    observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, [loading]);
+
+  const top3 = donors.slice(0, 3);
+  const restAll = donors.slice(3);
+  const visibleRest = showAllDonors ? restAll : restAll.slice(0, 5);
+  const getAvatarChar = (name) => name ? name.charAt(0).toUpperCase() : "?";
+  
+  const maskAmount = (amountStr) => {
+    if (!amountStr) return "0";
+    const str = String(amountStr).split('.')[0].trim();
+    if (str.length === 0) return "0";
+    
+    const numValue = parseInt(str.replace(/,/g, ''), 10);
+    if (!isNaN(numValue) && numValue < 100) {
+      return str;
+    }
+
+    let res = str.charAt(0);
+    for (let i = 1; i < str.length; i++) {
+      const c = str.charAt(i);
+      res += (c >= '0' && c <= '9') ? 'X' : c;
+    }
+    return res;
+  };
+
+  const podiumOrder = [top3[1], top3[0], top3[2]].filter(Boolean);
+
+  const rankMeta = {
+    1: { bgColor: "#ffeca8", borderColor: "#f2bb24", textColor: "#946300", accent: "#f2a600", size: 84 },
+    2: { bgColor: "#e6eef5", borderColor: "#bccfdf", textColor: "#4b657d", accent: "#8eb1d1", size: 70 },
+    3: { bgColor: "#fce9d2", borderColor: "#e6bc91", textColor: "#995d1f", accent: "#da9853", size: 70 }
+  };
+
+  return (
+    <section ref={sectionRef} className="page-section td-donor-section" style={{ padding: "80px 20px 60px", background: "linear-gradient(180deg, #fcfaff 0%, #f7f3ff 100%)", position: "relative" }}>
+      <style>{`
+        @import url('https://cdn.jsdelivr.net/gh/lazywasabi/thai-web-fonts@7/fonts/LINESeedSansTH/LINESeedSansTH.css');
+        
+        .td-donor-name, .td-donor-amount, .td-rest-row * {
+          font-family: 'LINE Seed Sans TH', sans-serif !important;
+        }
+
+        @keyframes td-spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        .td-podium-wrap {
+          display: flex; justify-content: center; align-items: flex-end;
+          gap: 20px; margin-bottom: 64px; margin-top: 16px;
+        }
+        .td-podium-card {
+          position: relative; text-align: center; cursor: default;
+        }
+        .td-podium-inner {
+          position: relative; display: flex; flex-direction: column; align-items: center;
+          transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+          width: 100%;
+        }
+        .td-podium-card.rank-1 { width: 200px; z-index: 3; }
+        .td-podium-card.rank-2 { width: 170px; z-index: 2; }
+        .td-podium-card.rank-3 { width: 170px; z-index: 1; }
+
+        .td-pill {
+          width: 100%; display: flex; flex-direction: column; align-items: center;
+          box-shadow: inset 0 0 0 3px #fff, 0 10px 30px rgba(107,80,197,0.06);
+          position: relative; z-index: 4;
+        }
+        .td-avatar {
+          border: 4px solid #fff; box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+          z-index: 5; background-color: #fff;
+        }
+
+        .td-rest-row {
+          display: flex; align-items: center; padding: 14px 20px;
+          transition: background 0.25s ease; cursor: default;
+        }
+        .td-rest-row:hover {
+          background: rgba(234,222,255,0.25) !important;
+        }
+
+        .td-show-btn {
+          background: #fff; border: 1px solid #eadeff;
+          border-radius: 99px; padding: 10px 28px;
+          color: #7c5cbf; font-size: 14px; font-weight: bold;
+          font-family: 'LINE Seed Sans TH', sans-serif; cursor: pointer;
+          display: flex; align-items: center; gap: 8px;
+          transition: all 0.25s ease;
+        }
+        .td-show-btn:hover {
+          border-color: #c574ff;
+          box-shadow: 0 4px 16px rgba(107,80,197,0.08);
+          transform: translateY(-2px);
+        }
+
+        @media (max-width: 640px) {
+          .td-podium-wrap { flex-direction: column; align-items: center; gap: 0px; margin-bottom: 32px; }
+          .td-podium-card { width: 100% !important; max-width: 380px; margin-bottom: 16px; padding: 0 !important; }
+          .td-podium-inner { flex-direction: row !important; padding: 12px 10px !important; }
+          
+          .td-avatar { 
+            width: 64px !important; height: 64px !important; 
+            margin-bottom: 0 !important; margin-right: 16px !important;
+            border-width: 3px !important; 
+            border-radius: 12px !important; font-size: 20px !important;
+          }
+          .td-pill { 
+            margin-top: 0 !important; margin-left: 0 !important; 
+            padding: 12px 16px !important; 
+            flex-direction: row !important; align-items: center !important; justify-content: flex-start !important;
+            box-shadow: inset 0 0 0 2px #fff, 0 6px 20px rgba(107,80,197,0.05) !important;
+          }
+          .td-rank-num { 
+            top: -8px !important; left: -8px !important; font-size: 28px !important; 
+            transform: rotate(-6deg) !important; margin-left: 0 !important;
+          }
+          .td-text-wrap {
+            align-items: flex-start !important;
+          }
+          .td-donor-name { margin-top: 0 !important; font-size: 15px !important; font-weight: 600 !important; line-height: 1.4 !important; }
+          .td-donor-amount { margin-top: 6px !important; font-size: 14px !important; font-weight: 600 !important; font-family: "MyOpunMai", sans-serif !important; line-height: 1.3 !important; }
+
+      `}</style>
+
+      <div style={{ maxWidth: "800px", margin: "0 auto", width: "100%", position: "relative" }}>
+        {/* Header */}
+        <div style={{ textAlign: "center", marginBottom: "48px", opacity: appeared ? 1 : 0, transform: appeared ? "translateY(0)" : "translateY(16px)", transition: "all 0.6s ease" }}>
+          <h2 style={{ fontSize: "clamp(40px, 8vw, 56px)", color: "#2c2537", fontFamily: '"Bebas Neue", sans-serif', marginBottom: "8px", letterSpacing: "2px", lineHeight: 1 }}>TOP DONATOR</h2>
+          <p style={{ fontSize: "15px", color: "#a093b5", fontFamily: '"Mitr", sans-serif' }}>ยอดโดเนทรวมจากทุกกิจกรรม ♥</p>
+        </div>
+
+        {loading ? (
+          <div style={{ textAlign: "center", padding: "60px 20px" }}>
+            <div style={{ width: "36px", height: "36px", border: "3px solid #eadeff", borderTop: "3px solid #c574ff", borderRadius: "50%", animation: "td-spin 0.8s linear infinite", margin: "0 auto 14px" }}></div>
+            <div style={{ fontFamily: '"Mitr", sans-serif', color: "#a093b5", fontSize: "14px" }}>กำลังโหลดข้อมูล...</div>
+          </div>
+        ) : donors.length > 0 ? (
+          <>
+            {/* === PODIUM TOP 3 === */}
+            <div className="td-podium-wrap">
+              {podiumOrder.map((donor) => {
+                const meta = rankMeta[donor.rank];
+                const delay = donor.rank === 1 ? 0.1 : donor.rank === 2 ? 0.25 : 0.4;
+
+                return (
+                  <div
+                    key={donor.rank}
+                    className={`td-podium-card rank-${donor.rank}`}
+                    style={{
+                      width: donor.rank === 1 ? "180px" : "150px",
+                      opacity: appeared ? 1 : 0,
+                      transform: appeared ? "translateY(0)" : "translateY(24px)",
+                      transition: `opacity 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) ${delay}s, transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) ${delay}s`
+                    }}
+                  >
+                    <div className="td-podium-inner" style={{ width: "100%", position: "relative" }}>
+                      {/* Pill Background wraps everything */}
+                      <div className="td-pill" style={{
+                        background: meta.bgColor,
+                        borderRadius: "20px",
+                        border: `2px solid ${meta.borderColor}`,
+                        boxShadow: `inset 0 0 0 2px #fff, 0 6px 20px rgba(107,80,197,0.05)`,
+                        padding: donor.rank === 1 ? "36px 16px 24px" : "32px 12px 20px",
+                        display: "flex", flexDirection: "column", alignItems: "center",
+                        width: "100%", position: "relative"
+                      }}>
+                        {/* Rank Number */}
+                        <div className="td-rank-num" style={{
+                          position: "absolute",
+                          top: donor.rank === 1 ? "-24px" : "-18px",
+                          left: "50%",
+                          transform: "translateX(-50%) rotate(-6deg)",
+                          fontSize: donor.rank === 1 ? "46px" : "36px",
+                          fontWeight: "900", fontStyle: "italic", fontFamily: '"Mitr", sans-serif',
+                          color: "#fff",
+                          WebkitTextStroke: `2px ${meta.accent}`,
+                          textShadow: `3px 4px 0px rgba(0,0,0,0.08)`,
+                          zIndex: 10
+                        }}>
+                          #{donor.rank}
+                        </div>
+
+                        {/* Avatar */}
+                        <div className="td-avatar" style={{
+                          width: donor.rank === 1 ? "110px" : "90px",
+                          height: donor.rank === 1 ? "110px" : "90px",
+                          borderRadius: "16px",
+                          background: meta.accent,
+                          display: "flex", alignItems: "center", justifyContent: "center",
+                          color: "#fff", fontSize: "32px", fontWeight: "bold", fontFamily: '"Mitr", sans-serif',
+                          border: "3px solid #fff",
+                          boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
+                          marginBottom: "16px",
+                          position: "relative",
+                          overflow: "hidden"
+                        }}>
+                          {donor.image && (
+                            <img 
+                              src={donor.image} 
+                              alt="" 
+                              referrerPolicy="no-referrer"
+                              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                              onError={(e) => {
+                                e.target.style.display = 'none';
+                                e.target.nextSibling.style.display = 'flex';
+                              }}
+                            />
+                          )}
+                          <span style={{ 
+                            display: donor.image ? 'none' : 'flex', 
+                            alignItems: 'center', justifyContent: 'center', 
+                            width: '100%', height: '100%' 
+                          }}>
+                            {getAvatarChar(donor.name)}
+                          </span>
+                          
+                          {/* Decorations for Rank 1 */}
+                          {donor.rank === 1 && (
+                            <>
+                              {/* Crown */}
+                              <svg width="36" height="36" viewBox="0 0 24 24" fill="#f2a600" 
+                                style={{ 
+                                  position: "absolute", top: "-16px", right: "-14px", 
+                                  transform: "rotate(15deg)", filter: "drop-shadow(0px 2px 4px rgba(0,0,0,0.15))", zIndex: 10 
+                                }}>
+                                <path d="M3 7l4.5 5.5L12 4l4.5 8.5L21 7v11H3V7z" stroke="#fff" strokeWidth="1.5" strokeLinejoin="round"/>
+                              </svg>
+
+                            </>
+                          )}
+                        </div>
+
+                        <div className="td-text-wrap" style={{ display: "flex", flexDirection: "column", alignItems: "center", width: "100%", overflow: "hidden" }}>
+                          {/* Name */}
+                          <div className="td-donor-name" style={{
+                            fontSize: donor.rank === 1 ? "18px" : "15px",
+                            fontWeight: "bold", color: "#4a3f5c",
+                            fontFamily: '"Mitr", sans-serif',
+                            whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis",
+                            maxWidth: "100%", lineHeight: "1.4", textAlign: "center"
+                          }}>
+                            {donor.name}
+                          </div>
+
+                          {/* Amount */}
+                          <div className="td-donor-amount" style={{
+                            fontSize: donor.rank === 1 ? "16px" : "14px",
+                            fontWeight: "bold", fontFamily: '"MyOpunMai", sans-serif',
+                            color: "#4a3f5c", marginTop: "6px", lineHeight: "1.3", textAlign: "center"
+                          }}>
+                            ฿{maskAmount(donor.amount)}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* === REST LIST (rank 4+) === */}
+            {restAll.length > 0 && (
+              <div style={{
+                background: "#f8fbfb", border: "1px solid #e4eae9", borderRadius: "8px",
+                overflow: "hidden", boxShadow: "0 2px 12px rgba(0,0,0,0.03)",
+                opacity: appeared ? 1 : 0, transform: appeared ? "translateY(0)" : "translateY(16px)",
+                transition: "all 0.5s ease 0.5s",
+                marginTop: "32px"
+              }}>
+                {/* List header (Styled like the image) */}
+                <div style={{
+                  padding: "12px 20px",
+                  background: "#cca2c0",
+                  display: "flex", justifyContent: "center", alignItems: "center",
+                  position: "relative"
+                }}>
+                  <span style={{ fontSize: "15px", fontWeight: "600", color: "#ffffff", fontFamily: '"LINE Seed Sans TH", sans-serif' }}>
+                    รายชื่อผู้สนับสนุนทั้งหมด
+                  </span>
+                  <span style={{
+                    position: "absolute", right: "20px",
+                    fontSize: "12px", fontWeight: "600", color: "#cca2c0",
+                    fontFamily: '"LINE Seed Sans TH", sans-serif',
+                    background: "#ffffff", padding: "2px 10px", borderRadius: "99px"
+                  }}>
+                    {donors.length}
+                  </span>
+                </div>
+
+                {visibleRest.map((donor, idx) => (
+                  <div
+                    key={donor.rank}
+                    className="td-rest-row"
+                    style={{
+                      background: "transparent",
+                      borderBottom: idx === visibleRest.length - 1 && restAll.length <= 5 ? "none" : "1px solid #e9efef"
+                    }}
+                  >
+                    {/* Rank */}
+                    <div style={{
+                      width: "22px", height: "22px", borderRadius: "50%",
+                      background: "#cca2c0", color: "#ffffff",
+                      display: "flex", alignItems: "center", justifyContent: "center",
+                      fontSize: "12px", fontWeight: "600", fontFamily: '"Mitr", sans-serif',
+                      flexShrink: 0, marginRight: "14px"
+                    }}>
+                      {donor.rank}
+                    </div>
+
+                    {/* Avatar */}
+                    <div style={{
+                      width: "34px", height: "34px", borderRadius: "6px", marginRight: "14px",
+                      background: "linear-gradient(135deg, #c574ff, #f8b6e8)",
+                      display: "flex", alignItems: "center", justifyContent: "center",
+                      color: "#fff", fontSize: "13px", fontWeight: "bold",
+                      fontFamily: '"Mitr", sans-serif', flexShrink: 0,
+                      border: "2px solid #f0ebff", overflow: "hidden"
+                    }}>
+                      {donor.image && (
+                        <img 
+                          src={donor.image} 
+                          alt="" 
+                          style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                          onError={(e) => {
+                            e.target.style.display = 'none';
+                            e.target.nextSibling.style.display = 'flex';
+                          }}
+                        />
+                      )}
+                      <span style={{ 
+                        display: donor.image ? 'none' : 'flex', 
+                        alignItems: 'center', justifyContent: 'center', 
+                        width: '100%', height: '100%' 
+                      }}>
+                        {getAvatarChar(donor.name)}
+                      </span>
+                    </div>
+
+                    {/* Name */}
+                    <div style={{
+                      flex: 1, fontSize: "14px", color: "#4a3f5c",
+                      fontFamily: '"Mitr", sans-serif', fontWeight: "bold",
+                      whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis"
+                    }}>
+                      {donor.name}
+                    </div>
+
+                    {/* Amount */}
+                    <div style={{
+                      fontSize: "13px", fontWeight: "bold",
+                      fontFamily: '"MyOpunMai", sans-serif',
+                      color: "#4a3f5c", flexShrink: 0, marginLeft: "12px"
+                    }}>
+                      ฿{maskAmount(donor.amount)}
+                    </div>
+                  </div>
+                ))}
+
+                {/* Show more / less */}
+                {restAll.length > 5 && (
+                  <div style={{
+                    display: "flex", justifyContent: "center", padding: "16px",
+                    borderTop: "1px solid #e9efef"
+                  }}>
+                    <button className="td-show-btn" onClick={() => setShowAllDonors(!showAllDonors)}>
+                      {showAllDonors ? "ซ่อนรายชื่อ" : `ดูทั้งหมด (${restAll.length} คน)`}
+                      <svg
+                        width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
+                        style={{ transform: showAllDonors ? "rotate(180deg)" : "none", transition: "transform 0.3s ease" }}
+                      >
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                      </svg>
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
+          </>
+        ) : null}
+      </div>
+    </section>
+  );
+}
+
+
+// ============================================================================
 // 4. COMPONENT: TokenPage (หน้ารวมโปรเจกต์หลัก) 
 // ============================================================================
+
 function TokenPage() {
   const [totalTokens, setTotalTokens] = useState(0);
   const [projects, setProjects] = useState([]); 
@@ -1342,6 +1861,10 @@ function TokenPage() {
           )}
         </div>
       </section>
+
+      <CurrentActivitiesSection />
+      <TopDonateSection />
+
       <footer className="footer">
         <p className="footer-line1">-`♡´- Fansite Project made by RollzyBunny</p>
         <p className="footer-line2">Original Content & Artist © by Independent Artist Management (iAM).</p>
