@@ -1096,6 +1096,58 @@ function CurrentActivitiesSection() {
 }
 
 // ============================================================================
+// COMPONENT: MarqueeBanner
+// ============================================================================
+function MarqueeBanner() {
+  const text = "✦  ROLLZY BUNNY  ♥  VOTE FOR ROSE  ♥  GE6  ♥  RoseIsOn5ire  ✦  ";
+  const repeatedText = Array(15).fill(text).join("");
+
+  return (
+    <div className="td-marquee-wrap" style={{
+      width: "100%",
+      overflow: "hidden",
+      background: "#ff75a0",
+      borderTop: "2px solid #2c2537",
+      borderBottom: "2px solid #2c2537",
+      padding: "6px 0",
+      display: "flex",
+      whiteSpace: "pre",
+      position: "relative",
+      zIndex: 10
+    }}>
+      <style>{`
+        @keyframes marquee-scroll {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        .marquee-content {
+          display: flex;
+          white-space: pre;
+          animation: marquee-scroll 180s linear infinite;
+          font-family: '"Bebas Neue", sans-serif';
+          font-size: 16px;
+          color: #fff;
+          letter-spacing: 2px;
+        }
+        @media (max-width: 640px) {
+          .td-marquee-wrap {
+            padding: 4px 0 !important;
+          }
+          .marquee-content {
+            font-size: 12px;
+            letter-spacing: 1.5px;
+          }
+        }
+      `}</style>
+      <div className="marquee-content">
+        <span style={{ paddingRight: "10px" }}>{repeatedText}</span>
+        <span style={{ paddingRight: "10px" }}>{repeatedText}</span>
+      </div>
+    </div>
+  );
+}
+
+// ============================================================================
 // COMPONENT: TopDonateSection
 // ============================================================================
 function TopDonateSection() {
@@ -1122,11 +1174,19 @@ function TopDonateSection() {
         const parsed = data
           .map(row => {
             const keys = Object.keys(row);
+            
+            // Extract donateCount
+            let count = row['จำนวนครั้ง'] || row['จำนวนโดเนท'] || row['จำนวนครั้งที่โดเนท'] || null;
+            if (!count && keys.length > 4 && !keys[4].includes('undefined')) {
+              count = row[keys[4]];
+            }
+
             return {
               rank: parseInt(row[keys[0]], 10),
               name: row[keys[1]],
               amount: row[keys[2]],
-              image: processImageUrl(row[keys[3]])
+              image: processImageUrl(row[keys[3]]),
+              donateCount: count
             };
           })
           .filter(d => !isNaN(d.rank) && d.name && d.name !== "Total");
@@ -1191,6 +1251,19 @@ function TopDonateSection() {
 
         @keyframes td-spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
+        @keyframes td-float {
+          0%, 100% { transform: rotate(15deg) translateY(0px); }
+          50% { transform: rotate(15deg) translateY(-4px); }
+        }
+        @keyframes td-entrance {
+          0% { opacity: 0; transform: translateY(32px) scale(0.92); }
+          100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        @keyframes td-sparkle {
+          0%, 100% { opacity: 0; transform: scale(0.5); }
+          50% { opacity: 1; transform: scale(1); }
+        }
+
         .td-podium-wrap {
           display: flex; justify-content: center; align-items: flex-end;
           gap: 20px; margin-bottom: 64px; margin-top: 16px;
@@ -1203,9 +1276,9 @@ function TopDonateSection() {
           transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
           width: 100%;
         }
-        .td-podium-card.rank-1 { width: 200px; z-index: 3; }
-        .td-podium-card.rank-2 { width: 170px; z-index: 2; }
-        .td-podium-card.rank-3 { width: 170px; z-index: 1; }
+        .td-podium-card.rank-1 { width: 220px; z-index: 3; }
+        .td-podium-card.rank-2 { width: 180px; z-index: 2; }
+        .td-podium-card.rank-3 { width: 180px; z-index: 1; }
 
         .td-pill {
           width: 100%; display: flex; flex-direction: column; align-items: center;
@@ -1240,13 +1313,23 @@ function TopDonateSection() {
         }
 
         @media (max-width: 640px) {
-          .td-podium-wrap { gap: 6px; margin-bottom: 24px; align-items: flex-end; justify-content: center; }
-          .td-podium-card { width: 32% !important; margin: 0 !important; padding: 0 !important; }
+          .td-donor-section { padding: 48px 20px 60px !important; }
+          .td-header-wrap { margin-bottom: 28px !important; }
+          .td-header-title { margin-bottom: 2px !important; }
+          .td-header-subtitle { 
+            font-size: clamp(10px, 3.2vw, 15px) !important; 
+            white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important;
+          }
+
+          .td-podium-wrap { gap: 4px !important; margin-bottom: 24px !important; align-items: flex-end !important; justify-content: center !important; }
+          .td-podium-card { margin: 0 !important; padding: 0 !important; }
+          .td-podium-card.rank-1 { width: 34% !important; }
+          .td-podium-card.rank-2, .td-podium-card.rank-3 { width: 31% !important; }
           .td-podium-inner { padding: 12px 4px !important; flex-direction: column !important; }
           
           .td-avatar { 
             width: 60px !important; height: 60px !important; 
-            margin-bottom: 12px !important; margin-right: 0 !important;
+            margin-bottom: 6px !important; margin-right: 0 !important;
             border-width: 2px !important; 
             border-radius: 12px !important; font-size: 20px !important;
           }
@@ -1255,8 +1338,11 @@ function TopDonateSection() {
           }
           .td-pill { 
             margin-top: 36px !important; margin-left: 0 !important; 
-            padding: 12px 4px !important; 
+            padding: 10px 4px 14px 4px !important; 
             flex-direction: column !important; align-items: center !important; justify-content: center !important;
+          }
+          .td-podium-card.rank-1 .td-pill {
+            padding: 14px 4px 20px 4px !important;
           }
           .td-rank-num { 
             top: -34px !important; font-size: 32px !important; 
@@ -1270,7 +1356,10 @@ function TopDonateSection() {
             margin-top: 4px !important;
           }
           .td-donor-name { 
-            margin-top: 0 !important; font-size: 12px !important; font-weight: 600 !important; line-height: 1.2 !important; white-space: normal !important; overflow: visible !important; word-break: break-word !important; margin-bottom: 12px !important; 
+            margin-top: 0 !important; font-size: 12px !important; font-weight: 600 !important; line-height: 1.2 !important; white-space: normal !important; overflow: visible !important; word-break: break-word !important; margin-bottom: 0 !important; 
+          }
+          .td-donor-count {
+            font-size: 8.5px !important; margin-top: 4px !important; margin-bottom: 9px !important; padding: 2px 6px !important; line-height: 1.1 !important; color: #867a96 !important; background: rgba(255, 255, 255, 0.35) !important; backdrop-filter: blur(6px) !important; -webkit-backdrop-filter: blur(6px) !important; border: 1px solid rgba(255, 255, 255, 0.8) !important; font-weight: normal !important; box-shadow: 0 2px 8px rgba(0,0,0,0.02), inset 0 1px 0 rgba(255,255,255,1) !important;
           }
           .td-donor-amount { 
             margin-top: 0 !important; font-size: 11px !important; font-weight: 600 !important; font-family: "MyOpunMai", sans-serif !important; line-height: 1.2 !important; 
@@ -1280,9 +1369,9 @@ function TopDonateSection() {
 
       <div style={{ maxWidth: "800px", margin: "0 auto", width: "100%", position: "relative" }}>
         {/* Header */}
-        <div style={{ textAlign: "center", marginBottom: "48px", opacity: appeared ? 1 : 0, transform: appeared ? "translateY(0)" : "translateY(16px)", transition: "all 0.6s ease" }}>
-          <h2 style={{ fontSize: "clamp(40px, 8vw, 56px)", color: "#2c2537", fontFamily: '"Bebas Neue", sans-serif', marginBottom: "8px", letterSpacing: "2px", lineHeight: 1 }}>TOP DONATOR</h2>
-          <p style={{ fontSize: "15px", color: "#a093b5", fontFamily: '"Mitr", sans-serif' }}>ยอดโดเนทรวมจากทุกกิจกรรม (แสดงยอดเต็มหลังประกาศผล GE6)</p>
+        <div className="td-header-wrap" style={{ textAlign: "center", marginBottom: "48px", opacity: appeared ? 1 : 0, transform: appeared ? "translateY(0)" : "translateY(16px)", transition: "all 0.6s ease" }}>
+          <h2 className="td-header-title" style={{ fontSize: "clamp(40px, 8vw, 56px)", color: "#2c2537", fontFamily: '"Bebas Neue", sans-serif', marginBottom: "8px", letterSpacing: "2px", lineHeight: 1 }}>TOP DONATOR</h2>
+          <p className="td-header-subtitle" style={{ fontSize: "15px", color: "#a093b5", fontFamily: '"Mitr", sans-serif' }}>ยอดโดเนทรวมจากทุกกิจกรรม (แสดงยอดเต็มหลังประกาศผล GE6)</p>
         </div>
 
         {loading ? (
@@ -1303,10 +1392,8 @@ function TopDonateSection() {
                     key={donor.rank}
                     className={`td-podium-card rank-${donor.rank}`}
                     style={{
-                      width: donor.rank === 1 ? "180px" : "150px",
                       opacity: appeared ? 1 : 0,
-                      transform: appeared ? "translateY(0)" : "translateY(24px)",
-                      transition: `opacity 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) ${delay}s, transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) ${delay}s`
+                      animation: appeared ? `td-entrance 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) ${delay}s both` : "none"
                     }}
                   >
                     <div className="td-podium-inner" style={{ width: "100%", position: "relative" }}>
@@ -1372,17 +1459,17 @@ function TopDonateSection() {
                           {/* Decorations for Rank 1 */}
                           {donor.rank === 1 && (
                             <>
-                              {/* Crown */}
+                              {/* Crown with float animation */}
                               <svg width="36" height="36" viewBox="0 0 24 24" fill="#f2a600" 
                                 style={{ 
                                   position: "absolute", top: "-16px", right: "-14px", 
-                                  transform: "rotate(15deg)", filter: "drop-shadow(0px 2px 4px rgba(0,0,0,0.15))", zIndex: 10 
+                                  animation: "td-float 3s ease-in-out infinite",
+                                  filter: "drop-shadow(0px 2px 4px rgba(0,0,0,0.15))", zIndex: 10 
                                 }}>
                                 <path d="M3 7l4.5 5.5L12 4l4.5 8.5L21 7v11H3V7z" stroke="#fff" strokeWidth="1.5" strokeLinejoin="round"/>
                               </svg>
-
-                            </>
-                          )}
+                              </>
+                            )}
                         </div>
 
                         <div className="td-text-wrap" style={{ display: "flex", flexDirection: "column", alignItems: "center", width: "100%", overflow: "hidden" }}>
@@ -1397,11 +1484,33 @@ function TopDonateSection() {
                             {donor.name}
                           </div>
 
+                          {donor.donateCount && (
+                            <div className="td-donor-count" style={{ 
+                              fontSize: "10.5px", 
+                              color: "#867a96", 
+                              marginTop: "4px", 
+                              marginBottom: "10px",
+                              textAlign: "center", 
+                              fontFamily: '"Mitr", sans-serif',
+                              background: "rgba(255, 255, 255, 0.35)",
+                              backdropFilter: "blur(6px)",
+                              WebkitBackdropFilter: "blur(6px)",
+                              border: "1px solid rgba(255, 255, 255, 0.8)",
+                              padding: "3px 12px",
+                              borderRadius: "99px",
+                              lineHeight: "1.2",
+                              fontWeight: "500",
+                              boxShadow: "0 2px 8px rgba(0,0,0,0.02), inset 0 1px 0 rgba(255,255,255,1)"
+                            }}>
+                              โดเนททั้งหมด {donor.donateCount} ครั้ง
+                            </div>
+                          )}
+
                           {/* Amount */}
                           <div className="td-donor-amount" style={{
                             fontSize: donor.rank === 1 ? "16px" : "14px",
                             fontWeight: "bold", fontFamily: '"MyOpunMai", sans-serif',
-                            color: "#4a3f5c", marginTop: "6px", lineHeight: "1.3", textAlign: "center"
+                            color: "#4a3f5c", marginTop: "4px", lineHeight: "1.3", textAlign: "center"
                           }}>
                             ฿{maskAmount(donor.amount)}
                           </div>
@@ -1493,11 +1602,24 @@ function TopDonateSection() {
 
                     {/* Name */}
                     <div style={{
-                      flex: 1, fontSize: "14px", color: "#4a3f5c",
-                      fontFamily: '"Mitr", sans-serif', fontWeight: "bold",
-                      whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis"
+                      flex: 1, minWidth: 0, paddingRight: "12px",
+                      display: "flex", flexDirection: "column", justifyContent: "center"
                     }}>
-                      {donor.name}
+                      <div style={{
+                        fontSize: "14px", color: "#4a3f5c",
+                        fontFamily: '"Mitr", sans-serif', fontWeight: "bold",
+                        whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis"
+                      }}>
+                        {donor.name}
+                      </div>
+                      {donor.donateCount && (
+                        <div style={{
+                          fontSize: "11px", color: "#a093b5",
+                          fontFamily: '"Mitr", sans-serif', marginTop: "1px"
+                        }}>
+                          โดเนททั้งหมด {donor.donateCount} ครั้ง
+                        </div>
+                      )}
                     </div>
 
                     {/* Amount */}
@@ -1872,6 +1994,7 @@ function TokenPage() {
       </section>
 
       <CurrentActivitiesSection />
+      <MarqueeBanner />
       <TopDonateSection />
 
       <footer className="footer">
